@@ -35,3 +35,7 @@ TEFAS özeti, koleksiyon sırasında ayrıca alınır: fon bilgisi, portföy var
 ## Yayın
 
 Vercel kullanılmaz. Panel yalnızca GitHub Pages üzerinden yayınlanır.
+
+## Cihaza ekleme
+
+Panelde özel bir yükleme kartı yoktur; tarayıcının yerleşik PWA işlevi kullanılır. Chrome veya Edge'de adres çubuğundaki **Yükle** simgesini seçin. iPhone/iPad'de bağlantıyı Safari'de açın, **Paylaş → Ana Ekrana Ekle → Ekle** yolunu kullanın. WhatsApp, Instagram veya Chrome iOS içindeki gömülü tarayıcılar Safari'nin Ana Ekrana Ekle seçeneğini sunmaz.
