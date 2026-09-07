@@ -5,12 +5,14 @@ import time
 from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeoutError
 
+MAX_TOTAL_SECONDS = 50  # toplam fonksiyon suresi icin guvenlik siniri
+
 FUND_TYPES = ["SEC", "PEN", "ETF", "RE", "VC"]
-CHUNK_DAYS = 15         # tefasfon/TEFAS genis tarih araliklarinda sayfalama
+CHUNK_DAYS = 7          # tefasfon/TEFAS genis tarih araliklarinda sayfalama
                         # sinirina takilip sadece son gunu donduruyor; bu yuzden
                         # istegi kucuk parcalara bolup birlestiriyoruz.
-CHUNK_TIMEOUT = 15     # saniye - bir parca bu surede donmezse vazgecilir
-CHUNK_DELAY = 0.5      # saniye - parcalar arasi kisa bekleme (ardisik istekler
+CHUNK_TIMEOUT = 25     # saniye - bir parca bu surede donmezse vazgecilir
+CHUNK_DELAY = 1        # saniye - parcalar arasi kisa bekleme (ardisik istekler
                         # arasinda kucuk bir bosluk birakmak guvenilirligi artirdi)
 # NOT: Parcalar KASITLI olarak SIRALI (paralel degil) cekiliyor. Ayni anda
 # birden fazla istek gonderilirse TEFAS/Akamai bot korumasi devreye girip
@@ -80,7 +82,12 @@ def fetch_history(fund_code, start_str, end_str, fund_type=None):
 
         # Sirali: TEFAS/Akamai ayni anda gelen coklu istekleri askiya
         # aliyor, bu yuzden parcalari tek tek, birbiri ardina cekiyoruz.
+        start_time = time.monotonic()
         for idx, (c_start, c_end) in enumerate(chunks):
+            if time.monotonic() - start_time > MAX_TOTAL_SECONDS:
+                last_err = TimeoutError("toplam sure siniri asildi, kalan parcalar atlandi")
+                fail_count += len(chunks) - idx
+                break
             if idx > 0:
                 time.sleep(CHUNK_DELAY)
             df, err = fetch_chunk_with_timeout(fund_code, c_start, c_end, t)
