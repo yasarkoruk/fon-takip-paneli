@@ -1,12 +1,12 @@
-# THF Fon Takip Paneli v2
+# Fon Takip Paneli
 
-Statik, mobil uyumlu THF paneli. Tarayıcı TEFAS veya Vercel'e istek atmaz; yalnızca GitHub Actions tarafından üretilmiş kalıcı JSON verisini okur.
+Statik, mobil uyumlu TEFAS fon paneli. Tarayıcı TEFAS veya Vercel'e istek atmaz; yalnızca GitHub Actions tarafından üretilmiş kalıcı JSON verisini okur.
 
 ## Mimari
 
 `TEFAS → Python collector → doğrulanan history.json → analytics → dashboard.json → GitHub Pages`
 
-- `config/funds.json` tek fon kaynağıdır. Yeni fon eklemek için yalnızca buraya kayıt eklenir.
+- `config/funds.json` fon kaynağıdır. Yeni fon eklemek için yalnızca buraya kod, ad ve fon tipi kaydı eklenir; collector, arama alanı ve dashboard aynı kayıtları kullanır.
 - `data/funds/<KOD>/history.json` kalıcı ham tarihçedir; atomik yazılır ve duplicate tarih kabul edilmez.
 - `metrics.json`, `current.json`, `status.json` ve `dashboard.json` türetilmiş statik çıktılardır.
 - Zaman dilimi `Europe/Istanbul`'dur. Kayıt tarihi TEFAS satırındaki işlem tarihidir; sunucu günü değildir.
@@ -28,7 +28,7 @@ python -m scripts.fetch_tefas --skip-fetch
 python -m unittest discover -s tests -v
 ```
 
-Dashboard varsayılan olarak 14G'yi seçer; veri yetersizse mevcut en kısa dönemi gösterir. “Veriyi Yenile” yalnızca `dashboard.json` için cache-bust edilmiş statik yeniden yüklemedir.
+Dashboard varsayılan olarak 14G'yi seçer; veri yetersizse mevcut en kısa dönemi gösterir. Üstteki arama, collector tarafından arşivlenmiş tüm fonları kod veya adla seçer. “Excel Raporu” seçili fonun tarihçesini `.xlsx` olarak indirir. “Veriyi Yenile” yalnızca `dashboard.json` için cache-bust edilmiş statik yeniden yüklemedir.
 
 ## Vercel durumu
 

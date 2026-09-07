@@ -1,4 +1,4 @@
-name: THF Günlük TEFAS Veri Çekimi
+name: Fon Günlük TEFAS Veri Çekimi
 
 on:
   schedule:
@@ -33,13 +33,13 @@ jobs:
 
       - name: Degisiklikleri commitle
         run: |
-          git config user.name "thf-bot"
+          git config user.name "fon-takip-bot"
           git config user.email "actions@users.noreply.github.com"
           git add data/ config/
           if git diff --cached --quiet; then
             echo "Degisiklik yok, commit atlanacak."
           else
-            git commit -m "THF verisi guncellendi: $(date -u +%Y-%m-%d)"
+            git commit -m "Fon verileri guncellendi: $(date -u +%Y-%m-%d)"
             git push
           fi
 
