@@ -1,7 +1,7 @@
 {
   "name": "Fon Takip Paneli",
   "short_name": "Fon Takip",
-  "description": "TEFAS fon para akışı ve yatırımcı takip paneli - istediğiniz herhangi bir fonu arayip izleyebilirsiniz",
+  "description": "THF için kalıcı TEFAS verisiyle oluşturulan statik para akışı ve yatırımcı takip paneli",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

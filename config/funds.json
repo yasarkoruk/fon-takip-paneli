@@ -1,0 +1,17 @@
+{
+  "timezone": "Europe/Istanbul",
+  "collector": {
+    "default_history_days": 30,
+    "request_chunk_days": 7,
+    "max_retries": 3,
+    "retry_delay_seconds": 4
+  },
+  "funds": [
+    {
+      "code": "THF",
+      "name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
+      "type": "SEC",
+      "enabled": true
+    }
+  ]
+}

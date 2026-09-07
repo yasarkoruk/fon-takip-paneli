@@ -1,59 +1,35 @@
-# THF Fon Takip Paneli
+# THF Fon Takip Paneli v2
 
-TEFAS'taki THF fonu için günlük otomatik veri çekimi yapan ve para akışı /
-yatırımcı değişimini tek ekranda gösteren, mobil ve masaüstü (macOS)
-görünümlü bir panel.
+Statik, mobil uyumlu THF paneli. Tarayıcı TEFAS veya Vercel'e istek atmaz; yalnızca GitHub Actions tarafından üretilmiş kalıcı JSON verisini okur.
 
-## Nasıl çalışıyor?
+## Mimari
 
-1. **GitHub Actions** (`.github/workflows/daily.yml`) her hafta içi gün
-   16:30 UTC'de (19:30 TR saati) otomatik çalışır, `scripts/fetch_tefas.py`
-   scriptini çalıştırarak THF'nin o günkü anlık verisini (fiyat, fon
-   büyüklüğü, yatırımcı sayısı) çeker ve `data/THF_history.json` dosyasına
-   ekler.
-2. Bu şekilde TEFAS'ın vermediği **tarihsel** yatırımcı sayısı / fon
-   büyüklüğü serisi, zamanla kendi arşivimizde birikir.
-3. **`index.html`** bu JSON dosyasını okuyup görselleştirir: bugünkü tahmini
-   net para akışı, yatırımcı değişimi, 7/30 günlük özetler ve grafikler.
-4. Panel **GitHub Pages** ile yayınlanır — hem telefondan hem Mac'ten bir
-   linkle açılabilir.
+`TEFAS → Python collector → doğrulanan history.json → analytics → dashboard.json → GitHub Pages`
 
-## Önemli not: "Tahmini" net para akışı
+- `config/funds.json` tek fon kaynağıdır. Yeni fon eklemek için yalnızca buraya kayıt eklenir.
+- `data/funds/<KOD>/history.json` kalıcı ham tarihçedir; atomik yazılır ve duplicate tarih kabul edilmez.
+- `metrics.json`, `current.json`, `status.json` ve `dashboard.json` türetilmiş statik çıktılardır.
+- Zaman dilimi `Europe/Istanbul`'dur. Kayıt tarihi TEFAS satırındaki işlem tarihidir; sunucu günü değildir.
 
-TEFAS işlem bazlı (kim, ne zaman, ne kadar yatırdı/çekti) veri sağlamıyor;
-sadece günlük anlık fon büyüklüğü, fiyat ve yatırımcı sayısını veriyor. Bu
-yüzden panel gerçek giriş/çıkışı değil, **tahmini net akışı** gösterir:
+## Akış ve kalite
 
-```
-Tahmini Net Akış = Fon Büyüklüğü Değişimi − (Önceki Büyüklük × Günlük Getiri)
-```
+Ana metrik **tahmini net para akışı**dır: AUM değişiminden fiyat etkisi ayrıştırılır. Pay adedi değişimi × ortalama fiyat ikinci bağımsız kontroldür. Bunlar gerçekleşmiş işlem bilgisi değildir. Büyük sıçramalar silinmez; `quality_warnings` olarak saklanır. TEFAS erişimi bozulursa son başarılı tarihçe korunur, `status.json` hata durumunu kaydeder ve workflow başarısız görünür.
 
-Yani AUM'daki değişimin ne kadarının fiyat/getiriden, ne kadarının yeni
-para girişi/çıkışından kaynaklandığı ayrıştırılır. Yatırımcı sayısındaki
-net değişim de aynı şekilde sadece **net** olarak izlenebiliyor (kaç kişi
-yeni girdi, kaç kişi çıktı ayrı ayrı bilinmiyor — sadece toplam farkı).
+## Otomasyon ve recovery
 
-## Kurulum
+Actions hafta içi 19:15, 20:00 ve 21:00 Türkiye saatinde çalışır. Normal çalışmada son 30 günü tarayarak eksik işlem günlerini doldurur; aynı tarih için yalnızca tek kayıt bırakır. Böylece kaçırılan çalışma sonraki başarılı çalışmada iyileşir. İlk geniş tarihçe için işi tek dev isteğe çevirmeden `--backfill-days 90`, sonra `180`, sonra `365` ile aşamalı manuel çalıştırma yapılır.
+
+Yerelde:
 
 ```bash
 pip install -r requirements.txt
-python scripts/fetch_tefas.py   # elle bir kez çalıştırıp data/ dosyasını oluşturur
+python -m scripts.fetch_tefas
+python -m scripts.fetch_tefas --skip-fetch
+python -m unittest discover -s tests -v
 ```
 
-Sonra GitHub'da: **Settings → Pages → Source: Deploy from a branch → main / (root)**
-seçilirse panel `https://<kullanıcı-adı>.github.io/thf-fon-takip-paneli/`
-adresinde yayınlanır.
+Dashboard varsayılan olarak 14G'yi seçer; veri yetersizse mevcut en kısa dönemi gösterir. “Veriyi Yenile” yalnızca `dashboard.json` için cache-bust edilmiş statik yeniden yüklemedir.
 
-## Yeni fon eklemek
+## Vercel durumu
 
-1. `scripts/fetch_tefas.py` içindeki `FON_KODLARI` listesine fon kodunu ekle.
-2. `index.html` içindeki `FON_KODLARI` listesine aynı kodu ekle (panelde
-   üstte fon geçiş düğmesi otomatik belirir).
-
-## Bilinen risk
-
-TEFAS'ın yeni (2026, Next.js tabanlı) sitesinde Akamai bot koruması var.
-GitHub Actions'ın bulut sunucuları bazen bu korumaya takılabilir — ilk
-otomatik çalıştırmanın **Actions** sekmesinden kontrol edilmesi önerilir.
-Sorun olursa iş elle tetiklenebilir (`workflow_dispatch`) veya script farklı
-bir TEFAS erişim yöntemine güncellenebilir.
+Vercel proxy/serverless kodu (`api/`) bu sürümden kaldırıldı: statik v2'nin çalışma zamanı bağımlılığı yoktur. GitHub Pages ana yayın hedefidir. Vercel projesi bu dalda değiştirilmemiştir; istenirse v2 testinden sonra ayrı bir yönlendirme veya kapatma kararı alınabilir.
