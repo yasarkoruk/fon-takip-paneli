@@ -6,7 +6,12 @@ on:
     # fiyat/buyukluk aciklamasindan sonra). Turkiye yaz/kis saati
     # uygulamiyor (sabit UTC+3).
     - cron: "30 16 * * 1-5"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      backfill_days:
+        description: "Kac gun geriye donuk veri cekilsin (0 = sadece bugun)"
+        required: false
+        default: "0"
 
 permissions:
   contents: write
@@ -28,6 +33,8 @@ jobs:
 
       - name: TEFAS verisini cek
         run: python scripts/fetch_tefas.py
+        env:
+          BACKFILL_DAYS: ${{ github.event.inputs.backfill_days || '0' }}
 
       - name: Degisiklikleri commitle
         run: |
@@ -37,6 +44,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "Degisiklik yok, commit atlanacak."
           else
-            git commit -m "Gunluk THF verisi: $(date -u +%Y-%m-%d)"
+            git commit -m "THF verisi guncellendi: $(date -u +%Y-%m-%d)"
             git push
           fi
