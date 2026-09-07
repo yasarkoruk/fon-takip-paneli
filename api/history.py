@@ -5,11 +5,14 @@ from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeoutError
 
 FUND_TYPES = ["SEC", "PEN", "ETF", "RE", "VC"]
-CHUNK_DAYS = 7        # tefasfon/TEFAS genis tarih araliklarinda sayfalama
-                       # sinirine takilip sadece son gunu donduruyor; bu yuzden
-                       # istegi kucuk parcalara bolup birlestiriyoruz.
-CHUNK_TIMEOUT = 8      # saniye - bir parca bu surede donmezse vazgecilir
-MAX_WORKERS = 4        # parcalar paralel cekilir (toplam sureyi kisaltir)
+CHUNK_DAYS = 10        # tefasfon/TEFAS genis tarih araliklarinda sayfalama
+                        # sinirina takilip sadece son gunu donduruyor; bu yuzden
+                        # istegi kucuk parcalara bolup birlestiriyoruz.
+CHUNK_TIMEOUT = 8       # saniye - bir parca bu surede donmezse vazgecilir
+# NOT: Parcalar KASITLI olarak SIRALI (paralel degil) cekiliyor. Ayni anda
+# birden fazla istek gonderilirse TEFAS/Akamai bot korumasi devreye girip
+# coklu istegin cogunu askida birakiyor (test edildi). Sirali istekler daha
+# yavas ama guvenilir.
 
 
 def parse_date(s):
@@ -42,8 +45,8 @@ def fetch_chunk(fund_code, start_dt, end_dt, fund_type):
 
 def fetch_chunk_with_timeout(fund_code, start_dt, end_dt, fund_type):
     """Bir parcayi CHUNK_TIMEOUT saniye icinde cekmeye calisir; asilirsa
-    None dondurur (hatayi yutar), boylece tek bir takilan istek tum
-    yaniti bloklamaz."""
+    None dondurur (hatayi yutar), boylece tek bir takilan istek diger
+    parcalarin denenmesini engellemez."""
     with ThreadPoolExecutor(max_workers=1) as ex:
         future = ex.submit(fetch_chunk, fund_code, start_dt, end_dt, fund_type)
         try:
@@ -63,31 +66,30 @@ def fetch_history(fund_code, start_str, end_str, fund_type=None):
     for t in types_to_try:
         rows_by_date = {}
         last_err = None
-        any_chunk_ok = False
+        ok_count = 0
+        fail_count = 0
 
-        with ThreadPoolExecutor(max_workers=min(MAX_WORKERS, len(chunks))) as pool:
-            futures = {
-                pool.submit(fetch_chunk_with_timeout, fund_code, c_start, c_end, t): (c_start, c_end)
-                for c_start, c_end in chunks
-            }
-            for fut in futures:
-                df, err = fut.result()
-                if err is not None:
-                    last_err = err
-                    continue
-                if df is not None and len(df) > 0:
-                    any_chunk_ok = True
-                    for _, row in df.iterrows():
-                        tarih = row["tarih"]
-                        d = tarih.date().isoformat() if hasattr(tarih, "date") else str(tarih)[:10]
-                        rows_by_date[d] = row
+        # Sirali: TEFAS/Akamai ayni anda gelen coklu istekleri askiya
+        # aliyor, bu yuzden parcalari tek tek, birbiri ardina cekiyoruz.
+        for c_start, c_end in chunks:
+            df, err = fetch_chunk_with_timeout(fund_code, c_start, c_end, t)
+            if err is not None:
+                last_err = err
+                fail_count += 1
+                continue
+            if df is not None and len(df) > 0:
+                ok_count += 1
+                for _, row in df.iterrows():
+                    tarih = row["tarih"]
+                    d = tarih.date().isoformat() if hasattr(tarih, "date") else str(tarih)[:10]
+                    rows_by_date[d] = row
 
-        if any_chunk_ok:
-            return list(rows_by_date.values()), t
+        if ok_count > 0:
+            return list(rows_by_date.values()), t, {"ok": ok_count, "failed": fail_count}
         if last_err and t == types_to_try[-1]:
             raise last_err
 
-    return None, None
+    return None, None, None
 
 
 class handler(BaseHTTPRequestHandler):
@@ -108,7 +110,7 @@ class handler(BaseHTTPRequestHandler):
             return
 
         try:
-            rows, used_type = fetch_history(code, start, end, fund_type)
+            rows, used_type, chunk_info = fetch_history(code, start, end, fund_type)
         except Exception as e:
             self._json(502, {"error": f"{type(e).__name__}: {e}"})
             return
@@ -131,7 +133,7 @@ class handler(BaseHTTPRequestHandler):
                 "shares_outstanding": row.get("tedPaySayisi"),
             })
         out.sort(key=lambda r: r["date"])
-        self._json(200, {"fund_type": used_type, "data": out})
+        self._json(200, {"fund_type": used_type, "chunks": chunk_info, "data": out})
 
     def _cors(self):
         self.send_header("Access-Control-Allow-Origin", "*")
