@@ -7,6 +7,7 @@ from datetime import date, timedelta
 
 from .build_dashboard_data import build
 from .common import fund_dir, iso_date, load_config, now_istanbul, number, read_json, write_json_atomic
+from .tefas_summary import collect_summary
 from .validate_data import validate_history
 
 
@@ -79,8 +80,13 @@ def collect_fund(fund: dict, config: dict, skip_fetch: bool, backfill_days: int 
     return history, added
 
 
-def status(code: str, state: str, message: str, observations: int = 0) -> None:
-    write_json_atomic(fund_dir(code) / "status.json", {"state": state, "message": message, "checked_at": now_istanbul().isoformat(), "observations": observations})
+def status(code: str, state: str, message: str, observations: int = 0, summary_error: str | None = None) -> None:
+    payload = {"state": state, "message": message, "checked_at": now_istanbul().isoformat(), "observations": observations}
+    if summary_error:
+        payload["summary"] = {"state": "error", "message": summary_error}
+    else:
+        payload["summary"] = {"state": "ok"}
+    write_json_atomic(fund_dir(code) / "status.json", payload)
 
 
 def main() -> None:
@@ -94,7 +100,8 @@ def main() -> None:
             continue
         try:
             history, added = collect_fund(fund, config, args.skip_fetch, args.backfill_days)
-            status(fund["code"], "ok", f"{added} yeni işlem günü işlendi", len(history))
+            _, summary_error = collect_summary(fund, history, config)
+            status(fund["code"], "ok", f"{added} yeni işlem günü işlendi", len(history), summary_error)
         except Exception as error:
             status(fund["code"], "error", str(error))
             raise

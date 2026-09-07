@@ -17,7 +17,9 @@ def build() -> dict:
         if errors:
             raise ValueError("; ".join(errors))
         metrics = build_metrics(history)
-        funds.append({"fund": fund, "history": history, "metrics": metrics})
+        summary = read_json(fund_dir(fund["code"]) / "tefas_summary.json", None)
+        status = read_json(fund_dir(fund["code"]) / "status.json", None)
+        funds.append({"fund": fund, "history": history, "metrics": metrics, "tefas_summary": summary, "status": status})
         write_json_atomic(fund_dir(fund["code"]) / "metrics.json", metrics)
         write_json_atomic(fund_dir(fund["code"]) / "current.json", metrics["current"])
     payload = {"generated_at": now_istanbul().isoformat(), "timezone": config["timezone"], "funds": funds}

@@ -8,7 +8,7 @@ Statik, mobil uyumlu TEFAS fon paneli. Tarayıcı TEFAS veya Vercel'e istek atma
 
 - `config/funds.json` fon kaynağıdır. Yeni fon eklemek için yalnızca buraya kod, ad ve fon tipi kaydı eklenir; collector, arama alanı ve dashboard aynı kayıtları kullanır.
 - `data/funds/<KOD>/history.json` kalıcı ham tarihçedir; atomik yazılır ve duplicate tarih kabul edilmez.
-- `metrics.json`, `current.json`, `status.json` ve `dashboard.json` türetilmiş statik çıktılardır.
+- `metrics.json`, `current.json`, `status.json`, `tefas_summary.json` ve `dashboard.json` türetilmiş statik çıktılardır.
 - Zaman dilimi `Europe/Istanbul`'dur. Kayıt tarihi TEFAS satırındaki işlem tarihidir; sunucu günü değildir.
 
 ## Akış ve kalite
@@ -29,6 +29,8 @@ python -m unittest discover -s tests -v
 ```
 
 Dashboard varsayılan olarak 14G'yi seçer; veri yetersizse mevcut en kısa dönemi gösterir. Üstteki arama, collector tarafından arşivlenmiş tüm fonları kod veya adla seçer. “Excel Raporu” seçili fonun tarihçesini `.xlsx` olarak indirir. “Veriyi Yenile” yalnızca `dashboard.json` için cache-bust edilmiş statik yeniden yüklemedir.
+
+TEFAS özeti, koleksiyon sırasında ayrıca alınır: fon bilgisi, portföy varlık dağılımı ile 1A/3A/6A/1Y getirileri. Kaynak açık yanıtta kategori derecesi veya pazar payı vermiyorsa panel bu alanları `—` gösterir; ekran görüntüsündeki eski değerleri sabitlemez. Özet isteği geçici olarak başarısız olursa son başarılı özet korunur ve hata `status.json` üzerinden panelde görünür.
 
 ## Yayın
 
