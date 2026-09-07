@@ -1,8 +1,8 @@
 {
   "state": "ok",
-  "message": "0 yeni işlem günü işlendi",
-  "checked_at": "2026-09-07T23:07:42.340673+03:00",
-  "observations": 5,
+  "message": "4 yeni işlem günü işlendi",
+  "checked_at": "2026-09-08T00:04:21.709501+03:00",
+  "observations": 9,
   "summary": {
     "state": "ok"
   }
