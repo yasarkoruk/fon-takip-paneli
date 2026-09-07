@@ -2,9 +2,11 @@
   "name": "Fon Takip Paneli",
   "short_name": "Fon Takip",
   "description": "TEFAS fonları için kalıcı veriyle oluşturulan statik para akışı ve yatırımcı takip paneli",
+  "id": "./",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
   "background_color": "#F2F2F7",
   "theme_color": "#0A84FF",
   "icons": [
