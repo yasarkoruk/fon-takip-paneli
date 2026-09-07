@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>THF Fon Takip Paneli</title>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg: #F2F2F7;
+    --card: #FFFFFF;
+    --text: #1C1C1E;
+    --text-secondary: #6E6E73;
+    --hairline: rgba(60,60,67,0.12);
+    --green: #248A3D;
+    --green-bg: rgba(52,199,89,0.12);
+    --red: #D70015;
+    --red-bg: rgba(255,59,48,0.10);
+    --blue: #007AFF;
+    --amber: #B25000;
+    --amber-bg: rgba(255,149,0,0.12);
+    --shadow: 0 1px 2px rgba(0,0,0,0.04), 0 1px 8px rgba(0,0,0,0.05);
+    --radius: 16px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg: #000000;
+      --card: #1C1C1E;
+      --text: #F5F5F7;
+      --text-secondary: #98989D;
+      --hairline: rgba(255,255,255,0.12);
+      --green: #30D158;
+      --green-bg: rgba(48,209,88,0.16);
+      --red: #FF453A;
+      --red-bg: rgba(255,69,58,0.16);
+      --blue: #0A84FF;
+      --amber: #FF9F0A;
+      --amber-bg: rgba(255,159,10,0.16);
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 1px 8px rgba(0,0,0,0.25);
+    }
+  }
+  *{ box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: 48px;
+  }
+  .topbar{
+    position: sticky; top:0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--hairline);
+    padding: 14px max(16px, env(safe-area-inset-left));
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .topbar h1{ font-size: 17px; font-weight: 600; margin:0; letter-spacing: -0.2px; }
+  .topbar .updated{ font-size: 12px; color: var(--text-secondary); }
+  .wrap{ max-width: 900px; margin: 0 auto; padding: 20px 16px 0; }
+  @media (min-width: 700px){ .wrap{ padding: 28px 24px 0; } }
+
+  .hero{
+    padding: 22px 20px 24px;
+    border-radius: var(--radius);
+    background: var(--card);
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+  }
+  .hero .fund{ font-size: 13px; color: var(--text-secondary); font-weight: 500; margin-bottom: 6px; }
+  .hero .question{ font-size: 15px; color: var(--text-secondary); margin-bottom: 10px; }
+  .hero .amount{ font-size: 40px; font-weight: 700; letter-spacing: -0.5px; line-height:1.1; }
+  .hero .amount.pos{ color: var(--green); }
+  .hero .amount.neg{ color: var(--red); }
+  .hero .sub{ margin-top: 6px; font-size: 13px; color: var(--text-secondary); }
+  .badge{
+    display:inline-flex; align-items:center; gap:6px;
+    padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 600;
+    margin-top: 14px;
+  }
+  .badge.pos{ background: var(--green-bg); color: var(--green); }
+  .badge.neg{ background: var(--red-bg); color: var(--red); }
+  .badge.mix{ background: var(--amber-bg); color: var(--amber); }
+  .badge .dot{ width:7px; height:7px; border-radius:50%; background: currentColor; }
+
+  .grid{
+    display:grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+    margin-bottom: 16px;
+  }
+  @media (min-width: 560px){ .grid{ grid-template-columns: repeat(4, 1fr); } }
+  .stat{
+    background: var(--card); border-radius: 14px; padding: 14px 14px 12px;
+    box-shadow: var(--shadow);
+  }
+  .stat .label{ font-size: 12.5px; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500; }
+  .stat .value{ font-size: 19px; font-weight: 650; letter-spacing: -0.2px; }
+  .stat .value.pos{ color: var(--green); }
+  .stat .value.neg{ color: var(--red); }
+  .stat .delta{ font-size: 12px; margin-top: 3px; color: var(--text-secondary); }
+
+  .section{
+    background: var(--card); border-radius: var(--radius);
+    box-shadow: var(--shadow); margin-bottom: 16px; overflow: hidden;
+  }
+  .section .head{
+    padding: 14px 16px 4px; font-size: 15px; font-weight: 650;
+  }
+  .section .body{ padding: 8px 16px 16px; }
+  .section .foot-note{ padding: 0 16px 14px; font-size: 12px; color: var(--text-secondary); }
+
+  .row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 11px 0; border-bottom: 1px solid var(--hairline);
+    font-size: 14.5px;
+  }
+  .row:last-child{ border-bottom: none; }
+  .row .l{ color: var(--text-secondary); }
+  .row .r{ font-weight: 600; }
+  .row .r.pos{ color: var(--green); }
+  .row .r.neg{ color: var(--red); }
+
+  .chart-wrap{ position:relative; height: 220px; margin: 4px 0 8px; }
+
+  .funds{
+    display:flex; gap:8px; padding: 4px max(16px, env(safe-area-inset-left)) 0;
+    overflow-x:auto;
+  }
+  .funds button{
+    border: none; background: var(--card); color: var(--text);
+    padding: 7px 14px; border-radius: 999px; font-size: 13px; font-weight: 600;
+    box-shadow: var(--shadow); white-space:nowrap;
+  }
+  .funds button.active{ background: var(--blue); color: white; box-shadow:none; }
+
+  .empty{
+    text-align:center; padding: 60px 20px; color: var(--text-secondary);
+  }
+  .empty .big{ font-size: 32px; margin-bottom: 8px; }
+  .disclaimer{
+    font-size: 11.5px; color: var(--text-secondary); text-align:center;
+    padding: 8px 24px 0; line-height:1.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>📊 Fon Takip</h1>
+  <div class="updated" id="updatedAt">—</div>
+</div>
+
+<div class="funds" id="fundSwitcher"></div>
+
+<div class="wrap" id="app">
+  <div class="empty" id="loading">
+    <div class="big">⏳</div>
+    Veri yükleniyor…
+  </div>
+</div>
+
+<script>
+// ---- Ayarlar ----
+// Takip edilen fon kodlari. scripts/fetch_tefas.py icindeki FON_KODLARI ile
+// ayni tutulmali. Yeni fon eklendiginde buraya da eklenmesi yeterli.
+const FON_KODLARI = ["THF"];
+const DATA_DIR = "data";
+
+let state = { fund: FON_KODLARI[0], history: {} };
+
+function fmtTL(n, opts={}){
+  if(n===null || n===undefined || isNaN(n)) return "—";
+  return new Intl.NumberFormat("tr-TR", { maximumFractionDigits: opts.decimals ?? 0 }).format(n) + " ₺";
+}
+function fmtCompactTL(n){
+  if(n===null || n===undefined || isNaN(n)) return "—";
+  const abs = Math.abs(n);
+  if(abs >= 1e9) return (n/1e9).toLocaleString("tr-TR",{maximumFractionDigits:2}) + " Mr ₺";
+  if(abs >= 1e6) return (n/1e6).toLocaleString("tr-TR",{maximumFractionDigits:2}) + " Mn ₺";
+  return fmtTL(n);
+}
+function fmtNum(n){
+  if(n===null || n===undefined || isNaN(n)) return "—";
+  return new Intl.NumberFormat("tr-TR").format(n);
+}
+function fmtPct(n){
+  if(n===null || n===undefined || isNaN(n)) return "—";
+  const s = n>0 ? "+" : "";
+  return s + n.toLocaleString("tr-TR",{maximumFractionDigits:2}) + "%";
+}
+function fmtDate(d){
+  const dt = new Date(d+"T00:00:00");
+  return dt.toLocaleDateString("tr-TR", { day:"2-digit", month:"short" });
+}
+
+// Gunluk gecisler icin turetilmis metrikler: tahmini net akis, fiyat etkisi,
+// yatirimci degisimi. TEFAS islem bazli veri vermedigi icin bu degerler
+// AUM (fon buyuklugu) degisiminden fiyat etkisi cikarilarak TAHMIN edilir.
+function computeDerived(history){
+  const out = [];
+  for(let i=1;i<history.length;i++){
+    const prev = history[i-1], curr = history[i];
+    if(prev.price==null || curr.price==null || prev.portfolio_size==null || curr.portfolio_size==null){
+      continue;
+    }
+    const priceReturn = curr.price/prev.price - 1;
+    const aumChange = curr.portfolio_size - prev.portfolio_size;
+    const priceEffect = prev.portfolio_size * priceReturn;
+    const estNetFlow = aumChange - priceEffect;
+    const investorChange = (curr.investor_count!=null && prev.investor_count!=null)
+      ? curr.investor_count - prev.investor_count : null;
+    out.push({
+      date: curr.date, price: curr.price, portfolio_size: curr.portfolio_size,
+      investor_count: curr.investor_count, priceReturn, aumChange, priceEffect,
+      estNetFlow, investorChange
+    });
+  }
+  return out;
+}
+
+function sumRange(derived, days){
+  const slice = derived.slice(-days);
+  return {
+    netFlow: slice.reduce((a,d)=>a+(d.estNetFlow||0),0),
+    investorChange: slice.reduce((a,d)=>a+(d.investorChange||0),0),
+  };
+}
+
+function signalFor(today){
+  if(!today) return {cls:"mix", text:"Veri yetersiz"};
+  const flowPos = today.estNetFlow > 0;
+  const invPos = (today.investorChange ?? 0) >= 0;
+  if(flowPos && invPos) return {cls:"pos", text:"Para girişi sinyali"};
+  if(!flowPos && !invPos) return {cls:"neg", text:"Para çıkışı sinyali"};
+  return {cls:"mix", text:"Karışık sinyal"};
+}
+
+let chart1, chart2;
+
+function render(){
+  const app = document.getElementById("app");
+  const hist = state.history[state.fund] || [];
+  if(hist.length < 2){
+    app.innerHTML = `<div class="empty">
+      <div class="big">🗓️</div>
+      ${state.fund} için henüz yeterli veri yok.<br>
+      Panel en az 2 günlük veri biriktikten sonra hesaplama yapabilir.<br>
+      <span style="font-size:12px">(GitHub Actions günlük iş her gün bir kayıt ekliyor.)</span>
+    </div>`;
+    return;
+  }
+
+  const derived = computeDerived(hist);
+  const today = derived[derived.length-1];
+  const last = hist[hist.length-1];
+  const week = sumRange(derived, 7);
+  const month = sumRange(derived, 30);
+  const sig = signalFor(today);
+
+  document.getElementById("updatedAt").textContent = "Güncel: " + fmtDate(last.date);
+
+  app.innerHTML = `
+    <div class="hero">
+      <div class="fund">${state.fund} — ${last.fund_name || ""}</div>
+      <div class="question">Bugün fona para mı giriyor, çıkıyor mu?</div>
+      <div class="amount ${today.estNetFlow>=0?'pos':'neg'}">${today.estNetFlow>=0?'+':''}${fmtCompactTL(today.estNetFlow)}</div>
+      <div class="sub">Tahmini net para akışı · ${fmtDate(today.date)}</div>
+      <div class="badge ${sig.cls}"><span class="dot"></span>${sig.text}</div>
+    </div>
+
+    <div class="grid">
+      <div class="stat">
+        <div class="label">Fon büyüklüğü</div>
+        <div class="value">${fmtCompactTL(last.portfolio_size)}</div>
+      </div>
+      <div class="stat">
+        <div class="label">Pay fiyatı</div>
+        <div class="value">${last.price?.toLocaleString("tr-TR",{maximumFractionDigits:6}) ?? "—"} ₺</div>
+        <div class="delta ${today.priceReturn>=0?'pos':'neg'}" style="color:${today.priceReturn>=0?'var(--green)':'var(--red)'}">${fmtPct(today.priceReturn*100)}</div>
+      </div>
+      <div class="stat">
+        <div class="label">Toplam yatırımcı</div>
+        <div class="value">${fmtNum(last.investor_count)}</div>
+        <div class="delta" style="color:${(today.investorChange||0)>=0?'var(--green)':'var(--red)'}">${today.investorChange>=0?'+':''}${fmtNum(today.investorChange)} bugün</div>
+      </div>
+      <div class="stat">
+        <div class="label">Günlük getiri</div>
+        <div class="value ${today.priceReturn>=0?'pos':'neg'}">${fmtPct(today.priceReturn*100)}</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="head">Para akışı özeti</div>
+      <div class="body">
+        <div class="row"><div class="l">Bugünkü net akış (tahmini)</div><div class="r ${today.estNetFlow>=0?'pos':'neg'}">${today.estNetFlow>=0?'+':''}${fmtCompactTL(today.estNetFlow)}</div></div>
+        <div class="row"><div class="l">7 günlük net akış</div><div class="r ${week.netFlow>=0?'pos':'neg'}">${week.netFlow>=0?'+':''}${fmtCompactTL(week.netFlow)}</div></div>
+        <div class="row"><div class="l">30 günlük net akış</div><div class="r ${month.netFlow>=0?'pos':'neg'}">${month.netFlow>=0?'+':''}${fmtCompactTL(month.netFlow)}</div></div>
+        <div class="row"><div class="l">30 günlük yatırımcı değişimi</div><div class="r ${month.investorChange>=0?'pos':'neg'}">${month.investorChange>=0?'+':''}${fmtNum(month.investorChange)}</div></div>
+      </div>
+      <div class="foot-note">Tahmini net akış = AUM değişimi − fiyat/getiri etkisi. TEFAS işlem bazlı giriş/çıkış verisi sağlamadığı için bu bir yaklaşıklamadır.</div>
+    </div>
+
+    <div class="section">
+      <div class="head">Son 30 gün — Net akış &amp; fon büyüklüğü</div>
+      <div class="body"><div class="chart-wrap"><canvas id="chart1"></canvas></div></div>
+    </div>
+
+    <div class="section">
+      <div class="head">Son 30 gün — Yatırımcı sayısı</div>
+      <div class="body"><div class="chart-wrap"><canvas id="chart2"></canvas></div></div>
+    </div>
+
+    <div class="disclaimer">Veriler TEFAS'ın herkese açık günlük fon bilgilerinden otomatik çekilir. Yatırım tavsiyesi değildir; tahmini net akış rakamları yaklaşık değerlerdir.</div>
+  `;
+
+  const last30 = derived.slice(-30);
+  const labels = last30.map(d=>fmtDate(d.date));
+
+  if(chart1) chart1.destroy();
+  const ctx1 = document.getElementById("chart1").getContext("2d");
+  const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const gridColor = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.06)";
+  const textColor = isDark ? "#98989D" : "#6E6E73";
+  chart1 = new Chart(ctx1, {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [
+        {
+          type: "line", label: "Fon büyüklüğü", data: last30.map(d=>d.portfolio_size),
+          borderColor: "#0A84FF", backgroundColor: "rgba(10,132,255,0.12)",
+          yAxisID: "y1", tension: 0.35, fill: true, pointRadius: 0, borderWidth: 2, order: 1
+        },
+        {
+          type: "bar", label: "Net akış (tahmini)", data: last30.map(d=>d.estNetFlow),
+          backgroundColor: last30.map(d=> d.estNetFlow>=0 ? "rgba(48,209,88,0.85)" : "rgba(255,69,58,0.85)"),
+          yAxisID: "y2", order: 2, borderRadius: 4, maxBarThickness: 14
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: "index", intersect: false },
+      plugins: { legend: { labels: { color: textColor, font:{size:11} } } },
+      scales: {
+        x: { ticks: { color: textColor, font:{size:10} }, grid: { display:false } },
+        y1: { position:"left", ticks:{ color: textColor, font:{size:10}, callback:v=>fmtCompactTL(v) }, grid:{ color: gridColor } },
+        y2: { position:"right", ticks:{ color: textColor, font:{size:10}, callback:v=>fmtCompactTL(v) }, grid:{ display:false } }
+      }
+    }
+  });
+
+  if(chart2) chart2.destroy();
+  const ctx2 = document.getElementById("chart2").getContext("2d");
+  chart2 = new Chart(ctx2, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{
+        label: "Yatırımcı sayısı", data: last30.map(d=>d.investor_count),
+        borderColor: "#FF9F0A", backgroundColor: "rgba(255,159,10,0.12)",
+        tension: 0.35, fill: true, pointRadius: 0, borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display:false } },
+      scales: {
+        x: { ticks: { color: textColor, font:{size:10} }, grid: { display:false } },
+        y: { ticks: { color: textColor, font:{size:10}, callback:v=>fmtNum(v) }, grid:{ color: gridColor } }
+      }
+    }
+  });
+}
+
+function renderFundSwitcher(){
+  const el = document.getElementById("fundSwitcher");
+  if(FON_KODLARI.length <= 1){ el.style.display = "none"; return; }
+  el.innerHTML = FON_KODLARI.map(f =>
+    `<button data-fund="${f}" class="${f===state.fund?'active':''}">${f}</button>`
+  ).join("");
+  el.querySelectorAll("button").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      state.fund = btn.dataset.fund;
+      el.querySelectorAll("button").forEach(b=>b.classList.toggle("active", b===btn));
+      render();
+    });
+  });
+}
+
+async function loadAll(){
+  renderFundSwitcher();
+  for(const fund of FON_KODLARI){
+    try{
+      const res = await fetch(`${DATA_DIR}/${fund}_history.json?_=${Date.now()}`);
+      if(!res.ok) throw new Error("HTTP "+res.status);
+      state.history[fund] = await res.json();
+    }catch(e){
+      state.history[fund] = [];
+      console.warn("Veri yüklenemedi:", fund, e);
+    }
+  }
+  render();
+}
+
+loadAll();
+</script>
+</body>
+</html>
