@@ -30,6 +30,6 @@ python -m unittest discover -s tests -v
 
 Dashboard varsayılan olarak 14G'yi seçer; veri yetersizse mevcut en kısa dönemi gösterir. Üstteki arama, collector tarafından arşivlenmiş tüm fonları kod veya adla seçer. “Excel Raporu” seçili fonun tarihçesini `.xlsx` olarak indirir. “Veriyi Yenile” yalnızca `dashboard.json` için cache-bust edilmiş statik yeniden yüklemedir.
 
-## Vercel durumu
+## Yayın
 
-Vercel proxy/serverless kodu (`api/`) bu sürümden kaldırıldı: statik v2'nin çalışma zamanı bağımlılığı yoktur. GitHub Pages ana yayın hedefidir. Vercel projesi bu dalda değiştirilmemiştir; istenirse v2 testinden sonra ayrı bir yönlendirme veya kapatma kararı alınabilir.
+Vercel kullanılmaz. Panel yalnızca GitHub Pages üzerinden yayınlanır.
