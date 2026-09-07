@@ -1,14 +1,17 @@
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 import json
+import time
 from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeoutError
 
 FUND_TYPES = ["SEC", "PEN", "ETF", "RE", "VC"]
-CHUNK_DAYS = 10        # tefasfon/TEFAS genis tarih araliklarinda sayfalama
+CHUNK_DAYS = 15         # tefasfon/TEFAS genis tarih araliklarinda sayfalama
                         # sinirina takilip sadece son gunu donduruyor; bu yuzden
                         # istegi kucuk parcalara bolup birlestiriyoruz.
-CHUNK_TIMEOUT = 8       # saniye - bir parca bu surede donmezse vazgecilir
+CHUNK_TIMEOUT = 15     # saniye - bir parca bu surede donmezse vazgecilir
+CHUNK_DELAY = 0.5      # saniye - parcalar arasi kisa bekleme (ardisik istekler
+                        # arasinda kucuk bir bosluk birakmak guvenilirligi artirdi)
 # NOT: Parcalar KASITLI olarak SIRALI (paralel degil) cekiliyor. Ayni anda
 # birden fazla istek gonderilirse TEFAS/Akamai bot korumasi devreye girip
 # coklu istegin cogunu askida birakiyor (test edildi). Sirali istekler daha
@@ -77,7 +80,9 @@ def fetch_history(fund_code, start_str, end_str, fund_type=None):
 
         # Sirali: TEFAS/Akamai ayni anda gelen coklu istekleri askiya
         # aliyor, bu yuzden parcalari tek tek, birbiri ardina cekiyoruz.
-        for c_start, c_end in chunks:
+        for idx, (c_start, c_end) in enumerate(chunks):
+            if idx > 0:
+                time.sleep(CHUNK_DELAY)
             df, err = fetch_chunk_with_timeout(fund_code, c_start, c_end, t)
             if err is not None:
                 last_err = err
