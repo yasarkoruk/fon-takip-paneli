@@ -24,7 +24,7 @@ self.addEventListener("fetch", (event) => {
   // data/*.json her zaman ag uzerinden (guncel veri icin); digerlerinde
   // ag basarisiz olursa onbellege dus.
   const url = new URL(event.request.url);
-  if (url.pathname.includes("/data/")) return;
+  if (url.pathname.includes("/data/") || url.pathname.includes("/api/") || url.hostname.includes("vercel.app")) return;
   event.respondWith(
     fetch(event.request).catch(() => caches.match(event.request))
   );
