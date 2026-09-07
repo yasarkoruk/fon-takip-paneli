@@ -6,7 +6,7 @@ import time
 from datetime import date, timedelta
 
 from .build_dashboard_data import build
-from .common import ROOT, fund_dir, iso_date, load_config, now_istanbul, number, read_json, write_json_atomic
+from .common import fund_dir, iso_date, load_config, now_istanbul, number, read_json, write_json_atomic
 from .validate_data import validate_history
 
 
@@ -34,10 +34,6 @@ def normalise(row, fund: dict) -> dict | None:
     }
 
 
-def legacy_history(code: str) -> list[dict]:
-    return read_json(ROOT / "data" / f"{code}_history.json", [])
-
-
 def fetch_range(fund: dict, start: date, end: date, config: dict) -> list[dict]:
     from tefasfon import get_funds
     settings = config["collector"]
@@ -55,7 +51,7 @@ def fetch_range(fund: dict, start: date, end: date, config: dict) -> list[dict]:
 
 def collect_fund(fund: dict, config: dict, skip_fetch: bool, backfill_days: int | None) -> tuple[list[dict], int]:
     path = fund_dir(fund["code"]) / "history.json"
-    existing = read_json(path, []) or legacy_history(fund["code"])
+    existing = read_json(path, [])
     by_date = {item["date"]: item for item in existing if item.get("date")}
     if skip_fetch:
         history = [by_date[key] for key in sorted(by_date)]
