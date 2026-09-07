@@ -386,7 +386,7 @@ function currentDateRange(){
 
 async function fetchFundHistory(fundInfo){
   const { start, end } = currentDateRange();
-  const params = new URLSearchParams({ code: fundInfo.code, start, end });
+  const params = new URLSearchParams({ code: fundInfo.code, start, end, _: Date.now() });
   if(fundInfo.type) params.set("type", fundInfo.type);
   const res = await fetch(`${API_BASE}/api/history?${params.toString()}`);
   const json = await res.json();
