@@ -1,24 +1,92 @@
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 import json
+from datetime import datetime, timedelta
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeoutError
 
 FUND_TYPES = ["SEC", "PEN", "ETF", "RE", "VC"]
+CHUNK_DAYS = 7        # tefasfon/TEFAS genis tarih araliklarinda sayfalama
+                       # sinirine takilip sadece son gunu donduruyor; bu yuzden
+                       # istegi kucuk parcalara bolup birlestiriyoruz.
+CHUNK_TIMEOUT = 8      # saniye - bir parca bu surede donmezse vazgecilir
+MAX_WORKERS = 4        # parcalar paralel cekilir (toplam sureyi kisaltir)
 
 
-def fetch_history(fund_code, start_date, end_date, fund_type=None):
+def parse_date(s):
+    return datetime.strptime(s, "%d.%m.%Y")
+
+
+def fmt_date(d):
+    return d.strftime("%d.%m.%Y")
+
+
+def build_chunks(start_dt, end_dt):
+    chunks = []
+    cursor = start_dt
+    while cursor <= end_dt:
+        chunk_end = min(cursor + timedelta(days=CHUNK_DAYS - 1), end_dt)
+        chunks.append((cursor, chunk_end))
+        cursor = chunk_end + timedelta(days=1)
+    return chunks
+
+
+def fetch_chunk(fund_code, start_dt, end_dt, fund_type):
     from tefasfon import get_funds
-    types_to_try = [fund_type] if fund_type else FUND_TYPES
-    last_err = None
-    for t in types_to_try:
+    return get_funds(
+        fund_type=fund_type,
+        start_date=fmt_date(start_dt),
+        end_date=fmt_date(end_dt),
+        fund_codes=[fund_code],
+    )
+
+
+def fetch_chunk_with_timeout(fund_code, start_dt, end_dt, fund_type):
+    """Bir parcayi CHUNK_TIMEOUT saniye icinde cekmeye calisir; asilirsa
+    None dondurur (hatayi yutar), boylece tek bir takilan istek tum
+    yaniti bloklamaz."""
+    with ThreadPoolExecutor(max_workers=1) as ex:
+        future = ex.submit(fetch_chunk, fund_code, start_dt, end_dt, fund_type)
         try:
-            df = get_funds(fund_type=t, start_date=start_date, end_date=end_date, fund_codes=[fund_code])
+            return future.result(timeout=CHUNK_TIMEOUT), None
+        except FutureTimeoutError:
+            return None, TimeoutError(f"{fmt_date(start_dt)}-{fmt_date(end_dt)} zaman asimina ugradi")
         except Exception as e:
-            last_err = e
-            continue
-        if df is not None and len(df) > 0:
-            return df, t
-    if last_err:
-        raise last_err
+            return None, e
+
+
+def fetch_history(fund_code, start_str, end_str, fund_type=None):
+    start_dt = parse_date(start_str)
+    end_dt = parse_date(end_str)
+    types_to_try = [fund_type] if fund_type else FUND_TYPES
+    chunks = build_chunks(start_dt, end_dt)
+
+    for t in types_to_try:
+        rows_by_date = {}
+        last_err = None
+        any_chunk_ok = False
+
+        with ThreadPoolExecutor(max_workers=min(MAX_WORKERS, len(chunks))) as pool:
+            futures = {
+                pool.submit(fetch_chunk_with_timeout, fund_code, c_start, c_end, t): (c_start, c_end)
+                for c_start, c_end in chunks
+            }
+            for fut in futures:
+                df, err = fut.result()
+                if err is not None:
+                    last_err = err
+                    continue
+                if df is not None and len(df) > 0:
+                    any_chunk_ok = True
+                    for _, row in df.iterrows():
+                        tarih = row["tarih"]
+                        d = tarih.date().isoformat() if hasattr(tarih, "date") else str(tarih)[:10]
+                        rows_by_date[d] = row
+
+        if any_chunk_ok:
+            return list(rows_by_date.values()), t
+        if last_err and t == types_to_try[-1]:
+            raise last_err
+
     return None, None
 
 
@@ -40,20 +108,20 @@ class handler(BaseHTTPRequestHandler):
             return
 
         try:
-            df, used_type = fetch_history(code, start, end, fund_type)
+            rows, used_type = fetch_history(code, start, end, fund_type)
         except Exception as e:
             self._json(502, {"error": f"{type(e).__name__}: {e}"})
             return
 
-        if df is None or len(df) == 0:
+        if not rows:
             self._json(404, {"error": "Bu fon kodu / tarih araligi icin veri bulunamadi"})
             return
 
-        rows = []
-        for _, row in df.iterrows():
+        out = []
+        for row in rows:
             tarih = row["tarih"]
             d = tarih.date().isoformat() if hasattr(tarih, "date") else str(tarih)[:10]
-            rows.append({
+            out.append({
                 "date": d,
                 "fund_code": row.get("fonKodu"),
                 "fund_name": row.get("fonUnvan"),
@@ -62,8 +130,8 @@ class handler(BaseHTTPRequestHandler):
                 "investor_count": row.get("kisiSayisi"),
                 "shares_outstanding": row.get("tedPaySayisi"),
             })
-        rows.sort(key=lambda r: r["date"])
-        self._json(200, {"fund_type": used_type, "data": rows})
+        out.sort(key=lambda r: r["date"])
+        self._json(200, {"fund_type": used_type, "data": out})
 
     def _cors(self):
         self.send_header("Access-Control-Allow-Origin", "*")
