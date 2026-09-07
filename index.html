@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>THF Fon Takip Paneli</title>
+<title>Fon Takip Paneli</title>
 <meta name="theme-color" content="#0A84FF">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -58,18 +58,83 @@
     padding-bottom: 48px;
   }
   .topbar{
-    position: sticky; top:0; z-index: 10;
+    position: sticky; top:0; z-index: 20;
     background: color-mix(in srgb, var(--bg) 82%, transparent);
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     border-bottom: 1px solid var(--hairline);
-    padding: 14px max(16px, env(safe-area-inset-left));
-    display:flex; align-items:center; justify-content:space-between;
+    padding: 12px max(16px, env(safe-area-inset-left));
   }
-  .topbar h1{ font-size: 17px; font-weight: 600; margin:0; letter-spacing: -0.2px; }
-  .topbar .updated{ font-size: 12px; color: var(--text-secondary); }
-  .wrap{ max-width: 900px; margin: 0 auto; padding: 20px 16px 0; }
-  @media (min-width: 700px){ .wrap{ padding: 28px 24px 0; } }
+  .topbar-row{ display:flex; align-items:center; justify-content:space-between; gap: 10px; }
+  .topbar h1{ font-size: 17px; font-weight: 600; margin:0; letter-spacing: -0.2px; white-space:nowrap; }
+  .topbar .updated{ font-size: 12px; color: var(--text-secondary); white-space:nowrap; }
+
+  .search-wrap{ position:relative; margin-top: 10px; }
+  .search-input{
+    width:100%; padding: 10px 14px; border-radius: 12px; border: none;
+    background: var(--card); color: var(--text); font-size: 15px;
+    box-shadow: var(--shadow); font-family: inherit;
+  }
+  .search-input:focus{ outline: 2px solid var(--blue); }
+  .search-results{
+    position:absolute; top: calc(100% + 6px); left:0; right:0;
+    background: var(--card); border-radius: 12px; box-shadow: var(--shadow);
+    max-height: 300px; overflow-y:auto; z-index: 30; display:none;
+  }
+  .search-results.open{ display:block; }
+  .search-result-item{
+    padding: 10px 14px; cursor:pointer; border-bottom: 1px solid var(--hairline);
+    font-size: 14px;
+  }
+  .search-result-item:last-child{ border-bottom:none; }
+  .search-result-item:hover, .search-result-item.active{ background: var(--hairline); }
+  .search-result-item .code{ font-weight: 700; margin-right: 8px; }
+  .search-result-item .name{ color: var(--text-secondary); font-size: 12.5px; }
+  .search-status{ padding: 10px 14px; font-size: 13px; color: var(--text-secondary); }
+
+  .wrap{ max-width: 900px; margin: 0 auto; padding: 16px 16px 0; }
+  @media (min-width: 700px){ .wrap{ padding: 20px 24px 0; } }
+
+  .funds{
+    display:flex; gap:8px; padding: 12px max(16px, env(safe-area-inset-left)) 0;
+    overflow-x:auto;
+  }
+  .funds button{
+    border: none; background: var(--card); color: var(--text);
+    padding: 7px 10px 7px 14px; border-radius: 999px; font-size: 13px; font-weight: 600;
+    box-shadow: var(--shadow); white-space:nowrap; display:flex; align-items:center; gap:6px;
+  }
+  .funds button.active{ background: var(--blue); color: white; box-shadow:none; }
+  .funds button .rm{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:16px; height:16px; border-radius:50%; background: rgba(0,0,0,0.12); font-size:11px;
+  }
+  .funds button.active .rm{ background: rgba(255,255,255,0.28); }
+
+  .range-bar{
+    display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+    margin: 4px 0 16px;
+  }
+  .range-bar button{
+    border:none; background: var(--card); color: var(--text-secondary);
+    padding: 6px 12px; border-radius: 999px; font-size: 12.5px; font-weight: 600;
+    box-shadow: var(--shadow);
+  }
+  .range-bar button.active{ background: var(--blue); color:white; }
+  .range-bar .custom-dates{ display:flex; gap:6px; align-items:center; }
+  .range-bar input[type=date]{
+    border:none; background: var(--card); color: var(--text); border-radius: 10px;
+    padding: 6px 8px; font-size: 12.5px; box-shadow: var(--shadow); font-family: inherit;
+  }
+  .view-toggle{
+    margin-left:auto; display:flex; background: var(--card); border-radius: 999px;
+    box-shadow: var(--shadow); overflow:hidden;
+  }
+  .view-toggle button{
+    border:none; background:transparent; color: var(--text-secondary);
+    padding: 6px 12px; font-size: 12.5px; font-weight:600; box-shadow:none; border-radius:0;
+  }
+  .view-toggle button.active{ background: var(--blue); color:white; }
 
   .hero{
     padding: 22px 20px 24px;
@@ -132,17 +197,6 @@
 
   .chart-wrap{ position:relative; height: 220px; margin: 4px 0 8px; }
 
-  .funds{
-    display:flex; gap:8px; padding: 4px max(16px, env(safe-area-inset-left)) 0;
-    overflow-x:auto;
-  }
-  .funds button{
-    border: none; background: var(--card); color: var(--text);
-    padding: 7px 14px; border-radius: 999px; font-size: 13px; font-weight: 600;
-    box-shadow: var(--shadow); white-space:nowrap;
-  }
-  .funds button.active{ background: var(--blue); color: white; box-shadow:none; }
-
   .empty{
     text-align:center; padding: 60px 20px; color: var(--text-secondary);
   }
@@ -151,32 +205,86 @@
     font-size: 11.5px; color: var(--text-secondary); text-align:center;
     padding: 8px 24px 0; line-height:1.5;
   }
+  .spinner{
+    display:inline-block; width:14px; height:14px; border-radius:50%;
+    border: 2px solid var(--hairline); border-top-color: var(--blue);
+    animation: spin 0.7s linear infinite; vertical-align:middle;
+  }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
 </style>
 </head>
 <body>
 
 <div class="topbar">
-  <h1>📊 Fon Takip</h1>
-  <div class="updated" id="updatedAt">—</div>
+  <div class="topbar-row">
+    <h1>📊 Fon Takip</h1>
+    <div class="updated" id="updatedAt">—</div>
+  </div>
+  <div class="search-wrap">
+    <input class="search-input" id="searchInput" type="text" placeholder="Fon kodu veya adı ara (ör. THF, altın, hisse senedi)…" autocomplete="off">
+    <div class="search-results" id="searchResults"></div>
+  </div>
 </div>
 
 <div class="funds" id="fundSwitcher"></div>
 
-<div class="wrap" id="app">
-  <div class="empty" id="loading">
-    <div class="big">⏳</div>
-    Veri yükleniyor…
+<div class="wrap">
+  <div class="range-bar" id="rangeBar">
+    <button data-range="30">30G</button>
+    <button data-range="90">90G</button>
+    <button data-range="180">6A</button>
+    <button data-range="365">1Y</button>
+    <button data-range="custom">Özel</button>
+    <span class="custom-dates" id="customDates" style="display:none">
+      <input type="date" id="customStart">
+      <span style="color:var(--text-secondary)">–</span>
+      <input type="date" id="customEnd">
+    </span>
+    <div class="view-toggle">
+      <button data-view="daily" class="active">Günlük</button>
+      <button data-view="monthly">Aylık</button>
+    </div>
+  </div>
+
+  <div id="app">
+    <div class="empty" id="loading">
+      <div class="big">🔎</div>
+      Üstteki arama kutusundan bir fon seçin.
+    </div>
   </div>
 </div>
 
 <script>
-// ---- Ayarlar ----
-// Takip edilen fon kodlari. scripts/fetch_tefas.py icindeki FON_KODLARI ile
-// ayni tutulmali. Yeni fon eklendiginde buraya da eklenmesi yeterli.
-const FON_KODLARI = ["THF"];
-const DATA_DIR = "data";
+const API_BASE = "https://thf-fon-takip-paneli.vercel.app";
 
-let state = { fund: FON_KODLARI[0], history: {} };
+const WATCHLIST_KEY = "fonTakipWatchlist";
+const DEFAULT_WATCHLIST = [{ code: "THF", name: "", type: "SEC" }];
+
+let state = {
+  watchlist: loadWatchlist(),
+  fund: null,
+  history: {},
+  range: "30",
+  customStart: null,
+  customEnd: null,
+  view: "daily",
+  loading: false,
+};
+state.fund = state.watchlist[0]?.code || null;
+
+function loadWatchlist(){
+  try{
+    const raw = localStorage.getItem(WATCHLIST_KEY);
+    if(raw){
+      const parsed = JSON.parse(raw);
+      if(Array.isArray(parsed) && parsed.length) return parsed;
+    }
+  }catch(e){}
+  return DEFAULT_WATCHLIST.slice();
+}
+function saveWatchlist(){
+  localStorage.setItem(WATCHLIST_KEY, JSON.stringify(state.watchlist));
+}
 
 function fmtTL(n, opts={}){
   if(n===null || n===undefined || isNaN(n)) return "—";
@@ -202,10 +310,16 @@ function fmtDate(d){
   const dt = new Date(d+"T00:00:00");
   return dt.toLocaleDateString("tr-TR", { day:"2-digit", month:"short" });
 }
+function fmtMonth(d){
+  const dt = new Date(d+"T00:00:00");
+  return dt.toLocaleDateString("tr-TR", { month:"short", year:"2-digit" });
+}
+function toApiDate(d){
+  const dd = String(d.getDate()).padStart(2,"0");
+  const mm = String(d.getMonth()+1).padStart(2,"0");
+  return `${dd}.${mm}.${d.getFullYear()}`;
+}
 
-// Gunluk gecisler icin turetilmis metrikler: tahmini net akis, fiyat etkisi,
-// yatirimci degisimi. TEFAS islem bazli veri vermedigi icin bu degerler
-// AUM (fon buyuklugu) degisiminden fiyat etkisi cikarilarak TAHMIN edilir.
 function computeDerived(history){
   const out = [];
   for(let i=1;i<history.length;i++){
@@ -227,7 +341,6 @@ function computeDerived(history){
   }
   return out;
 }
-
 function sumRange(derived, days){
   const slice = derived.slice(-days);
   return {
@@ -235,7 +348,21 @@ function sumRange(derived, days){
     investorChange: slice.reduce((a,d)=>a+(d.investorChange||0),0),
   };
 }
-
+function aggregateMonthly(derived){
+  const byMonth = new Map();
+  for(const d of derived){
+    const key = d.date.slice(0,7);
+    if(!byMonth.has(key)) byMonth.set(key, { date: d.date+"", netFlow:0, investorChange:0, portfolio_size:null, investor_count:null, price:null });
+    const m = byMonth.get(key);
+    m.netFlow += (d.estNetFlow||0);
+    m.investorChange += (d.investorChange||0);
+    m.date = d.date;
+    m.portfolio_size = d.portfolio_size;
+    m.investor_count = d.investor_count;
+    m.price = d.price;
+  }
+  return Array.from(byMonth.values());
+}
 function signalFor(today){
   if(!today) return {cls:"mix", text:"Veri yetersiz"};
   const flowPos = today.estNetFlow > 0;
@@ -245,24 +372,81 @@ function signalFor(today){
   return {cls:"mix", text:"Karışık sinyal"};
 }
 
+function currentDateRange(){
+  const end = new Date();
+  let start;
+  if(state.range === "custom" && state.customStart && state.customEnd){
+    return { start: state.customStart, end: state.customEnd };
+  }
+  const days = parseInt(state.range, 10) || 30;
+  start = new Date(end);
+  start.setDate(start.getDate() - days);
+  return { start: toApiDate(start), end: toApiDate(end) };
+}
+
+async function fetchFundHistory(fundInfo){
+  const { start, end } = currentDateRange();
+  const params = new URLSearchParams({ code: fundInfo.code, start, end });
+  if(fundInfo.type) params.set("type", fundInfo.type);
+  const res = await fetch(`${API_BASE}/api/history?${params.toString()}`);
+  const json = await res.json();
+  if(!res.ok) throw new Error(json.error || ("HTTP " + res.status));
+  return json.data;
+}
+
 let chart1, chart2;
+
+async function loadCurrentFund(){
+  if(!state.fund){ render(); return; }
+  const info = state.watchlist.find(f=>f.code===state.fund);
+  if(!info) return;
+  state.loading = true;
+  render();
+  try{
+    const data = await fetchFundHistory(info);
+    state.history[state.fund] = data;
+    if(data.length && data[0].fund_name && !info.name){
+      info.name = data[0].fund_name;
+      saveWatchlist();
+    }
+  }catch(e){
+    state.history[state.fund] = { error: e.message || String(e) };
+  }
+  state.loading = false;
+  render();
+}
 
 function render(){
   const app = document.getElementById("app");
-  const hist = state.history[state.fund] || [];
-  if(hist.length < 2){
-    app.innerHTML = `<div class="empty">
-      <div class="big">🗓️</div>
-      ${state.fund} için henüz yeterli veri yok.<br>
-      Panel en az 2 günlük veri biriktikten sonra hesaplama yapabilir.<br>
-      <span style="font-size:12px">(GitHub Actions günlük iş her gün bir kayıt ekliyor.)</span>
-    </div>`;
+  renderFundSwitcher();
+
+  if(!state.fund){
+    app.innerHTML = `<div class="empty"><div class="big">🔎</div>Üstteki arama kutusundan bir fon seçin.</div>`;
     return;
   }
 
-  const derived = computeDerived(hist);
+  if(state.loading){
+    app.innerHTML = `<div class="empty"><div class="big"><span class="spinner"></span></div>TEFAS'tan veri çekiliyor…</div>`;
+    return;
+  }
+
+  const histRaw = state.history[state.fund];
+  if(!histRaw){
+    app.innerHTML = `<div class="empty"><div class="big">⏳</div>Veri yükleniyor…</div>`;
+    return;
+  }
+  if(histRaw.error){
+    app.innerHTML = `<div class="empty"><div class="big">⚠️</div>Veri alınamadı: ${histRaw.error}</div>`;
+    return;
+  }
+  if(histRaw.length < 2){
+    app.innerHTML = `<div class="empty"><div class="big">🗓️</div>${state.fund} için bu tarih aralığında yeterli veri yok (en az 2 gün gerekli).</div>`;
+    return;
+  }
+
+  const derived = computeDerived(histRaw);
   const today = derived[derived.length-1];
-  const last = hist[hist.length-1];
+  const last = histRaw[histRaw.length-1];
   const week = sumRange(derived, 7);
   const month = sumRange(derived, 30);
   const sig = signalFor(today);
@@ -286,7 +470,7 @@ function render(){
       <div class="stat">
         <div class="label">Pay fiyatı</div>
         <div class="value">${last.price?.toLocaleString("tr-TR",{maximumFractionDigits:6}) ?? "—"} ₺</div>
-        <div class="delta ${today.priceReturn>=0?'pos':'neg'}" style="color:${today.priceReturn>=0?'var(--green)':'var(--red)'}">${fmtPct(today.priceReturn*100)}</div>
+        <div class="delta" style="color:${today.priceReturn>=0?'var(--green)':'var(--red)'}">${fmtPct(today.priceReturn*100)}</div>
       </div>
       <div class="stat">
         <div class="label">Toplam yatırımcı</div>
@@ -307,24 +491,26 @@ function render(){
         <div class="row"><div class="l">30 günlük net akış</div><div class="r ${month.netFlow>=0?'pos':'neg'}">${month.netFlow>=0?'+':''}${fmtCompactTL(month.netFlow)}</div></div>
         <div class="row"><div class="l">30 günlük yatırımcı değişimi</div><div class="r ${month.investorChange>=0?'pos':'neg'}">${month.investorChange>=0?'+':''}${fmtNum(month.investorChange)}</div></div>
       </div>
-      <div class="foot-note">Tahmini net akış = AUM değişimi − fiyat/getiri etkisi. TEFAS işlem bazlı giriş/çıkış verisi sağlamadığı için bu bir yaklaşıklamadır.</div>
+      <div class="foot-note">Tahmini net akış = AUM değişimi − fiyat/getiri etkisi. TEFAS işlem bazlı giriş/çıkış verisi sağlamadığı için bu bir yaklaşıklamadır. Veriler TEFAS'tan anlık çekilir, saklanmaz.</div>
     </div>
 
     <div class="section">
-      <div class="head">Son 30 gün — Net akış &amp; fon büyüklüğü</div>
+      <div class="head">Net akış &amp; fon büyüklüğü</div>
       <div class="body"><div class="chart-wrap"><canvas id="chart1"></canvas></div></div>
     </div>
 
     <div class="section">
-      <div class="head">Son 30 gün — Yatırımcı sayısı</div>
+      <div class="head">Yatırımcı sayısı</div>
       <div class="body"><div class="chart-wrap"><canvas id="chart2"></canvas></div></div>
     </div>
 
-    <div class="disclaimer">Veriler TEFAS'ın herkese açık günlük fon bilgilerinden otomatik çekilir. Yatırım tavsiyesi değildir; tahmini net akış rakamları yaklaşık değerlerdir.</div>
+    <div class="disclaimer">Veriler TEFAS'ın herkese açık fon bilgilerinden her sorguda anlık çekilir; yerelde saklanmaz. Yatırım tavsiyesi değildir; tahmini net akış rakamları yaklaşık değerlerdir.</div>
   `;
 
-  const last30 = derived.slice(-30);
-  const labels = last30.map(d=>fmtDate(d.date));
+  const series = state.view === "monthly" ? aggregateMonthly(derived) : derived;
+  const labelFn = state.view === "monthly" ? fmtMonth : fmtDate;
+  const labels = series.map(d=>labelFn(d.date));
+  const flowKey = state.view === "monthly" ? "netFlow" : "estNetFlow";
 
   if (typeof Chart === "undefined") {
     document.querySelectorAll(".chart-wrap").forEach(el => {
@@ -344,14 +530,14 @@ function render(){
       labels,
       datasets: [
         {
-          type: "line", label: "Fon büyüklüğü", data: last30.map(d=>d.portfolio_size),
+          type: "line", label: "Fon büyüklüğü", data: series.map(d=>d.portfolio_size),
           borderColor: "#0A84FF", backgroundColor: "rgba(10,132,255,0.12)",
           yAxisID: "y1", tension: 0.35, fill: true, pointRadius: 0, borderWidth: 2, order: 1
         },
         {
-          type: "bar", label: "Net akış (tahmini)", data: last30.map(d=>d.estNetFlow),
-          backgroundColor: last30.map(d=> d.estNetFlow>=0 ? "rgba(48,209,88,0.85)" : "rgba(255,69,58,0.85)"),
-          yAxisID: "y2", order: 2, borderRadius: 4, maxBarThickness: 14
+          type: "bar", label: "Net akış (tahmini)", data: series.map(d=>d[flowKey]),
+          backgroundColor: series.map(d=> (d[flowKey]||0)>=0 ? "rgba(48,209,88,0.85)" : "rgba(255,69,58,0.85)"),
+          yAxisID: "y2", order: 2, borderRadius: 4, maxBarThickness: 18
         }
       ]
     },
@@ -360,7 +546,7 @@ function render(){
       interaction: { mode: "index", intersect: false },
       plugins: { legend: { labels: { color: textColor, font:{size:11} } } },
       scales: {
-        x: { ticks: { color: textColor, font:{size:10} }, grid: { display:false } },
+        x: { ticks: { color: textColor, font:{size:10}, maxRotation:0, autoSkip:true }, grid: { display:false } },
         y1: { position:"left", ticks:{ color: textColor, font:{size:10}, callback:v=>fmtCompactTL(v) }, grid:{ color: gridColor } },
         y2: { position:"right", ticks:{ color: textColor, font:{size:10}, callback:v=>fmtCompactTL(v) }, grid:{ display:false } }
       }
@@ -374,7 +560,7 @@ function render(){
     data: {
       labels,
       datasets: [{
-        label: "Yatırımcı sayısı", data: last30.map(d=>d.investor_count),
+        label: "Yatırımcı sayısı", data: series.map(d=>d.investor_count),
         borderColor: "#FF9F0A", backgroundColor: "rgba(255,159,10,0.12)",
         tension: 0.35, fill: true, pointRadius: 0, borderWidth: 2
       }]
@@ -383,7 +569,7 @@ function render(){
       responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display:false } },
       scales: {
-        x: { ticks: { color: textColor, font:{size:10} }, grid: { display:false } },
+        x: { ticks: { color: textColor, font:{size:10}, maxRotation:0, autoSkip:true }, grid: { display:false } },
         y: { ticks: { color: textColor, font:{size:10}, callback:v=>fmtNum(v) }, grid:{ color: gridColor } }
       }
     }
@@ -392,35 +578,126 @@ function render(){
 
 function renderFundSwitcher(){
   const el = document.getElementById("fundSwitcher");
-  if(FON_KODLARI.length <= 1){ el.style.display = "none"; return; }
-  el.innerHTML = FON_KODLARI.map(f =>
-    `<button data-fund="${f}" class="${f===state.fund?'active':''}">${f}</button>`
+  if(!state.watchlist.length){ el.style.display = "none"; return; }
+  el.style.display = "flex";
+  el.innerHTML = state.watchlist.map(f =>
+    `<button data-fund="${f.code}" class="${f.code===state.fund?'active':''}">${f.code}<span class="rm" data-remove="${f.code}">✕</span></button>`
   ).join("");
   el.querySelectorAll("button").forEach(btn=>{
-    btn.addEventListener("click", ()=>{
+    btn.addEventListener("click", (ev)=>{
+      if(ev.target.dataset.remove){
+        ev.stopPropagation();
+        removeFund(ev.target.dataset.remove);
+        return;
+      }
       state.fund = btn.dataset.fund;
-      el.querySelectorAll("button").forEach(b=>b.classList.toggle("active", b===btn));
-      render();
+      loadCurrentFund();
     });
   });
 }
 
-async function loadAll(){
-  renderFundSwitcher();
-  for(const fund of FON_KODLARI){
-    try{
-      const res = await fetch(`${DATA_DIR}/${fund}_history.json?_=${Date.now()}`);
-      if(!res.ok) throw new Error("HTTP "+res.status);
-      state.history[fund] = await res.json();
-    }catch(e){
-      state.history[fund] = [];
-      console.warn("Veri yüklenemedi:", fund, e);
-    }
+function addFund(code, name, type){
+  code = code.toUpperCase();
+  if(!state.watchlist.find(f=>f.code===code)){
+    state.watchlist.push({ code, name: name||"", type: type||null });
+    saveWatchlist();
   }
-  render();
+  state.fund = code;
+  loadCurrentFund();
 }
 
-loadAll();
+function removeFund(code){
+  state.watchlist = state.watchlist.filter(f=>f.code!==code);
+  saveWatchlist();
+  if(state.fund === code){
+    state.fund = state.watchlist[0]?.code || null;
+  }
+  loadCurrentFund();
+}
+
+let searchTimer = null;
+const searchInput = document.getElementById("searchInput");
+const searchResults = document.getElementById("searchResults");
+
+searchInput.addEventListener("input", () => {
+  const q = searchInput.value.trim();
+  clearTimeout(searchTimer);
+  if(q.length < 2){
+    searchResults.classList.remove("open");
+    searchResults.innerHTML = "";
+    return;
+  }
+  searchTimer = setTimeout(() => runSearch(q), 350);
+});
+searchInput.addEventListener("focus", () => {
+  if(searchResults.innerHTML) searchResults.classList.add("open");
+});
+document.addEventListener("click", (e) => {
+  if(!e.target.closest(".search-wrap")) searchResults.classList.remove("open");
+});
+
+async function runSearch(q){
+  searchResults.innerHTML = `<div class="search-status"><span class="spinner"></span> Aranıyor…</div>`;
+  searchResults.classList.add("open");
+  try{
+    const res = await fetch(`${API_BASE}/api/search?q=${encodeURIComponent(q)}`);
+    const json = await res.json();
+    const results = json.results || [];
+    if(!results.length){
+      searchResults.innerHTML = `<div class="search-status">Sonuç bulunamadı.</div>`;
+      return;
+    }
+    searchResults.innerHTML = results.map(r =>
+      `<div class="search-result-item" data-code="${r.code}" data-name="${(r.name||"").replace(/"/g,'&quot;')}" data-type="${r.type}">
+        <span class="code">${r.code}</span><span class="name">${r.name || ""}</span>
+      </div>`
+    ).join("");
+    searchResults.querySelectorAll(".search-result-item").forEach(item => {
+      item.addEventListener("click", () => {
+        addFund(item.dataset.code, item.dataset.name, item.dataset.type);
+        searchInput.value = "";
+        searchResults.classList.remove("open");
+        searchResults.innerHTML = "";
+      });
+    });
+  }catch(e){
+    searchResults.innerHTML = `<div class="search-status">Arama başarısız: ${e.message}</div>`;
+  }
+}
+
+document.getElementById("rangeBar").addEventListener("click", (e) => {
+  const rangeBtn = e.target.closest("[data-range]");
+  if(rangeBtn){
+    state.range = rangeBtn.dataset.range;
+    document.querySelectorAll("#rangeBar [data-range]").forEach(b=>b.classList.toggle("active", b===rangeBtn));
+    document.getElementById("customDates").style.display = state.range === "custom" ? "flex" : "none";
+    if(state.range !== "custom") loadCurrentFund();
+    return;
+  }
+  const viewBtn = e.target.closest("[data-view]");
+  if(viewBtn){
+    state.view = viewBtn.dataset.view;
+    document.querySelectorAll("#rangeBar [data-view]").forEach(b=>b.classList.toggle("active", b===viewBtn));
+    render();
+  }
+});
+document.querySelector('[data-range="30"]').classList.add("active");
+
+function applyCustomDates(){
+  const s = document.getElementById("customStart").value;
+  const e = document.getElementById("customEnd").value;
+  if(s && e){
+    const [sy,sm,sd] = s.split("-");
+    const [ey,em,ed] = e.split("-");
+    state.customStart = `${sd}.${sm}.${sy}`;
+    state.customEnd = `${ed}.${em}.${ey}`;
+    loadCurrentFund();
+  }
+}
+document.getElementById("customStart").addEventListener("change", applyCustomDates);
+document.getElementById("customEnd").addEventListener("change", applyCustomDates);
+
+if(state.fund) loadCurrentFund(); else render();
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
