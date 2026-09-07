@@ -7,6 +7,7 @@ from datetime import date, timedelta
 
 from .build_dashboard_data import build
 from .common import fund_dir, iso_date, load_config, now_istanbul, number, read_json, write_json_atomic
+from .fetch_catalog import collect_catalog
 from .tefas_summary import collect_summary
 from .validate_data import validate_history
 
@@ -95,6 +96,8 @@ def main() -> None:
     parser.add_argument("--backfill-days", type=int, help="Explicit historical lookback; use a staged value such as 90 or 365.")
     args = parser.parse_args()
     config = load_config()
+    if not args.skip_fetch:
+        collect_catalog(config)
     for fund in config["funds"]:
         if not fund.get("enabled"):
             continue

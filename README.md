@@ -28,7 +28,7 @@ python -m scripts.fetch_tefas --skip-fetch
 python -m unittest discover -s tests -v
 ```
 
-Dashboard varsayılan olarak 14G'yi seçer; veri yetersizse mevcut en kısa dönemi gösterir. Üstteki arama, collector tarafından arşivlenmiş tüm fonları kod veya adla seçer. “Excel Raporu” seçili fonun tarihçesini `.xlsx` olarak indirir. “Veriyi Yenile” yalnızca `dashboard.json` için cache-bust edilmiş statik yeniden yüklemedir.
+Dashboard varsayılan olarak 14G'yi seçer; veri yetersizse mevcut en kısa dönemi gösterir. Üstteki arama, günlük collector tarafından oluşturulan tüm TEFAS fon kataloğunu kod veya adla tarar. Arşivlenmiş fonlar panelde açılır; henüz collector kapsamına alınmamış fonlar TEFAS detay sayfasında açılır. “Excel Raporu” seçili fonun tarihçesini `.xlsx` olarak indirir. “Veriyi Yenile” yalnızca `dashboard.json` ve katalog için cache-bust edilmiş statik yeniden yüklemedir.
 
 TEFAS özeti, koleksiyon sırasında ayrıca alınır: fon bilgisi, portföy varlık dağılımı ile 1A/3A/6A/1Y getirileri. Kaynak açık yanıtta kategori derecesi veya pazar payı vermiyorsa panel bu alanları `—` gösterir; ekran görüntüsündeki eski değerleri sabitlemez. Özet isteği geçici olarak başarısız olursa son başarılı özet korunur ve hata `status.json` üzerinden panelde görünür.
 
