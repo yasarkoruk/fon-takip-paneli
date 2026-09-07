@@ -4,8 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>THF Fon Takip Paneli</title>
-<link rel="preconnect" href="https://cdnjs.cloudflare.com">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<meta name="theme-color" content="#0A84FF">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Fon Takip">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <style>
   :root{
     --bg: #F2F2F7;
@@ -318,6 +326,13 @@ function render(){
   const last30 = derived.slice(-30);
   const labels = last30.map(d=>fmtDate(d.date));
 
+  if (typeof Chart === "undefined") {
+    document.querySelectorAll(".chart-wrap").forEach(el => {
+      el.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-secondary);font-size:13px;text-align:center;padding:0 20px;">Grafik kütüphanesi yüklenemedi (internet bağlantısını kontrol edin)</div>';
+    });
+    return;
+  }
+
   if(chart1) chart1.destroy();
   const ctx1 = document.getElementById("chart1").getContext("2d");
   const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -406,6 +421,12 @@ async function loadAll(){
 }
 
 loadAll();
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  });
+}
 </script>
 </body>
 </html>
