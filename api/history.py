@@ -45,16 +45,22 @@ def fetch_chunk(fund_code, start_dt, end_dt, fund_type):
 
 def fetch_chunk_with_timeout(fund_code, start_dt, end_dt, fund_type):
     """Bir parcayi CHUNK_TIMEOUT saniye icinde cekmeye calisir; asilirsa
-    None dondurur (hatayi yutar), boylece tek bir takilan istek diger
-    parcalarin denenmesini engellemez."""
-    with ThreadPoolExecutor(max_workers=1) as ex:
-        future = ex.submit(fetch_chunk, fund_code, start_dt, end_dt, fund_type)
-        try:
-            return future.result(timeout=CHUNK_TIMEOUT), None
-        except FutureTimeoutError:
-            return None, TimeoutError(f"{fmt_date(start_dt)}-{fmt_date(end_dt)} zaman asimina ugradi")
-        except Exception as e:
-            return None, e
+    None dondurur (hatayi yutar). ONEMLI: ThreadPoolExecutor'i "with" ile
+    kullanmiyoruz cunku "with" bloktan cikarken shutdown(wait=True)
+    cagirir ve bu, zaman asimina ugrayan (hala arka planda calisan)
+    is parcasinin bitmesini bekleyerek timeout'u anlamsizlastirir."""
+    ex = ThreadPoolExecutor(max_workers=1)
+    future = ex.submit(fetch_chunk, fund_code, start_dt, end_dt, fund_type)
+    try:
+        result = future.result(timeout=CHUNK_TIMEOUT)
+        ex.shutdown(wait=False)
+        return result, None
+    except FutureTimeoutError:
+        ex.shutdown(wait=False)
+        return None, TimeoutError(f"{fmt_date(start_dt)}-{fmt_date(end_dt)} zaman asimina ugradi")
+    except Exception as e:
+        ex.shutdown(wait=False)
+        return None, e
 
 
 def fetch_history(fund_code, start_str, end_str, fund_type=None):
