@@ -1,32 +1,39 @@
+"""Fon arama - TEK fon tipi tarar.
+
+MIMARI NOTU: history.py ile ayni sebep - tek TEFAS sorgusu uzun surdugu
+icin bu endpoint sadece TEK bir fon tipini tarar. Istemci tipleri
+sirayla dener (SEC once, cunku fonlarin cogu orada).
+"""
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 import json
-import time
-from datetime import date
+from datetime import date, timedelta
 
-FUND_TYPES = ["SEC", "PEN", "ETF", "RE", "VC"]
-CACHE_TTL = 900  # 15 dakika
-_cache = {}
+VALID_TYPES = ["SEC", "PEN", "ETF", "RE", "VC"]
 
 
 def get_type_list(fund_type):
-    now = time.time()
-    cached = _cache.get(fund_type)
-    if cached and now - cached[0] < CACHE_TTL:
-        return cached[1]
     from tefasfon import get_funds
-    today = date.today().strftime("%d.%m.%Y")
-    df = get_funds(fund_type=fund_type, start_date=today, end_date=today)
-    items = []
+    # Bugun tatil/hafta sonu olabilir; son birkac gunu kapsayan kisa bir
+    # aralik vererek en az bir islem gunu yakalamayi garantiliyoruz.
+    end = date.today()
+    start = end - timedelta(days=4)
+    df = get_funds(
+        fund_type=fund_type,
+        start_date=start.strftime("%d.%m.%Y"),
+        end_date=end.strftime("%d.%m.%Y"),
+    )
+    seen = {}
     if df is not None:
         for _, row in df.iterrows():
-            items.append({
-                "code": row.get("fonKodu"),
-                "name": row.get("fonUnvan"),
-                "type": fund_type,
-            })
-    _cache[fund_type] = (now, items)
-    return items
+            code = row.get("fonKodu")
+            if code and code not in seen:
+                seen[code] = {
+                    "code": code,
+                    "name": row.get("fonUnvan"),
+                    "type": fund_type,
+                }
+    return list(seen.values())
 
 
 class handler(BaseHTTPRequestHandler):
@@ -38,30 +45,31 @@ class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         qs = parse_qs(urlparse(self.path).query)
         q = (qs.get("q") or [""])[0].strip().upper()
+        fund_type = (qs.get("type") or ["SEC"])[0].strip().upper()
+
+        if fund_type not in VALID_TYPES:
+            fund_type = "SEC"
+
         if len(q) < 2:
-            self._json(200, {"results": []})
+            self._json(200, {"type": fund_type, "results": []})
+            return
+
+        try:
+            items = get_type_list(fund_type)
+        except Exception as e:
+            self._json(502, {"error": f"{type(e).__name__}: {e}", "type": fund_type})
             return
 
         results = []
-        errors = []
-        for t in FUND_TYPES:
-            try:
-                items = get_type_list(t)
-            except Exception as e:
-                errors.append(f"{t}: {type(e).__name__}")
-                continue
-            for it in items:
-                code = (it["code"] or "").upper()
-                name = (it["name"] or "").upper()
-                if q in code or q in name:
-                    results.append(it)
+        for it in items:
+            code = (it["code"] or "").upper()
+            name = (it["name"] or "").upper()
+            if q in code or q in name:
+                results.append(it)
             if len(results) >= 30:
                 break
 
-        payload = {"results": results[:30]}
-        if not results and errors:
-            payload["warning"] = "; ".join(errors)
-        self._json(200, payload)
+        self._json(200, {"type": fund_type, "results": results})
 
     def _cors(self):
         self.send_header("Access-Control-Allow-Origin", "*")
@@ -73,5 +81,6 @@ class handler(BaseHTTPRequestHandler):
         self.send_response(status)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self._cors()
+        self.send_header("Cache-Control", "no-store")
         self.end_headers()
         self.wfile.write(body)
