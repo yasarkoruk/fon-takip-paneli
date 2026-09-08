@@ -17,7 +17,7 @@ Ana metrik **tahmini net para akışı**dır: AUM değişiminden fiyat etkisi ay
 
 ## Otomasyon ve recovery
 
-Actions hafta içi 19:15, 20:00 ve 21:00 Türkiye saatinde çalışır. Normal çalışmada son 30 günü tarayarak eksik işlem günlerini doldurur; aynı tarih için yalnızca tek kayıt bırakır. Böylece kaçırılan çalışma sonraki başarılı çalışmada iyileşir. İlk geniş tarihçe için işi tek dev isteğe çevirmeden `--backfill-days 90`, sonra `180`, sonra `365` ile aşamalı manuel çalıştırma yapılır.
+Actions hafta içi Türkiye saatiyle 10:00'da (seans açılışı sonrası) ve 17:50'de (seans kapanışı sonrası) çalışır. Normal çalışmada son 30 günü tarayarak eksik işlem günlerini doldurur; aynı tarih için yalnızca tek kayıt bırakır. Böylece kaçırılan çalışma sonraki başarılı çalışmada iyileşir. İlk geniş tarihçe için işi tek dev isteğe çevirmeden `--backfill-days 90`, sonra `180`, sonra `365` ile aşamalı manuel çalıştırma yapılır.
 
 Yerelde:
 

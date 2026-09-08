@@ -2,10 +2,10 @@ name: Fon Günlük TEFAS Veri Çekimi
 
 on:
   schedule:
-    # Europe/Istanbul UTC+3: every weekday at 08:15, before the 09:00 market opening.
-    # The collector rechecks recent dates as well as filling gaps, so a delayed
-    # TEFAS publication is recovered on the following run without data loss.
-    - cron: "15 5 * * 1-5"
+    # Europe/Istanbul UTC+3: weekday scans after opening and just after close.
+    # Each run rechecks recent dates and fills gaps left by delayed TEFAS data.
+    - cron: "0 7 * * 1-5"   # 10:00 Istanbul
+    - cron: "50 14 * * 1-5" # 17:50 Istanbul
   workflow_dispatch:
 
 permissions:
