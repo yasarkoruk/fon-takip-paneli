@@ -120,7 +120,34 @@ window.addEventListener("DOMContentLoaded", () => {
   function installRangeControls() {
     const controls = document.getElementById("periods");
     const fund = activeFund();
-    if (!controls || !fund || controls.querySelector("#dateRange")) return;
+    if (!controls || !fund) return;
+    const refresh = controls.querySelector("#refresh");
+    if (refresh && !refresh.dataset.archiveRefresh) {
+      const standardRefresh = refresh.onclick;
+      refresh.dataset.archiveRefresh = "true";
+      refresh.onclick = async () => {
+        refresh.disabled = true;
+        refresh.textContent = "Yenileniyor…";
+        try {
+          await standardRefresh();
+          await loadArchive();
+          const checkedAt = activeFund()?.status?.checked_at;
+          const message = checkedAt ? `Statik arşiv yenilendi · son kontrol: ${new Date(checkedAt).toLocaleString("tr-TR")}` : "Statik arşiv yenilendi.";
+          const notice = document.getElementById("error");
+          notice.textContent = message;
+          notice.classList.remove("hidden");
+          setTimeout(() => notice.classList.add("hidden"), 3500);
+        } finally {
+          refresh.disabled = false;
+          refresh.textContent = "Veriyi Yenile";
+        }
+      };
+    }
+    if (!controls.querySelector("#tefasOpen")) {
+      const code = encodeURIComponent(fund.fund.code);
+      controls.querySelector("#excel")?.insertAdjacentHTML("afterend", `<a id="tefasOpen" class="tefas-open" href="https://www.tefas.gov.tr/tr/fon-detayli-analiz/${code}" target="_blank" rel="noopener">TEFAS'ta Aç</a>`);
+    }
+    if (controls.querySelector("#dateRange")) return;
     const dates = fund.history.map(row => row.date);
     controls.insertAdjacentHTML("beforeend", `<div class="date-range" id="dateRange"><label>Başlangıç<input id="rangeStart" type="date" min="${dates[0]}" max="${dates.at(-1)}"></label><label>Bitiş<input id="rangeEnd" type="date" min="${dates[0]}" max="${dates.at(-1)}"></label><button id="applyRange" type="button">Tarihi Göster</button></div>`);
     document.getElementById("applyRange").onclick = applyRange;
@@ -137,7 +164,7 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   const style = document.createElement("style");
-  style.textContent = ".date-range{display:flex;align-items:end;gap:7px;flex-wrap:wrap;margin-left:auto}.date-range label{display:grid;gap:3px;color:var(--muted);font-size:11px;font-weight:600}.date-range input{border:1px solid var(--line);border-radius:10px;padding:7px;background:var(--card);color:var(--text);font:inherit}@media(max-width:520px){.date-range{width:100%;margin-left:0}.date-range label{flex:1}.date-range input{width:100%}}";
+  style.textContent = ".tefas-open{border:0;border-radius:999px;padding:8px 13px;background:var(--card);color:var(--muted);font:600 13px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;box-shadow:0 1px 3px #0001;text-decoration:none;white-space:nowrap}.date-range{display:flex;align-items:end;gap:7px;flex-wrap:wrap;margin-left:auto}.date-range label{display:grid;gap:3px;color:var(--muted);font-size:11px;font-weight:600}.date-range input{border:1px solid var(--line);border-radius:10px;padding:7px;background:var(--card);color:var(--text);font:inherit}@media(max-width:520px){.date-range{width:100%;margin-left:0}.date-range label{flex:1}.date-range input{width:100%}}";
   document.head.append(style);
   window.addEventListener("load", async () => {
     try {
