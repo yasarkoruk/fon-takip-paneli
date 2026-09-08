@@ -11,6 +11,7 @@ window.addEventListener("DOMContentLoaded", () => {
 // it filters the already validated static archive and never opens a TEFAS call.
 (() => {
   let archive;
+  let defaultPeriodApplied = false;
 
   const formatNumber = value => value == null ? "—" : new Intl.NumberFormat("tr-TR", { maximumFractionDigits: 0 }).format(value);
   const formatMoney = value => value == null ? "—" : new Intl.NumberFormat("tr-TR", { maximumFractionDigits: 0, notation: Math.abs(value) >= 1e6 ? "compact" : "standard" }).format(value) + " ₺";
@@ -129,6 +130,10 @@ window.addEventListener("DOMContentLoaded", () => {
         standardRender();
       };
     });
+    if (!defaultPeriodApplied) {
+      defaultPeriodApplied = true;
+      setTimeout(() => controls.querySelector('[data-days="1"]')?.click(), 0);
+    }
   }
 
   const style = document.createElement("style");
@@ -139,8 +144,6 @@ window.addEventListener("DOMContentLoaded", () => {
       await loadArchive();
       installRangeControls();
       new MutationObserver(installRangeControls).observe(document.getElementById("periods"), { childList: true });
-      // Open the panel on the most recent single transaction day by default.
-      document.querySelector('[data-days="1"]')?.click();
     } catch (error) {
       console.error("Tarih aralığı arşivi yüklenemedi", error);
     }
