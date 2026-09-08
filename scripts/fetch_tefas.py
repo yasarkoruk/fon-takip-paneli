@@ -37,13 +37,28 @@ def normalise(row, fund: dict) -> dict | None:
 
 
 def fetch_range(fund: dict, start: date, end: date, config: dict) -> list[dict]:
-    from tefasfon import get_funds
+    # tefasfon's public get_funds filters fund codes after paging the whole
+    # market result set. Supplying the code to TEFAS itself is essential for a
+    # complete multi-day history of an individual fund.
+    from tefasfon import getter
     settings = config["collector"]
     last_error = None
     for attempt in range(settings["max_retries"]):
         try:
-            frame = get_funds(fund_type=fund["type"], start_date=start.strftime("%d.%m.%Y"), end_date=end.strftime("%d.%m.%Y"), fund_codes=[fund["code"]])
-            return [normalise(row, fund) for _, row in frame.iterrows() if normalise(row, fund)] if frame is not None else []
+            start_iso, end_iso = start.isoformat(), end.isoformat()
+            session = getter._new_session(getter._FUND_PORTAL[fund["type"]], start_iso, end_iso, getter._FUND_URL_PARAM[fund["type"]])
+            payload = {
+                "fonTipi": getter._FUND_TIPI[fund["type"]], "fonKodu": fund["code"], "aramaMetni": None,
+                "fonTurKod": None, "fonGrubu": None, "sfonTurKod": None,
+                "basTarih": start.strftime("%Y%m%d"), "bitTarih": end.strftime("%Y%m%d"),
+                "basSira": 1, "bitSira": getter._PAGE_SIZE,
+                "fonTurAciklama": None, "dil": "TR", "kurucuKod": None,
+            }
+            rows = getter._get_all_pages(
+                session, getter._API_ENDPOINT["general_information"], payload,
+                getter._FUND_PORTAL[fund["type"]], start_iso, end_iso,
+            )
+            return [record for row in rows if (record := normalise(row, fund))]
         except Exception as error:  # TEFAS/Akamai errors are transient; preserve existing data.
             last_error = error
             if attempt + 1 < settings["max_retries"]:
@@ -61,17 +76,24 @@ def collect_fund(fund: dict, config: dict, skip_fetch: bool, backfill_days: int 
         return history, 0
     today = now_istanbul().date()
     days = backfill_days if backfill_days is not None else config["collector"]["default_history_days"]
-    # Normal runs inspect a bounded recent window (fast recovery). A manual, explicit
-    # --backfill-days 365 run can progressively widen historical coverage.
+    # TEFAS may omit intervening rows from a multi-day query for a single fund.
+    # Querying one calendar day at a time preserves every published transaction day.
     start = today - timedelta(days=days)
     cursor = start
     added = 0
     while cursor <= today:
         end = min(cursor + timedelta(days=config["collector"]["request_chunk_days"] - 1), today)
+        # An explicit backfill fills gaps without needlessly re-querying dates
+        # that were already validated in an earlier pass.
+        if backfill_days is not None and cursor.isoformat() in by_date:
+            cursor = end + timedelta(days=1)
+            continue
         for record in fetch_range(fund, cursor, end, config):
             if record["date"] not in by_date:
                 added += 1
             by_date[record["date"]] = record
+        if config["collector"].get("request_delay_seconds"):
+            time.sleep(config["collector"]["request_delay_seconds"])
         cursor = end + timedelta(days=1)
     history = [by_date[key] for key in sorted(by_date)]
     errors = validate_history(history, fund["code"])
@@ -96,8 +118,6 @@ def main() -> None:
     parser.add_argument("--backfill-days", type=int, help="Explicit historical lookback; use a staged value such as 90 or 365.")
     args = parser.parse_args()
     config = load_config()
-    if not args.skip_fetch:
-        collect_catalog(config)
     for fund in config["funds"]:
         if not fund.get("enabled"):
             continue
@@ -108,6 +128,8 @@ def main() -> None:
         except Exception as error:
             status(fund["code"], "error", str(error))
             raise
+    if not args.skip_fetch:
+        collect_catalog(config)
     build()
 
 

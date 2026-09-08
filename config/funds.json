@@ -2,7 +2,8 @@
   "timezone": "Europe/Istanbul",
   "collector": {
     "default_history_days": 30,
-    "request_chunk_days": 7,
+    "request_chunk_days": 1,
+    "request_delay_seconds": 2,
     "max_retries": 3,
     "retry_delay_seconds": 4
   },
