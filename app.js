@@ -139,6 +139,8 @@ window.addEventListener("DOMContentLoaded", () => {
       await loadArchive();
       installRangeControls();
       new MutationObserver(installRangeControls).observe(document.getElementById("periods"), { childList: true });
+      // Open the panel on the most recent single transaction day by default.
+      document.querySelector('[data-days="1"]')?.click();
     } catch (error) {
       console.error("Tarih aralığı arşivi yüklenemedi", error);
     }
