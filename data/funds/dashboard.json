@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T11:54:23.145578+03:00",
+  "generated_at": "2026-09-08T12:53:07.075621+03:00",
   "timezone": "Europe/Istanbul",
   "funds": [
     {
@@ -410,18 +410,28 @@
           "portfolio_size": 92900123131.24,
           "investor_count": 149382,
           "shares_outstanding": 33065447761.0
+        },
+        {
+          "date": "2026-09-08",
+          "fetched_at": "2026-09-08T12:51:59.201724+03:00",
+          "fund_code": "THF",
+          "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
+          "price": 2.833227,
+          "portfolio_size": 97755924709.24,
+          "investor_count": 153956.0,
+          "shares_outstanding": 34503391964.0
         }
       ],
       "metrics": {
         "current": {
-          "date": "2026-09-07",
-          "fetched_at": "2026-09-07T09:37:52.319491+00:00",
+          "date": "2026-09-08",
+          "fetched_at": "2026-09-08T12:51:59.201724+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
-          "price": 2.809583,
-          "portfolio_size": 92900123131.24,
-          "investor_count": 149382,
-          "shares_outstanding": 33065447761.0
+          "price": 2.833227,
+          "portfolio_size": 97755924709.24,
+          "investor_count": 153956.0,
+          "shares_outstanding": 34503391964.0
         },
         "daily": [
           {
@@ -858,85 +868,97 @@
             "aum_change": 9280686955.26001,
             "price_return_pct": 0.9043593561561813,
             "quality_warnings": []
+          },
+          {
+            "date": "2026-09-08",
+            "estimated_net_flow": 4074002104.0869493,
+            "share_based_flow": 4057022964.065215,
+            "flow_method_gap": 16979140.021734238,
+            "investor_change": 4574.0,
+            "shares_change": 1437944203.0,
+            "aum_change": 4855801578.0,
+            "price_return_pct": 0.8415483721249783,
+            "quality_warnings": []
           }
         ],
         "periods": {
           "1": {
             "observations": 1,
-            "from": "2026-09-04",
-            "to": "2026-09-07",
-            "estimated_net_flow": 8524466760.637488,
-            "share_based_flow": 8486269532.490027,
-            "investor_change": 6058.0,
-            "shares_change": 3034069463.0,
-            "aum_change": 9280686955.26001,
-            "return_pct": 0.9043593561561813
+            "from": "2026-09-07",
+            "to": "2026-09-08",
+            "estimated_net_flow": 4074002104.0869493,
+            "share_based_flow": 4057022964.065215,
+            "investor_change": 4574.0,
+            "shares_change": 1437944203.0,
+            "aum_change": 4855801578.0,
+            "return_pct": 0.8415483721249783
           },
           "7": {
             "observations": 7,
-            "from": "2026-08-27",
-            "to": "2026-09-07",
-            "estimated_net_flow": 34496269209.264854,
-            "share_based_flow": 34335017806.89707,
-            "investor_change": 51305.0,
-            "shares_change": 12545126599.0,
-            "aum_change": 38905259832.66,
-            "return_pct": 6.775999729409987
+            "from": "2026-08-28",
+            "to": "2026-09-08",
+            "estimated_net_flow": 34318815389.650387,
+            "share_based_flow": 34183330735.354702,
+            "investor_change": 50013.0,
+            "shares_change": 12399831485.0,
+            "aum_change": 38401364317.46001,
+            "return_pct": 5.5090057178096785
           },
           "14": {
             "observations": 14,
-            "from": "2026-08-13",
-            "to": "2026-09-07",
-            "estimated_net_flow": 80760258669.22023,
-            "share_based_flow": 80189170067.16379,
-            "investor_change": 133116.0,
-            "shares_change": 30749120591.0,
-            "aum_change": 87497007310.34001,
-            "return_pct": 20.447419256098918
+            "from": "2026-08-18",
+            "to": "2026-09-08",
+            "estimated_net_flow": 77519009694.65184,
+            "share_based_flow": 77070402898.49753,
+            "investor_change": 123848.0,
+            "shares_change": 29170575079.0,
+            "aum_change": 84823378613.75,
+            "return_pct": 16.829911669148355
           },
           "30": {
             "observations": 30,
-            "from": "2026-06-29",
-            "to": "2026-09-07",
-            "estimated_net_flow": 85089554475.29008,
-            "share_based_flow": 84491913841.52773,
-            "investor_change": 141855.0,
-            "shares_change": 32637445859.0,
-            "aum_change": 91977509897.51001,
-            "return_pct": 30.337038516368086
+            "from": "2026-06-30",
+            "to": "2026-09-08",
+            "estimated_net_flow": 89166452854.53888,
+            "share_based_flow": 88551834130.50294,
+            "investor_change": 146495.0,
+            "shares_change": 34076734679.0,
+            "aum_change": 96836952901.92,
+            "return_pct": 31.540126506113598
           },
           "90": {
-            "observations": 39,
+            "observations": 40,
             "from": "2026-06-10",
-            "to": "2026-09-07",
-            "estimated_net_flow": 84954003981.7193,
-            "share_based_flow": 84354737523.46558,
-            "investor_change": 141159.0,
-            "shares_change": 32575505960.0,
-            "aum_change": 91815112533.39,
-            "return_pct": 26.86810532067172
+            "to": "2026-09-08",
+            "estimated_net_flow": 89028006085.80626,
+            "share_based_flow": 88411760487.53079,
+            "investor_change": 145733.0,
+            "shares_change": 34013450163.0,
+            "aum_change": 96670914111.39,
+            "return_pct": 27.93576179574364
           },
           "365": {
-            "observations": 39,
+            "observations": 40,
             "from": "2026-06-10",
-            "to": "2026-09-07",
-            "estimated_net_flow": 84954003981.7193,
-            "share_based_flow": 84354737523.46558,
-            "investor_change": 141159.0,
-            "shares_change": 32575505960.0,
-            "aum_change": 91815112533.39,
-            "return_pct": 26.86810532067172
+            "to": "2026-09-08",
+            "estimated_net_flow": 89028006085.80626,
+            "share_based_flow": 88411760487.53079,
+            "investor_change": 145733.0,
+            "shares_change": 34013450163.0,
+            "aum_change": 96670914111.39,
+            "return_pct": 27.93576179574364
           }
         },
         "flow_status": "GÜÇLÜ GİRİŞ"
       },
       "tefas_summary": {
         "state": "ok",
-        "fetched_at": "2026-09-08T11:52:58.994847+03:00",
-        "source_date": "2026-09-07",
+        "fetched_at": "2026-09-08T12:53:07.044792+03:00",
+        "source_date": "2026-09-08",
         "fund_category": "Hisse Senedi Fonu",
-        "category_rank_1y": null,
-        "market_share_pct": null,
+        "category_rank_1y": "2/200",
+        "category_fund_count_1y": 200.0,
+        "market_share_pct": 34.82,
         "returns_pct": {
           "1m": 25.9564,
           "3m": 29.4589,
@@ -947,17 +969,17 @@
           {
             "code": "hs",
             "name": "Hisse Senedi",
-            "ratio_pct": 84.57
+            "ratio_pct": 82.66
           },
           {
             "code": "yyf",
             "name": "Yatırım Fonları Katılma Payları",
-            "ratio_pct": 10.64
+            "ratio_pct": 10.14
           },
           {
             "code": "vint",
             "name": "Vadeli İşlemler Nakit Teminatları",
-            "ratio_pct": 4.77
+            "ratio_pct": 7.18
           },
           {
             "code": "fb",
@@ -968,9 +990,9 @@
       },
       "status": {
         "state": "ok",
-        "message": "9 yeni işlem günü işlendi",
-        "checked_at": "2026-09-08T11:52:59.004286+03:00",
-        "observations": 36,
+        "message": "0 yeni işlem günü işlendi",
+        "checked_at": "2026-09-08T12:53:07.047452+03:00",
+        "observations": 41,
         "summary": {
           "state": "ok"
         }

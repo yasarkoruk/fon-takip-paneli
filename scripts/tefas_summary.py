@@ -43,6 +43,43 @@ def _asset_allocation(row) -> list[dict]:
     return sorted(assets, key=lambda item: item["ratio_pct"], reverse=True)
 
 
+def _fund_information(fund: dict, source_date: str) -> dict:
+    """Read the official TEFAS fund-information panel.
+
+    The historical endpoint intentionally contains only daily price/AUM/share
+    records.  Category rank and market share live in a separate TEFAS response,
+    so they must be collected independently instead of being silently rendered
+    as unavailable.
+    """
+    from tefasfon import getter
+
+    start = date.fromisoformat(source_date)
+    start_iso = start.isoformat()
+    session = getter._new_session(
+        getter._FUND_PORTAL[fund["type"]], start_iso, start_iso,
+        getter._FUND_URL_PARAM[fund["type"]],
+    )
+    response = session.post(
+        "https://www.tefas.gov.tr/api/funds/fonBilgiGetir",
+        json={"fonKodu": fund["code"]},
+        timeout=30,
+    )
+    response.raise_for_status()
+    payload = response.json()
+    rows = payload.get("resultList") or []
+    if payload.get("errorCode") or not rows:
+        raise ValueError(payload.get("errorMessage") or "TEFAS fon bilgisi bulunamadı")
+    return rows[0]
+
+
+def _category_rank(information: dict) -> str | None:
+    rank = number(information.get("kategoriDerece"))
+    total = number(information.get("kategoriFonSay"))
+    if rank is None or total is None:
+        return None
+    return f"{rank:g}/{total:g}"
+
+
 def fetch_summary(fund: dict, source_date: str, config: dict) -> dict:
     """Fetch TEFAS' current return and allocation panels and normalize them."""
     from tefasfon import get_portfolio, get_returns
@@ -58,13 +95,15 @@ def fetch_summary(fund: dict, source_date: str, config: dict) -> dict:
                 date.fromisoformat(source_date).strftime("%d.%m.%Y"),
                 fund_codes=[fund["code"]],
             ))
+            information = _fund_information(fund, source_date)
             return {
                 "state": "ok",
                 "fetched_at": now_istanbul().isoformat(),
                 "source_date": iso_date(portfolio.get("tarih")) or source_date,
-                "fund_category": fund.get("category"),
-                "category_rank_1y": None,
-                "market_share_pct": None,
+                "fund_category": information.get("fonKategori") or fund.get("category"),
+                "category_rank_1y": _category_rank(information),
+                "category_fund_count_1y": number(information.get("kategoriFonSay")),
+                "market_share_pct": number(information.get("pazarPayi")),
                 "returns_pct": {period: number(returns.get(field)) for period, field in RETURN_FIELDS.items()},
                 "asset_allocation": _asset_allocation(portfolio),
             }

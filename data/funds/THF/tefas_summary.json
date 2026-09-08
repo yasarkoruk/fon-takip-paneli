@@ -1,10 +1,11 @@
 {
   "state": "ok",
-  "fetched_at": "2026-09-08T11:52:58.994847+03:00",
-  "source_date": "2026-09-07",
+  "fetched_at": "2026-09-08T12:53:07.044792+03:00",
+  "source_date": "2026-09-08",
   "fund_category": "Hisse Senedi Fonu",
-  "category_rank_1y": null,
-  "market_share_pct": null,
+  "category_rank_1y": "2/200",
+  "category_fund_count_1y": 200.0,
+  "market_share_pct": 34.82,
   "returns_pct": {
     "1m": 25.9564,
     "3m": 29.4589,
@@ -15,17 +16,17 @@
     {
       "code": "hs",
       "name": "Hisse Senedi",
-      "ratio_pct": 84.57
+      "ratio_pct": 82.66
     },
     {
       "code": "yyf",
       "name": "Yatırım Fonları Katılma Payları",
-      "ratio_pct": 10.64
+      "ratio_pct": 10.14
     },
     {
       "code": "vint",
       "name": "Vadeli İşlemler Nakit Teminatları",
-      "ratio_pct": 4.77
+      "ratio_pct": 7.18
     },
     {
       "code": "fb",

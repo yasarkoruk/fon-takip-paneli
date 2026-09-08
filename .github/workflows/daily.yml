@@ -2,10 +2,10 @@ name: Fon Günlük TEFAS Veri Çekimi
 
 on:
   schedule:
-    # 19:15, 20:00 ve 21:00 Europe/Istanbul. Her çalışma eksik günleri tamamlar.
-    - cron: "15 16 * * 1-5"
-    - cron: "0 17 * * 1-5"
-    - cron: "0 18 * * 1-5"
+    # Europe/Istanbul UTC+3: every weekday at 08:15, before the 09:00 market opening.
+    # The collector rechecks recent dates as well as filling gaps, so a delayed
+    # TEFAS publication is recovered on the following run without data loss.
+    - cron: "15 5 * * 1-5"
   workflow_dispatch:
 
 permissions:

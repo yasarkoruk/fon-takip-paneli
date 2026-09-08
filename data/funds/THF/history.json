@@ -398,5 +398,15 @@
     "portfolio_size": 92900123131.24,
     "investor_count": 149382,
     "shares_outstanding": 33065447761.0
+  },
+  {
+    "date": "2026-09-08",
+    "fetched_at": "2026-09-08T12:51:59.201724+03:00",
+    "fund_code": "THF",
+    "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
+    "price": 2.833227,
+    "portfolio_size": 97755924709.24,
+    "investor_count": 153956.0,
+    "shares_outstanding": 34503391964.0
   }
 ]

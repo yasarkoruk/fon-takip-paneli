@@ -1,8 +1,8 @@
 {
   "state": "ok",
-  "message": "90 günlük backfill tamamlandı; doğrulanmış TEFAS kayıtları işlendi",
-  "checked_at": "2026-09-08T11:54:32.515711+03:00",
-  "observations": 40,
+  "message": "0 yeni işlem günü işlendi",
+  "checked_at": "2026-09-08T12:53:07.047452+03:00",
+  "observations": 41,
   "summary": {
     "state": "ok"
   }
