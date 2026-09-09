@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-08T18:30:49.555854+03:00",
-  "count": 2342,
+  "generated_at": "2026-09-09T14:43:47.938416+03:00",
+  "count": 2344,
   "funds": [
     {
       "code": "AAJ",
@@ -6322,6 +6322,13 @@
       "type": "VC",
       "category": null,
       "active": false
+    },
+    {
+      "code": "ICM",
+      "name": "İNCİR PORTFÖY BİRİNCİ PARA PİYASASI (TL) FONU",
+      "type": "SEC",
+      "category": "Para Piyasası Şemsiye Fonu",
+      "active": true
     },
     {
       "code": "ICS",
@@ -14236,6 +14243,13 @@
     {
       "code": "TNG",
       "name": "RE-PIE PORTFÖY YÖNETİMİ A.Ş. TUNA PROJE GAYRİMENKUL YATIRIM FONU",
+      "type": "RE",
+      "category": null,
+      "active": false
+    },
+    {
+      "code": "TNO",
+      "name": "TUNA PORTFÖY YÖNETİMİ A.Ş. GMSTF KATILIM ÖZEL GAYRİMENKUL YATIRIM FONU",
       "type": "RE",
       "category": null,
       "active": false

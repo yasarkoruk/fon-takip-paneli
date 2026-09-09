@@ -1,16 +1,16 @@
 {
   "state": "ok",
-  "fetched_at": "2026-09-08T18:30:43.089489+03:00",
+  "fetched_at": "2026-09-09T14:44:57.487057+03:00",
   "source_date": "2026-09-08",
   "fund_category": "Hisse Senedi Fonu",
   "category_rank_1y": "2/200",
   "category_fund_count_1y": 200.0,
-  "market_share_pct": 34.82,
+  "market_share_pct": 37.42,
   "returns_pct": {
-    "1m": 25.9564,
-    "3m": 29.4589,
-    "6m": 51.7782,
-    "1y": 116.3535
+    "1m": 28.2214,
+    "3m": 28.4976,
+    "6m": 54.5076,
+    "1y": 125.0121
   },
   "asset_allocation": [
     {
