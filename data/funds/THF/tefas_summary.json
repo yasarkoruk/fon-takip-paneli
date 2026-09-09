@@ -1,7 +1,7 @@
 {
   "state": "ok",
-  "fetched_at": "2026-09-09T14:44:57.487057+03:00",
-  "source_date": "2026-09-08",
+  "fetched_at": "2026-09-09T15:22:39.047040+03:00",
+  "source_date": "2026-09-09",
   "fund_category": "Hisse Senedi Fonu",
   "category_rank_1y": "2/200",
   "category_fund_count_1y": 200.0,
@@ -16,22 +16,22 @@
     {
       "code": "hs",
       "name": "Hisse Senedi",
-      "ratio_pct": 82.66
-    },
-    {
-      "code": "yyf",
-      "name": "Yatırım Fonları Katılma Payları",
-      "ratio_pct": 10.14
+      "ratio_pct": 82.31
     },
     {
       "code": "vint",
       "name": "Vadeli İşlemler Nakit Teminatları",
-      "ratio_pct": 7.18
+      "ratio_pct": 9.07
+    },
+    {
+      "code": "yyf",
+      "name": "Yatırım Fonları Katılma Payları",
+      "ratio_pct": 8.61
     },
     {
       "code": "fb",
       "name": "Finansman Bonosu",
-      "ratio_pct": 0.02
+      "ratio_pct": 0.01
     }
   ]
 }
