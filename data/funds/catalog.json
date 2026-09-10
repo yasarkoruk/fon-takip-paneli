@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-10T15:13:54.306762+03:00",
-  "count": 2344,
+  "generated_at": "2026-09-10T21:06:58.406691+03:00",
+  "count": 2343,
   "funds": [
     {
       "code": "AAJ",
@@ -4590,13 +4590,6 @@
     {
       "code": "GF2",
       "name": "ONE PORTFÖY YÖNETİMİ A.Ş. İKİNCİ GAYRİMENKUL YATIRIM FONU",
-      "type": "RE",
-      "category": null,
-      "active": false
-    },
-    {
-      "code": "GF4",
-      "name": "ONE PORTFÖY YÖNETİMİ A.Ş. DÖRDÜNCÜ GAYRİMENKUL YATIRIM FONU",
       "type": "RE",
       "category": null,
       "active": false
