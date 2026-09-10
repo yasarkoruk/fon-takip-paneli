@@ -2,7 +2,7 @@
 // Safari uses Add to Home Screen. Do not intercept beforeinstallprompt.
 window.addEventListener("DOMContentLoaded", () => {
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/fon-takip-paneli/sw.js").catch(() => {});
+    navigator.serviceWorker.register("/fon-takip-paneli/sw.js?v=7").then(registration => registration.update()).catch(() => {});
   }
 });
 
