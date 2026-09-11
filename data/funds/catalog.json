@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-11T15:12:33.140061+03:00",
-  "count": 2338,
+  "generated_at": "2026-09-11T21:05:11.746779+03:00",
+  "count": 2339,
   "funds": [
     {
       "code": "AAJ",
@@ -11487,6 +11487,13 @@
       "name": "PUSULA PORTFÖY HİSSE SENEDİ FONU (HİSSE SENEDİ YOĞUN FON)",
       "type": "SEC",
       "category": "Hisse Senedi Şemsiye Fonu",
+      "active": true
+    },
+    {
+      "code": "PHF",
+      "name": "PİRAMİT PORTFÖY BİST 50 DIŞI ŞİRKETLER HİSSE SENEDİ SERBEST FON (HİSSE SENEDİ YOĞUN FON)",
+      "type": "SEC",
+      "category": "Serbest Şemsiye Fonu",
       "active": true
     },
     {
