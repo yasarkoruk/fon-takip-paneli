@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-10T21:06:58.406691+03:00",
-  "count": 2343,
+  "generated_at": "2026-09-11T15:12:33.140061+03:00",
+  "count": 2338,
   "funds": [
     {
       "code": "AAJ",
@@ -3326,13 +3326,6 @@
       "type": "SEC",
       "category": "Hisse Senedi Şemsiye Fonu",
       "active": true
-    },
-    {
-      "code": "EOG",
-      "name": "ZİRAAT PORTFÖY YÖNETİMİ A.Ş. ELEMENT ÖZEL GİRİŞİM SERMAYESİ YATIRIM FONU",
-      "type": "VC",
-      "category": null,
-      "active": false
     },
     {
       "code": "EOZ",
@@ -15893,13 +15886,6 @@
       "active": false
     },
     {
-      "code": "ZBU",
-      "name": "ZİRAAT PORTFÖY YÖNETİMİ A.Ş. BİONOVA ÖZEL GİRİŞİM SERMAYESİ YATIRIM FONU",
-      "type": "VC",
-      "category": null,
-      "active": false
-    },
-    {
       "code": "ZBY",
       "name": "ZİRAAT PORTFÖY BIST 100 ENDEKSİ MODEL PORTFÖY HİSSE SENEDİ YOĞUN BORSA YATIRIM FONU",
       "type": "ETF",
@@ -15991,13 +15977,6 @@
       "active": false
     },
     {
-      "code": "ZFN",
-      "name": "ZİRAAT PORTFÖY YÖNETİMİ A.Ş. FİNOVA ÖZEL GİRİŞİM SERMAYESİ YATIRIM FONU",
-      "type": "VC",
-      "category": null,
-      "active": false
-    },
-    {
       "code": "ZG6",
       "name": "ARZ GAYRİMENKUL VE GİRİŞİM SERMAYESİ PORTFÖY YÖNETİMİ A.Ş. LEVENT GAYRİMENKUL YATIRIM FONU",
       "type": "RE",
@@ -16030,13 +16009,6 @@
       "name": "ZİRAAT PORTFÖY ALTIN KATILIM  BORSA YATIRIM FONU",
       "type": "ETF",
       "category": "Altın Fonu",
-      "active": false
-    },
-    {
-      "code": "ZGG",
-      "name": "ZİRAAT PORTFÖY YÖNETİMİ A.Ş. BGF KATILIM ÖZEL GAYRİMENKUL YATIRIM FONU",
-      "type": "RE",
-      "category": null,
       "active": false
     },
     {
@@ -16345,13 +16317,6 @@
       "name": "ZİRAAT PORTFÖY BIST TLREF ENDEKSİ (TL) BORSA YATIRIM FONU",
       "type": "ETF",
       "category": "Endeks Fon",
-      "active": false
-    },
-    {
-      "code": "ZTU",
-      "name": "ZİRAAT PORTFÖY YÖNETİMİ A.Ş.TURNA ÖZEL GİRİŞİM SERMAYESİ YATIRIM FONU",
-      "type": "VC",
-      "category": null,
       "active": false
     },
     {

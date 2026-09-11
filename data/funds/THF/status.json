@@ -1,8 +1,8 @@
 {
   "state": "ok",
-  "message": "0 yeni işlem günü işlendi",
-  "checked_at": "2026-09-10T21:06:50.874850+03:00",
-  "observations": 54,
+  "message": "1 yeni işlem günü işlendi",
+  "checked_at": "2026-09-11T15:12:26.605899+03:00",
+  "observations": 55,
   "summary": {
     "state": "error",
     "message": "TEFAS özet sorgusu başarısız: Timeout: Failed to perform, curl: (28) Connection timed out after 30001 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details."
