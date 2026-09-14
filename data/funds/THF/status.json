@@ -1,7 +1,7 @@
 {
   "state": "error",
   "message": "TEFAS sorgusu başarısız: Timeout: Failed to perform, curl: (28) Connection timed out after 30001 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-  "checked_at": "2026-09-14T16:46:31.722131+03:00",
+  "checked_at": "2026-09-14T22:39:36.185360+03:00",
   "observations": 0,
   "summary": {
     "state": "ok"
