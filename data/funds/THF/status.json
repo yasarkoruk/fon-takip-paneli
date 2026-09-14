@@ -1,10 +1,9 @@
 {
-  "state": "ok",
-  "message": "0 yeni işlem günü işlendi",
-  "checked_at": "2026-09-11T21:05:05.063367+03:00",
-  "observations": 55,
+  "state": "error",
+  "message": "TEFAS sorgusu başarısız: Timeout: Failed to perform, curl: (28) Connection timed out after 30001 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
+  "checked_at": "2026-09-14T16:46:31.722131+03:00",
+  "observations": 0,
   "summary": {
-    "state": "error",
-    "message": "TEFAS özet sorgusu başarısız: Timeout: Failed to perform, curl: (28) Connection timed out after 30001 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details."
+    "state": "ok"
   }
 }
