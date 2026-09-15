@@ -121,41 +121,36 @@ window.addEventListener("DOMContentLoaded", () => {
     const controls = document.getElementById("periods");
     const fund = activeFund();
     if (!controls || !fund) return;
-    let summaryAlert = document.getElementById("summaryAlert");
-    if (!summaryAlert) {
-      summaryAlert = document.createElement("div");
-      summaryAlert.id = "summaryAlert";
-      summaryAlert.className = "summary-alert hidden";
-      summaryAlert.setAttribute("role", "alert");
-      summaryAlert.setAttribute("aria-live", "polite");
-      document.querySelector(".footer").before(summaryAlert);
-    }
+    const escapeStatus = value => String(value || "Bilinmeyen hata").replace(/[&<>"']/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]);
     const summaryStatus = fund.status?.summary;
-    if (summaryStatus?.state === "error") {
-      summaryAlert.innerHTML = `<strong>⚠ TEFAS ÖZET HATASI</strong><span>TEFAS özet servisine geçici olarak ulaşılamadı. Son başarılı özet bilgileri gösteriliyor.</span><small>Teknik ayrıntı: ${String(summaryStatus.message || "Bilinmeyen hata").replace(/[&<>"']/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character])}</small>`;
-      summaryAlert.classList.remove("hidden");
-    } else {
-      summaryAlert.classList.add("hidden");
-    }
     document.querySelectorAll("#tefasSummary .tefas-card p.muted").forEach(paragraph => {
       if (paragraph.textContent.startsWith("Özet güncellenemedi:")) paragraph.remove();
     });
     const refresh = controls.querySelector("#refresh");
     const collectorStatus = fund.status;
-    let statusNotice = document.getElementById("collectorStatusAlert");
+    let statusNotice = document.getElementById("panelStatus");
     if (!statusNotice) {
       statusNotice = document.createElement("div");
-      statusNotice.id = "collectorStatusAlert";
-      statusNotice.className = "collector-status-alert hidden";
-      statusNotice.setAttribute("role", "alert");
+      statusNotice.id = "panelStatus";
+      statusNotice.className = "panel-status";
+      statusNotice.setAttribute("role", "status");
       statusNotice.setAttribute("aria-live", "polite");
       document.querySelector(".footer").before(statusNotice);
     }
-    if (collectorStatus && collectorStatus.state !== "ok") {
-      statusNotice.innerHTML = `<strong>⚠ VERİ GÜNCELLEME UYARISI</strong><span>${String(collectorStatus.message || "Veri güncellemesi tamamlanamadı.").replace(/[&<>"']/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character])}</span>`;
-      statusNotice.classList.remove("hidden");
+    const hasCollectorError = collectorStatus && collectorStatus.state !== "ok";
+    const hasSummaryError = summaryStatus?.state === "error";
+    if (hasCollectorError || hasSummaryError) {
+      const messages = [];
+      if (hasCollectorError) messages.push(collectorStatus.message);
+      if (hasSummaryError) messages.push(summaryStatus.message);
+      statusNotice.className = "panel-status panel-status-error";
+      statusNotice.setAttribute("role", "alert");
+      statusNotice.innerHTML = `<strong>⚠ VERİ GÜNCELLEME SORUNU</strong><span>Son başarılı veriler gösteriliyor. Sistem bir sonraki taramada yeniden deneyecek.</span><details><summary>Teknik ayrıntıyı göster</summary><small>${messages.map(escapeStatus).join("<br>")}</small></details>`;
     } else {
-      statusNotice.classList.add("hidden");
+      const checkedAt = collectorStatus?.checked_at ? new Date(collectorStatus.checked_at).toLocaleString("tr-TR") : null;
+      statusNotice.className = "panel-status panel-status-ok";
+      statusNotice.setAttribute("role", "status");
+      statusNotice.innerHTML = `<strong>✓ Veriler güncel</strong><span>${checkedAt ? `Son başarılı tarama: ${checkedAt}` : "Son veri taraması başarıyla tamamlandı."}</span>`;
     }
     if (refresh && !refresh.dataset.archiveRefresh) {
       const standardRefresh = refresh.onclick;
@@ -199,7 +194,7 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   const style = document.createElement("style");
-  style.textContent = ".summary-alert,.collector-status-alert{margin:16px 0 0;padding:14px 16px;border:1px solid var(--red);border-left:5px solid var(--red);border-radius:12px;background:color-mix(in srgb,var(--red) 10%,var(--card));color:var(--text)}.summary-alert strong,.collector-status-alert strong{display:block;margin-bottom:4px;color:var(--red);font-size:14px}.summary-alert span,.collector-status-alert span{display:block;font-size:13px;line-height:1.4}.summary-alert small{display:block;margin-top:6px;color:var(--muted);font-size:11px;overflow-wrap:anywhere}.tefas-open{border:0;border-radius:999px;padding:8px 13px;background:var(--card);color:var(--muted);font:600 13px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;box-shadow:0 1px 3px #0001;text-decoration:none;white-space:nowrap}.date-range{display:flex;align-items:end;gap:7px;flex-wrap:wrap;margin-left:auto}.date-range label{display:grid;gap:3px;color:var(--muted);font-size:11px;font-weight:600}.date-range input{border:1px solid var(--line);border-radius:10px;padding:7px;background:var(--card);color:var(--text);font:inherit}@media(max-width:520px){.summary-alert,.collector-status-alert{padding:12px}.date-range{width:100%;margin-left:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:12px;row-gap:6px}.date-range label{min-width:0}.date-range input{min-width:0;width:100%;padding:6px;font-size:13px}.date-range button{grid-column:1/-1;justify-self:end;padding:7px 10px}}";
+  style.textContent = ".panel-status{margin:16px 0 0;padding:11px 14px;border-radius:12px;color:var(--text)}.panel-status strong{display:block;margin-bottom:3px;font-size:13px}.panel-status span{display:block;font-size:12px;line-height:1.4}.panel-status-ok{border:1px solid var(--green);border-left:5px solid var(--green);background:color-mix(in srgb,var(--green) 8%,var(--card))}.panel-status-ok strong{color:var(--green)}.panel-status-error{border:1px solid var(--red);border-left:5px solid var(--red);background:color-mix(in srgb,var(--red) 10%,var(--card))}.panel-status-error strong{color:var(--red)}.panel-status details{margin-top:6px}.panel-status summary{color:var(--muted);font-size:11px;cursor:pointer}.panel-status small{display:block;margin-top:5px;color:var(--muted);font-size:11px;line-height:1.4;overflow-wrap:anywhere}.tefas-open{border:0;border-radius:999px;padding:8px 13px;background:var(--card);color:var(--muted);font:600 13px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;box-shadow:0 1px 3px #0001;text-decoration:none;white-space:nowrap}.date-range{display:flex;align-items:end;gap:7px;flex-wrap:wrap;margin-left:auto}.date-range label{display:grid;gap:3px;color:var(--muted);font-size:11px;font-weight:600}.date-range input{border:1px solid var(--line);border-radius:10px;padding:7px;background:var(--card);color:var(--text);font:inherit}@media(max-width:520px){.panel-status{padding:10px 12px}.date-range{width:100%;margin-left:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:12px;row-gap:6px}.date-range label{min-width:0}.date-range input{min-width:0;width:100%;padding:6px;font-size:13px}.date-range button{grid-column:1/-1;justify-self:end;padding:7px 10px}}";
   document.head.append(style);
   window.addEventListener("load", async () => {
     try {
