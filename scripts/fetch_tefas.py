@@ -105,7 +105,10 @@ def collect_fund(fund: dict, config: dict, skip_fetch: bool, backfill_days: int 
             last_error = error
             consecutive_failures += 1
             cursor = end + timedelta(days=1)
-            if consecutive_failures >= config["collector"].get("max_consecutive_failed_dates", 2):
+            if (
+                consecutive_failures >= config["collector"].get("max_consecutive_failed_dates", 2)
+                or len(failed_dates) >= config["collector"].get("max_failed_dates_per_run", 2)
+            ):
                 stopped_early = True
                 break
             continue
