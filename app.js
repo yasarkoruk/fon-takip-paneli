@@ -2,7 +2,7 @@
 // Safari uses Add to Home Screen. Do not intercept beforeinstallprompt.
 window.addEventListener("DOMContentLoaded", () => {
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/fon-takip-paneli/sw.js?v=7").then(registration => registration.update()).catch(() => {});
+    navigator.serviceWorker.register("/fon-takip-paneli/sw.js?v=8").then(registration => registration.update()).catch(() => {});
   }
 });
 
@@ -122,6 +122,16 @@ window.addEventListener("DOMContentLoaded", () => {
     const fund = activeFund();
     if (!controls || !fund) return;
     const refresh = controls.querySelector("#refresh");
+    const collectorStatus = fund.status;
+    const statusNotice = document.getElementById("error");
+    if (collectorStatus && collectorStatus.state !== "ok") {
+      statusNotice.textContent = `Veri güncelleme uyarısı: ${collectorStatus.message}`;
+      statusNotice.dataset.collectorStatus = "true";
+      statusNotice.classList.remove("hidden");
+    } else if (statusNotice.dataset.collectorStatus === "true") {
+      statusNotice.classList.add("hidden");
+      delete statusNotice.dataset.collectorStatus;
+    }
     if (refresh && !refresh.dataset.archiveRefresh) {
       const standardRefresh = refresh.onclick;
       refresh.dataset.archiveRefresh = "true";

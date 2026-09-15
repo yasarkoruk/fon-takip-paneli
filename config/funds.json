@@ -5,7 +5,8 @@
     "request_chunk_days": 1,
     "request_delay_seconds": 2,
     "max_retries": 3,
-    "retry_delay_seconds": 4
+    "retry_delay_seconds": 4,
+    "max_consecutive_failed_dates": 2
   },
   "funds": [
     {

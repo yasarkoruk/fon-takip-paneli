@@ -42,23 +42,36 @@ class DataEngineTests(unittest.TestCase):
                 '[{"date":"2026-09-01","fund_code":"THF","fund_name":"Test","price":1,"portfolio_size":100,"investor_count":10,"shares_outstanding":100}]',
                 encoding="utf-8",
             )
-            history, added, failed_dates = collect_fund({"code": "THF"}, config, False, 2)
+            history, added, failed_dates, stopped_early = collect_fund({"code": "THF"}, config, False, 2)
         self.assertEqual(added, 1)
         self.assertEqual(len(history), 2)
         self.assertEqual(failed_dates, ["2026-09-02"])
+        self.assertFalse(stopped_early)
 
     @patch("scripts.fetch_tefas.now_istanbul")
     @patch("scripts.fetch_tefas.fetch_range", side_effect=RuntimeError("timeout"))
-    def test_collector_fails_when_tefas_is_completely_unavailable(self, fetch_range, now_istanbul):
+    def test_collector_fails_without_any_preserved_data(self, fetch_range, now_istanbul):
         now_istanbul.return_value = datetime(2026, 9, 2, 10, 0)
-        config = {"collector": {"request_chunk_days": 1, "request_delay_seconds": 0}}
+        config = {"collector": {"request_chunk_days": 1, "request_delay_seconds": 0, "max_consecutive_failed_dates": 2}}
+        with TemporaryDirectory() as directory, patch("scripts.fetch_tefas.fund_dir", return_value=Path(directory)):
+            with self.assertRaisesRegex(RuntimeError, "tüm tarih sorgularında başarısız"):
+                collect_fund({"code": "THF"}, config, False, 1)
+
+    @patch("scripts.fetch_tefas.now_istanbul")
+    @patch("scripts.fetch_tefas.fetch_range", side_effect=RuntimeError("timeout"))
+    def test_collector_preserves_history_and_stops_after_consecutive_timeouts(self, fetch_range, now_istanbul):
+        now_istanbul.return_value = datetime(2026, 9, 3, 10, 0)
+        config = {"collector": {"request_chunk_days": 1, "request_delay_seconds": 0, "max_consecutive_failed_dates": 2}}
         with TemporaryDirectory() as directory, patch("scripts.fetch_tefas.fund_dir", return_value=Path(directory)):
             Path(directory, "history.json").write_text(
                 '[{"date":"2026-09-01","fund_code":"THF","fund_name":"Test","price":1,"portfolio_size":100,"investor_count":10,"shares_outstanding":100}]',
                 encoding="utf-8",
             )
-            with self.assertRaisesRegex(RuntimeError, "tüm tarih sorgularında başarısız"):
-                collect_fund({"code": "THF"}, config, False, 1)
+            history, added, failed_dates, stopped_early = collect_fund({"code": "THF"}, config, False, 2)
+        self.assertEqual(len(history), 1)
+        self.assertEqual(added, 0)
+        self.assertEqual(failed_dates, ["2026-09-02", "2026-09-03"])
+        self.assertTrue(stopped_early)
 
     @patch("scripts.tefas_summary._fund_information")
     @patch("tefasfon.get_portfolio")
