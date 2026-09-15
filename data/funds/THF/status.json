@@ -1,9 +1,10 @@
 {
-  "state": "ok",
-  "message": "2 yeni işlem günü işlendi",
-  "checked_at": "2026-09-15T18:05:55.008408+03:00",
+  "state": "warning",
+  "message": "0 yeni işlem günü işlendi; 2 tarih geçici olarak alınamadı ve sonraki taramada yeniden denenecek; art arda zaman aşımı nedeniyle tarama erken sonlandırıldı; Fon kataloğu güncellenemedi: TEFAS fon kataloğu alınamadı (PEN): Timeout: Failed to perform, curl: (28) Connection timed out after 30001 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
+  "checked_at": "2026-09-15T21:35:44.638259+03:00",
   "observations": 57,
   "summary": {
-    "state": "ok"
+    "state": "error",
+    "message": "TEFAS özet sorgusu başarısız: Timeout: Failed to perform, curl: (28) Connection timed out after 30001 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details."
   }
 }
