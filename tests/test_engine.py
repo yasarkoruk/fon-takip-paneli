@@ -1,7 +1,11 @@
 import unittest
+from datetime import datetime
+from pathlib import Path
+from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
 from scripts.analytics import build_metrics
+from scripts.fetch_tefas import collect_fund
 from scripts.tefas_summary import fetch_summary
 from scripts.validate_data import validate_history
 
@@ -26,6 +30,35 @@ class DataEngineTests(unittest.TestCase):
         metrics = build_metrics([row("2026-09-01", 1, 100, 10, 100)])
         self.assertEqual(metrics["flow_status"], "VERİ YETERSİZ")
         self.assertIsNone(metrics["periods"]["14"])
+
+    @patch("scripts.fetch_tefas.now_istanbul")
+    @patch("scripts.fetch_tefas.fetch_range")
+    def test_collector_continues_after_one_date_times_out(self, fetch_range, now_istanbul):
+        now_istanbul.return_value = datetime(2026, 9, 3, 10, 0)
+        fetch_range.side_effect = [RuntimeError("timeout"), [row("2026-09-03", 1.1, 121, 12, 110)]]
+        config = {"collector": {"request_chunk_days": 1, "request_delay_seconds": 0}}
+        with TemporaryDirectory() as directory, patch("scripts.fetch_tefas.fund_dir", return_value=Path(directory)):
+            Path(directory, "history.json").write_text(
+                '[{"date":"2026-09-01","fund_code":"THF","fund_name":"Test","price":1,"portfolio_size":100,"investor_count":10,"shares_outstanding":100}]',
+                encoding="utf-8",
+            )
+            history, added, failed_dates = collect_fund({"code": "THF"}, config, False, 2)
+        self.assertEqual(added, 1)
+        self.assertEqual(len(history), 2)
+        self.assertEqual(failed_dates, ["2026-09-02"])
+
+    @patch("scripts.fetch_tefas.now_istanbul")
+    @patch("scripts.fetch_tefas.fetch_range", side_effect=RuntimeError("timeout"))
+    def test_collector_fails_when_tefas_is_completely_unavailable(self, fetch_range, now_istanbul):
+        now_istanbul.return_value = datetime(2026, 9, 2, 10, 0)
+        config = {"collector": {"request_chunk_days": 1, "request_delay_seconds": 0}}
+        with TemporaryDirectory() as directory, patch("scripts.fetch_tefas.fund_dir", return_value=Path(directory)):
+            Path(directory, "history.json").write_text(
+                '[{"date":"2026-09-01","fund_code":"THF","fund_name":"Test","price":1,"portfolio_size":100,"investor_count":10,"shares_outstanding":100}]',
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(RuntimeError, "tüm tarih sorgularında başarısız"):
+                collect_fund({"code": "THF"}, config, False, 1)
 
     @patch("scripts.tefas_summary._fund_information")
     @patch("tefasfon.get_portfolio")

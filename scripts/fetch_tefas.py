@@ -66,14 +66,14 @@ def fetch_range(fund: dict, start: date, end: date, config: dict) -> list[dict]:
     raise RuntimeError(f"TEFAS sorgusu başarısız: {type(last_error).__name__}: {last_error}")
 
 
-def collect_fund(fund: dict, config: dict, skip_fetch: bool, backfill_days: int | None) -> tuple[list[dict], int]:
+def collect_fund(fund: dict, config: dict, skip_fetch: bool, backfill_days: int | None) -> tuple[list[dict], int, list[str]]:
     path = fund_dir(fund["code"]) / "history.json"
     existing = read_json(path, [])
     by_date = {item["date"]: item for item in existing if item.get("date")}
     if skip_fetch:
         history = [by_date[key] for key in sorted(by_date)]
         write_json_atomic(path, history)
-        return history, 0
+        return history, 0, []
     today = now_istanbul().date()
     days = backfill_days if backfill_days is not None else config["collector"]["default_history_days"]
     # TEFAS may omit intervening rows from a multi-day query for a single fund.
@@ -81,6 +81,9 @@ def collect_fund(fund: dict, config: dict, skip_fetch: bool, backfill_days: int 
     start = today - timedelta(days=days)
     cursor = start
     added = 0
+    successful_requests = 0
+    failed_dates = []
+    last_error = None
     while cursor <= today:
         end = min(cursor + timedelta(days=config["collector"]["request_chunk_days"] - 1), today)
         # An explicit backfill fills gaps without needlessly re-querying dates
@@ -88,19 +91,34 @@ def collect_fund(fund: dict, config: dict, skip_fetch: bool, backfill_days: int 
         if backfill_days is not None and cursor.isoformat() in by_date:
             cursor = end + timedelta(days=1)
             continue
-        for record in fetch_range(fund, cursor, end, config):
+        try:
+            records = fetch_range(fund, cursor, end, config)
+            successful_requests += 1
+        except Exception as error:
+            # Preserve existing data and continue. The next scheduled run will
+            # query this missing day again, so one transient TEFAS timeout does
+            # not invalidate every other date in the collection window.
+            failed_dates.append(cursor.isoformat())
+            last_error = error
+            cursor = end + timedelta(days=1)
+            continue
+        for record in records:
             if record["date"] not in by_date:
                 added += 1
             by_date[record["date"]] = record
         if config["collector"].get("request_delay_seconds"):
             time.sleep(config["collector"]["request_delay_seconds"])
         cursor = end + timedelta(days=1)
+    if failed_dates and successful_requests == 0:
+        raise RuntimeError(
+            f"TEFAS tüm tarih sorgularında başarısız oldu ({len(failed_dates)} tarih): {last_error}"
+        )
     history = [by_date[key] for key in sorted(by_date)]
     errors = validate_history(history, fund["code"])
     if errors:
         raise ValueError("; ".join(errors))
     write_json_atomic(path, history)
-    return history, added
+    return history, added, failed_dates
 
 
 def status(code: str, state: str, message: str, observations: int = 0, summary_error: str | None = None) -> None:
@@ -122,9 +140,13 @@ def main() -> None:
         if not fund.get("enabled"):
             continue
         try:
-            history, added = collect_fund(fund, config, args.skip_fetch, args.backfill_days)
+            history, added, failed_dates = collect_fund(fund, config, args.skip_fetch, args.backfill_days)
             _, summary_error = collect_summary(fund, history, config)
-            status(fund["code"], "ok", f"{added} yeni işlem günü işlendi", len(history), summary_error)
+            state = "warning" if failed_dates or summary_error else "ok"
+            message = f"{added} yeni işlem günü işlendi"
+            if failed_dates:
+                message += f"; {len(failed_dates)} tarih geçici olarak alınamadı ve sonraki taramada yeniden denenecek"
+            status(fund["code"], state, message, len(history), summary_error)
         except Exception as error:
             status(fund["code"], "error", str(error))
             raise
