@@ -5,7 +5,7 @@ from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
 from scripts.analytics import build_metrics
-from scripts.fetch_tefas import collect_fund
+from scripts.fetch_tefas import append_status_warning, collect_fund
 from scripts.tefas_summary import fetch_summary
 from scripts.validate_data import validate_history
 
@@ -89,6 +89,21 @@ class DataEngineTests(unittest.TestCase):
         self.assertEqual(added, 0)
         self.assertEqual(failed_dates, ["2026-09-02", "2026-09-04"])
         self.assertTrue(stopped_early)
+
+    @patch("scripts.fetch_tefas.now_istanbul")
+    def test_catalog_warning_preserves_existing_status_details(self, now_istanbul):
+        now_istanbul.return_value = datetime(2026, 9, 4, 10, 0)
+        with TemporaryDirectory() as directory, patch("scripts.fetch_tefas.fund_dir", return_value=Path(directory)):
+            Path(directory, "status.json").write_text(
+                '{"state":"ok","message":"1 yeni işlem günü işlendi","observations":52,"summary":{"state":"ok"}}',
+                encoding="utf-8",
+            )
+            append_status_warning("THF", "Fon kataloğu güncellenemedi: timeout")
+            import json
+            result = json.loads(Path(directory, "status.json").read_text(encoding="utf-8"))
+        self.assertEqual(result["state"], "warning")
+        self.assertEqual(result["observations"], 52)
+        self.assertIn("Fon kataloğu güncellenemedi", result["message"])
 
     @patch("scripts.tefas_summary._fund_information")
     @patch("tefasfon.get_portfolio")

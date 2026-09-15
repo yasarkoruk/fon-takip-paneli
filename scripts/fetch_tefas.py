@@ -140,6 +140,16 @@ def status(code: str, state: str, message: str, observations: int = 0, summary_e
     write_json_atomic(fund_dir(code) / "status.json", payload)
 
 
+def append_status_warning(code: str, message: str) -> None:
+    path = fund_dir(code) / "status.json"
+    payload = read_json(path, {})
+    payload["state"] = "warning"
+    existing = payload.get("message")
+    payload["message"] = f"{existing}; {message}" if existing else message
+    payload["checked_at"] = now_istanbul().isoformat()
+    write_json_atomic(path, payload)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--skip-fetch", action="store_true", help="Only migrate/build existing data; no TEFAS request.")
@@ -163,7 +173,14 @@ def main() -> None:
             status(fund["code"], "error", str(error))
             raise
     if not args.skip_fetch:
-        collect_catalog(config)
+        try:
+            collect_catalog(config)
+        except Exception as error:
+            # Search can safely use the last successful static catalogue. A
+            # catalogue outage must not discard freshly collected fund data.
+            for fund in config["funds"]:
+                if fund.get("enabled"):
+                    append_status_warning(fund["code"], f"Fon kataloğu güncellenemedi: {error}")
     build()
 
 
