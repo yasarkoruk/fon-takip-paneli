@@ -5,7 +5,8 @@ on:
     # Europe/Istanbul UTC+3: weekday scans after opening and just after close.
     # Each run rechecks recent dates and fills gaps left by delayed TEFAS data.
     - cron: "0 7 * * 1-5"   # 10:00 Istanbul
-    - cron: "50 14 * * 1-5" # 17:50 Istanbul
+    - cron: "0 15 * * 1-5"  # 18:00 Istanbul
+    - cron: "0 18 * * 1-5"  # 21:00 recovery for delayed publication/access
   workflow_dispatch:
 
 permissions:
@@ -35,6 +36,12 @@ jobs:
         continue-on-error: true
         run: python -m scripts.fetch_tefas
 
+      - name: Güncel günleri tekrar dene
+        if: steps.collector.outcome == 'failure'
+        id: recovery
+        continue-on-error: true
+        run: python -m scripts.fetch_tefas --recent-days 3 --skip-catalog
+
       - name: Degisiklikleri commitle
         run: |
           git config user.name "fon-takip-bot"
@@ -49,5 +56,38 @@ jobs:
           fi
 
       - name: Collector hatasını bildir
-        if: steps.collector.outcome == 'failure'
+        if: steps.collector.outcome == 'failure' && steps.recovery.outcome != 'success'
+        run: exit 1
+
+  alternate-network-recovery:
+    # A separate hosted network can recover TEFAS timeouts without exposing
+    # credentials in the static browser or replacing official TEFAS data.
+    needs: fetch
+    if: always() && needs.fetch.result == 'failure'
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Dependencies including Windows timezone database
+        run: pip install -r requirements.txt
+      - name: Recover newest official TEFAS dates
+        id: recovery
+        continue-on-error: true
+        run: python -m scripts.fetch_tefas --recent-days 3 --skip-catalog
+      - name: Publish recovery or exact failure status
+        shell: bash
+        run: |
+          git config user.name "fon-takip-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/funds/
+          if ! git diff --cached --quiet; then
+            git commit -m "TEFAS alternate network recovery status"
+            git pull --rebase origin main
+            git push
+          fi
+      - name: Report failed recovery
+        if: steps.recovery.outcome == 'failure'
         run: exit 1

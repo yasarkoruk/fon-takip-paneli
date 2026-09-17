@@ -17,7 +17,7 @@ Ana metrik **tahmini net para akışı**dır: AUM değişiminden fiyat etkisi ay
 
 ## Otomasyon ve recovery
 
-Actions hafta içi Türkiye saatiyle 10:00'da (seans açılışı sonrası) ve 17:50'de (seans kapanışı sonrası) çalışır. Normal çalışmada son 30 günü tarayarak eksik işlem günlerini doldurur; aynı tarih için yalnızca tek kayıt bırakır. Böylece kaçırılan çalışma sonraki başarılı çalışmada iyileşir. İlk geniş tarihçe için işi tek dev isteğe çevirmeden `--backfill-days 90`, sonra `180`, sonra `365` ile aşamalı manuel çalıştırma yapılır.
+Actions hafta içi Türkiye saatiyle 10:00, 18:00 ve gecikmeler için 21:00'de çalışır. Normal çalışmada son 30 günü **en yeni tarihten başlayarak** tarar; eski bir sorgu hatası güncel günü engellemez. Aynı tarih için tek kayıt bırakır. Hatalı veya eksik çekim arşiv korunduktan ve panel verisi üretildikten sonra başarısız çıkış verir. Önce son 3 gün için tekrar deneme, o da başarısızsa farklı GitHub Windows ağı üzerinden son 3 gün telafisi uygulanır. TEFAS tüm ağlardan erişilemiyorsa son başarılı kayıtlar ve açık hata korunur; erişim garantisi yoktur. İlk geniş tarihçe yalnızca onaylı `--backfill-days 90` ile tamamlanır; daha uzun süre kullanıcı onayı gerektirir.
 
 Yerelde:
 
@@ -28,7 +28,7 @@ python -m scripts.fetch_tefas --skip-fetch
 python -m unittest discover -s tests -v
 ```
 
-Dashboard varsayılan olarak 1G'yi seçer; veri yetersizse mevcut en kısa dönemi gösterir. Üstteki arama, günlük collector tarafından oluşturulan tüm TEFAS fon kataloğunu kod veya adla tarar. Arşivlenmiş fonlar panelde açılır; henüz collector kapsamına alınmamış fonlar TEFAS detay sayfasında açılır. “Excel Raporu” seçili fonun tarihçesini `.xlsx` olarak indirir. “Veriyi Yenile” yalnızca `dashboard.json`, KAP arşivi ve katalog için cache-bust edilmiş statik yeniden yüklemedir.
+Dashboard varsayılan olarak 1G'yi seçer; veri yetersizse mevcut en kısa dönemi gösterir. Üstteki arama, günlük collector tarafından oluşturulan tüm TEFAS fon kataloğunu kod veya adla tarar. Arşivlenmiş fonlar panelde açılır; henüz collector kapsamına alınmamış fonlar TEFAS detay sayfasında açılır. “Excel Raporu” seçili fonun tarihçesini `.xlsx` olarak indirir. **Arşivi Yenile** yalnızca yayınlanan JSON'u yeniden okur; TEFAS çekimi yaptığını iddia etmez. **TEFAS Taraması** GitHub'ın yetkili workflow ekranını açar; kullanıcı burada `Run workflow` ile güvenli çekim başlatabilir. Tarayıcıya GitHub token veya canlı-query servisi eklenmez. Son veri tarihi, son deneme ve son başarılı tarama ayrıdır; eski arşiv için yeşil “veriler güncel” mesajı verilmez. Hafta sonu dikkate alınır, tatil ve TEFAS yayın gecikmeleri kesin veri eksikliği sayılmadan açıklanır.
 
 ## KAP haberleri ve likidite kontrolü
 

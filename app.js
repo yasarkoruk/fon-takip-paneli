@@ -23,6 +23,14 @@ window.addEventListener("DOMContentLoaded", () => {
   const rangeStatus = value => value > 0 ? "GİRİŞ" : value < 0 ? "ÇIKIŞ" : "DENGE";
   const rangeClass = value => value > 0 ? "positive" : value < 0 ? "negative" : "neutral";
 
+  function expectedDataDate() {
+    const parts = Object.fromEntries(new Intl.DateTimeFormat("en-CA", {timeZone:"Europe/Istanbul",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",hourCycle:"h23"}).formatToParts(new Date()).map(p => [p.type,p.value]));
+    const day = new Date(`${parts.year}-${parts.month}-${parts.day}T12:00:00Z`);
+    if (Number(parts.hour) < 18) day.setUTCDate(day.getUTCDate()-1);
+    while ([0,6].includes(day.getUTCDay())) day.setUTCDate(day.getUTCDate()-1);
+    return day.toISOString().slice(0,10);
+  }
+
   async function loadArchive() {
     const response = await fetch("data/funds/dashboard.json?t=" + Date.now(), { cache: "no-store" });
     if (!response.ok) throw new Error("HTTP " + response.status);
@@ -199,6 +207,8 @@ window.addEventListener("DOMContentLoaded", () => {
     });
     const refresh = controls.querySelector("#refresh");
     const collectorStatus = fund.status;
+    const dataDate = fund.history.at(-1)?.date;
+    const oldData = !dataDate || dataDate < expectedDataDate();
     let statusNotice = document.getElementById("panelStatus");
     if (!statusNotice) {
       statusNotice = document.createElement("div");
@@ -208,20 +218,21 @@ window.addEventListener("DOMContentLoaded", () => {
       statusNotice.setAttribute("aria-live", "polite");
       document.querySelector(".footer").before(statusNotice);
     }
-    const hasCollectorError = collectorStatus && collectorStatus.state !== "ok";
+    const hasCollectorError = !collectorStatus || collectorStatus.state !== "ok" || oldData;
     const hasSummaryError = summaryStatus?.state === "error";
     if (hasCollectorError || hasSummaryError) {
       const messages = [];
       if (hasCollectorError) messages.push(collectorStatus.message);
       if (hasSummaryError) messages.push(summaryStatus.message);
+      if (oldData) messages.push(`Son veri tarihi ${dataDate || "yok"}. Daha yeni TEFAS kaydı henüz doğrulanamadı. Tatil veya kaynak yayın gecikmesi olabilir; tarama zamanı veri tarihi değildir.`);
       statusNotice.className = "panel-status panel-status-error";
       statusNotice.setAttribute("role", "alert");
-      statusNotice.innerHTML = `<strong>⚠ VERİ GÜNCELLEME SORUNU</strong><span>Son başarılı veriler gösteriliyor. Sistem bir sonraki taramada yeniden deneyecek.</span><details><summary>Teknik ayrıntıyı göster</summary><small>${messages.map(escapeStatus).join("<br>")}</small></details>`;
+      statusNotice.innerHTML = `<strong>⚠ TEFAS VERİ KONTROL UYARISI</strong><span>Son veri tarihi: ${escapeStatus(dataDate || "yok")} · Son deneme: ${collectorStatus?.checked_at ? new Date(collectorStatus.checked_at).toLocaleString("tr-TR", {timeZone:"Europe/Istanbul"}) : "yok"}. Son başarılı kayıtlar korunuyor. Tarama bir sorun bildirdi veya veri tarihi beklenen dönemden eski.</span><details><summary>Teknik ayrıntıyı göster</summary><small>${messages.map(escapeStatus).join("<br>")}</small></details>`;
     } else {
       const checkedAt = collectorStatus?.checked_at ? new Date(collectorStatus.checked_at).toLocaleString("tr-TR") : null;
       statusNotice.className = "panel-status panel-status-ok";
       statusNotice.setAttribute("role", "status");
-      statusNotice.innerHTML = `<strong>✓ Veriler güncel</strong><span>${checkedAt ? `Son başarılı tarama: ${checkedAt}` : "Son veri taraması başarıyla tamamlandı."}</span>`;
+      statusNotice.innerHTML = `<strong>✓ TEFAS taraması tamamlandı</strong><span>Son veri tarihi: ${escapeStatus(dataDate)} · ${checkedAt ? `Son başarılı tarama: ${checkedAt}` : "Tarama zamanı bilinmiyor."}</span>`;
     }
     if (refresh && !refresh.dataset.archiveRefresh) {
       const standardRefresh = refresh.onclick;
@@ -232,17 +243,27 @@ window.addEventListener("DOMContentLoaded", () => {
         try {
           await standardRefresh();
           await loadArchive();
-          const checkedAt = activeFund()?.status?.checked_at;
-          const message = checkedAt ? `Statik arşiv yenilendi · son kontrol: ${new Date(checkedAt).toLocaleString("tr-TR")}` : "Statik arşiv yenilendi.";
-          const notice = document.getElementById("error");
-          notice.textContent = message;
-          notice.classList.remove("hidden");
-          setTimeout(() => notice.classList.add("hidden"), 3500);
+          installRangeControls();
+          // Reloading a static file is not a successful upstream collection.
+          const notice = document.getElementById("panelStatus");
+          notice?.insertAdjacentHTML("beforeend", '<small>Arşiv yeniden okundu. Bu düğme TEFAS taraması başlatmaz; gerçek veri tarihi yukarıda belirtilmiştir.</small>');
+        } catch (error) {
+          const notice = document.getElementById("panelStatus");
+          notice.className = "panel-status panel-status-error";
+          notice.setAttribute("role", "alert");
+          notice.innerHTML = `<strong>⚠ ARŞİV YENİDEN OKUNAMADI</strong><span>Mevcut ekran korunuyor. ${escapeStatus(error.message)}</span>`;
         } finally {
           refresh.disabled = false;
-          refresh.textContent = "Veriyi Yenile";
+          refresh.textContent = "Arşivi Yenile";
         }
       };
+    }
+    if (refresh) {
+      refresh.textContent = "Arşivi Yenile";
+      refresh.title = "Son yayınlanan veriyi okur; TEFAS veri çekimi GitHub Actions üzerinde çalışır.";
+    }
+    if (!controls.querySelector("#scanTefas")) {
+      controls.insertAdjacentHTML("beforeend", '<a id="scanTefas" class="tefas-open" href="https://github.com/yasarkoruk/fon-takip-paneli/actions/workflows/daily.yml" target="_blank" rel="noopener" title="GitHub hesabınızla Run workflow seçerek güvenli veri taraması başlatın">TEFAS Taraması ↗</a>');
     }
     if (!controls.querySelector("#tefasOpen")) {
       const code = encodeURIComponent(fund.fund.code);

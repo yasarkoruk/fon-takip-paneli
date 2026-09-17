@@ -5,7 +5,7 @@ from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
 from scripts.analytics import build_metrics
-from scripts.fetch_tefas import append_status_warning, collect_fund
+from scripts.fetch_tefas import append_status_warning, collect_fund, status, main
 from scripts.tefas_summary import fetch_summary
 from scripts.validate_data import validate_history
 
@@ -15,6 +15,41 @@ def row(day, price, aum, investors, shares):
 
 
 class DataEngineTests(unittest.TestCase):
+    @patch("scripts.fetch_tefas.now_istanbul", return_value=datetime(2026,9,17,18,0))
+    def test_failed_attempt_does_not_advance_success_or_data_date(self, clock):
+        from scripts.common import read_json, write_json_atomic
+        with TemporaryDirectory() as directory, patch("scripts.fetch_tefas.fund_dir",return_value=Path(directory)):
+            write_json_atomic(Path(directory)/"history.json",[row("2026-09-15",1,100,10,100)])
+            write_json_atomic(Path(directory)/"status.json",{"last_success_at":"previous","summary":{"state":"error","message":"previous error"}})
+            status("THF","error","timeout")
+            result=read_json(Path(directory)/"status.json",{})
+        self.assertEqual(result["data_date"],"2026-09-15")
+        self.assertEqual(result["last_success_at"],"previous")
+        self.assertEqual(result["summary"]["state"],"error")
+
+    @patch("scripts.fetch_tefas.build")
+    @patch("scripts.fetch_tefas.status")
+    @patch("scripts.fetch_tefas.collect_summary")
+    @patch("scripts.fetch_tefas.collect_fund",return_value=([row("2026-09-15",1,100,10,100)],0,[],False))
+    @patch("scripts.fetch_tefas.load_config",return_value={"funds":[{"code":"THF","enabled":True}]})
+    def test_offline_build_is_not_a_successful_scan(self, config, collect, summary, status_mock, build):
+        with patch("sys.argv",["fetch_tefas","--skip-fetch"]): main()
+        summary.assert_not_called()
+        status_mock.assert_not_called()
+        build.assert_called_once()
+
+    @patch("scripts.fetch_tefas.now_istanbul", return_value=datetime(2026,9,17,18,0))
+    @patch("scripts.fetch_tefas.fetch_range")
+    def test_current_day_is_fetched_before_old_repair_timeouts(self, fetch_range, clock):
+        fetch_range.side_effect = [[row("2026-09-17",1,100,10,100)], RuntimeError("timeout"), RuntimeError("timeout")]
+        config = {"collector":{"default_history_days":30,"request_chunk_days":1,"request_delay_seconds":0}}
+        with TemporaryDirectory() as directory, patch("scripts.fetch_tefas.fund_dir",return_value=Path(directory)):
+            history, added, failed, stopped = collect_fund({"code":"THF"},config,False,None)
+        self.assertEqual(fetch_range.call_args_list[0].args[1].isoformat(),"2026-09-17")
+        self.assertEqual(history[-1]["date"],"2026-09-17")
+        self.assertEqual(added,1)
+        self.assertTrue(stopped)
+
     def test_validation_rejects_duplicate_dates(self):
         history = [row("2026-09-01", 1, 100, 10, 100), row("2026-09-01", 1.1, 120, 11, 109)]
         self.assertTrue(validate_history(history, "THF"))

@@ -86,15 +86,25 @@ def collect_fund(fund: dict, config: dict, skip_fetch: bool, backfill_days: int 
     last_error = None
     consecutive_failures = 0
     stopped_early = False
+    windows = []
     while cursor <= today:
         end = min(cursor + timedelta(days=config["collector"]["request_chunk_days"] - 1), today)
+        windows.append((cursor, end))
+        cursor = end + timedelta(days=1)
+    # Normal recovery must reach today's data BEFORE older repair requests can
+    # exhaust the timeout budget. Explicit historical backfills keep their order.
+    if backfill_days is None:
+        windows.reverse()
+    for cursor, end in windows:
         # An explicit backfill fills gaps without needlessly re-querying dates
         # that were already validated in an earlier pass.
         if backfill_days is not None and cursor.isoformat() in by_date:
-            cursor = end + timedelta(days=1)
             continue
         try:
             records = fetch_range(fund, cursor, end, config)
+            errors = validate_history(records, fund["code"])
+            if errors or any(not cursor.isoformat() <= row["date"] <= end.isoformat() for row in records):
+                raise ValueError("TEFAS yanıt tarihi veya veri doğrulaması başarısız: " + "; ".join(errors))
             successful_requests += 1
             consecutive_failures = 0
         except Exception as error:
@@ -104,7 +114,6 @@ def collect_fund(fund: dict, config: dict, skip_fetch: bool, backfill_days: int 
             failed_dates.append(cursor.isoformat())
             last_error = error
             consecutive_failures += 1
-            cursor = end + timedelta(days=1)
             if (
                 consecutive_failures >= config["collector"].get("max_consecutive_failed_dates", 2)
                 or len(failed_dates) >= config["collector"].get("max_failed_dates_per_run", 2)
@@ -118,7 +127,6 @@ def collect_fund(fund: dict, config: dict, skip_fetch: bool, backfill_days: int 
             by_date[record["date"]] = record
         if config["collector"].get("request_delay_seconds"):
             time.sleep(config["collector"]["request_delay_seconds"])
-        cursor = end + timedelta(days=1)
     if not by_date and failed_dates and successful_requests == 0:
         raise RuntimeError(
             f"TEFAS tüm tarih sorgularında başarısız oldu ({len(failed_dates)} tarih): {last_error}"
@@ -132,11 +140,16 @@ def collect_fund(fund: dict, config: dict, skip_fetch: bool, backfill_days: int 
 
 
 def status(code: str, state: str, message: str, observations: int = 0, summary_error: str | None = None) -> None:
-    payload = {"state": state, "message": message, "checked_at": now_istanbul().isoformat(), "observations": observations}
+    previous = read_json(fund_dir(code) / "status.json", {})
+    history = read_json(fund_dir(code) / "history.json", [])
+    checked_at = now_istanbul().isoformat()
+    payload = {"state": state, "message": message, "checked_at": checked_at, "observations": observations,
+               "data_date": history[-1]["date"] if history else None,
+               "last_success_at": checked_at if state == "ok" else previous.get("last_success_at")}
     if summary_error:
         payload["summary"] = {"state": "error", "message": summary_error}
     else:
-        payload["summary"] = {"state": "ok"}
+        payload["summary"] = previous.get("summary", {"state": "unknown"}) if state == "error" else {"state": "ok"}
     write_json_atomic(fund_dir(code) / "status.json", payload)
 
 
@@ -154,25 +167,40 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--skip-fetch", action="store_true", help="Only migrate/build existing data; no TEFAS request.")
     parser.add_argument("--backfill-days", type=int, help="Explicit historical lookback; use a staged value such as 90 or 365.")
+    parser.add_argument("--recent-days", type=int, help="Bounded current-date recovery, newest date first.")
+    parser.add_argument("--skip-catalog", action="store_true", help="Refresh fund data without the independent market catalogue.")
     args = parser.parse_args()
     config = load_config()
+    if args.recent_days is not None:
+        if not 1 <= args.recent_days <= 90:
+            parser.error("recent-days must be between 1 and 90")
+        config["collector"]["default_history_days"] = args.recent_days
+    failed = False
     for fund in config["funds"]:
         if not fund.get("enabled"):
             continue
         try:
             history, added, failed_dates, stopped_early = collect_fund(fund, config, args.skip_fetch, args.backfill_days)
-            _, summary_error = collect_summary(fund, history, config)
+            _, summary_error = (None, None) if args.skip_fetch else collect_summary(fund, history, config)
             state = "warning" if failed_dates or summary_error else "ok"
             message = f"{added} yeni işlem günü işlendi"
+            expected = now_istanbul().date() - timedelta(days=1)
+            while expected.weekday() >= 5:
+                expected -= timedelta(days=1)
+            if not args.skip_fetch and (not history or history[-1]["date"] < expected.isoformat()):
+                state = "warning"
+                message += "; beklenen yakın dönem için yeni TEFAS kaydı doğrulanamadı (tatil veya yayın gecikmesi olabilir)"
             if failed_dates:
                 message += f"; {len(failed_dates)} tarih geçici olarak alınamadı ve sonraki taramada yeniden denenecek"
             if stopped_early:
                 message += "; art arda zaman aşımı nedeniyle tarama erken sonlandırıldı"
-            status(fund["code"], state, message, len(history), summary_error)
+            if not args.skip_fetch:
+                status(fund["code"], state, message, len(history), summary_error)
+            failed = failed or state != "ok"
         except Exception as error:
             status(fund["code"], "error", str(error))
-            raise
-    if not args.skip_fetch:
+            failed = True
+    if not args.skip_fetch and not args.skip_catalog:
         try:
             collect_catalog(config)
         except Exception as error:
@@ -182,6 +210,8 @@ def main() -> None:
                 if fund.get("enabled"):
                     append_status_warning(fund["code"], f"Fon kataloğu güncellenemedi: {error}")
     build()
+    if failed:
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":
