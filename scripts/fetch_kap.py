@@ -57,14 +57,17 @@ def body_text(bodies):
 def request_json(path, config):
     failure = None
     for attempt in range(config["max_retries"]):
+        remaining = config.get("_deadline", time.monotonic() + 480) - time.monotonic()
+        if remaining <= 0:
+            raise RuntimeError("KAP çalışma süresi sınırına ulaşıldı; eksik kayıtlar sonraki kontrolde yeniden denenecek")
         try:
             request = urllib.request.Request(BASE + path, headers={"Accept": "application/json", "User-Agent": "FonTakipPaneli/2 KAP public disclosures"})
-            with urllib.request.urlopen(request, timeout=config["timeout_seconds"]) as response:
+            with urllib.request.urlopen(request, timeout=min(config["timeout_seconds"], max(1, remaining))) as response:
                 return json.load(response)
         except Exception as error:
             failure = error
             if attempt + 1 < config["max_retries"]:
-                time.sleep(2 ** attempt)
+                time.sleep(min(2 ** attempt, max(0, remaining)))
     raise RuntimeError(f"KAP sorgusu başarısız ({path}): {failure}")
 
 
@@ -125,7 +128,8 @@ def rapid_needed(archive):
 
 
 def collect(config=None):
-    config = config or read_json(ROOT / "config" / "kap.json", {})
+    config = dict(config or read_json(ROOT / "config" / "kap.json", {}))
+    config["_deadline"] = time.monotonic() + config.get("max_runtime_seconds", 480)
     archive = read_json(ARCHIVE, {"funds": {}, "reviewed_events": [], "status": {}})
     started = now_istanbul().isoformat()
     errors, new_count = [], 0

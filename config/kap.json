@@ -4,6 +4,7 @@
   "timeout_seconds": 25,
   "max_retries": 3,
   "max_details_per_run": 20,
+  "max_runtime_seconds": 480,
   "sources": [
     {"code": "THF", "member_oid": "4028328c950ba8c70195140f682921da"}
   ],

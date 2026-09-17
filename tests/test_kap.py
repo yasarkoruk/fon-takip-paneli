@@ -3,7 +3,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
-from scripts.fetch_kap import body_text, collect, merge_records, needs_review, normalize, rapid_needed
+from scripts.fetch_kap import body_text, collect, merge_records, needs_review, normalize, rapid_needed, request_json
 from scripts.common import read_json, write_json_atomic
 
 
@@ -14,6 +14,12 @@ def listed(index=10, code="THF", related=None):
 
 
 class KapTests(unittest.TestCase):
+    def test_runtime_budget_stops_before_a_new_network_request(self):
+        with patch("scripts.fetch_kap.time.monotonic", return_value=10), patch("scripts.fetch_kap.urllib.request.urlopen") as request:
+            with self.assertRaises(RuntimeError):
+                request_json("api/test", {"max_retries":3,"_deadline":9})
+            request.assert_not_called()
+
     def test_adaptive_control_activates_for_incident_or_failure(self):
         self.assertTrue(rapid_needed({}))
         self.assertTrue(rapid_needed({"status": {"state": "error"}}))
