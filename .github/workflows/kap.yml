@@ -1,0 +1,63 @@
+name: KAP Bildirim ve Likidite Kontrolü
+
+on:
+  schedule:
+    - cron: "0 5-20 * * *" # 08:00–23:00 Istanbul, hourly
+    - cron: "30 5-20 * * *" # extra checks only when incident/recovery active
+    - cron: "0 23,2 * * *" # 02:00 and 05:00 Istanbul
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fund-data-writers
+  cancel-in-progress: false
+
+jobs:
+  kap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Adaptive control gate
+        id: gate
+        env:
+          HALF_HOUR: ${{ github.event.schedule == '30 5-20 * * *' }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          from scripts.fetch_kap import rapid_needed
+          p = Path('data/kap/archive.json')
+          d = json.loads(p.read_text()) if p.exists() else {}
+          rapid = rapid_needed(d)
+          run = os.environ['HALF_HOUR'] != 'true' or rapid
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+              out.write(f'run={str(run).lower()}\n')
+          PY
+      - name: KAP archive and recovery
+        if: steps.gate.outputs.run == 'true'
+        id: collector
+        continue-on-error: true
+        run: python -m scripts.fetch_kap
+      - name: Test archive engine
+        if: steps.gate.outputs.run == 'true'
+        run: python -m unittest discover -s tests -p 'test_kap.py' -v
+      - name: Publish preserved archive and status
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          git config user.name "fon-takip-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/kap/
+          if ! git diff --cached --quiet; then
+            git commit -m "KAP archive and control status updated"
+            git pull --rebase origin main
+            git push
+          fi
+      - name: Report collector failure
+        if: steps.collector.outcome == 'failure'
+        run: exit 1

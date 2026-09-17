@@ -1,0 +1,25 @@
+{
+  "timezone": "Europe/Istanbul",
+  "lookback_days": 365,
+  "timeout_seconds": 25,
+  "max_retries": 3,
+  "max_details_per_run": 20,
+  "sources": [
+    {"code": "THF", "member_oid": "4028328c950ba8c70195140f682921da"}
+  ],
+  "reviewed_events": [
+    {
+      "code": "THF", "disclosure_id": 1664344, "state": "active",
+      "scope": "Fon", "label": "İade ödemelerinde temerrüt bildirimi",
+      "description": "THF katılma payı iade ödemelerinde temerrüt oluştuğu bildirildi. Aracı kurum mutabakatları ve likidite yönetimi sürüyor; bu bildirim iflas kararı değildir.",
+      "payment_date": null, "resolution_disclosure_id": null
+    },
+    {
+      "code": "PUSULA", "disclosure_id": 1662926, "state": "active",
+      "scope": "Kurucu — bazı fonlar, kodlar belirtilmemiş",
+      "label": "Bazı fonların iade ödemelerinde temerrüt bildirimi",
+      "description": "Pusula Portföy bazı fonlarında iade ödemesi temerrüdü bildirdi. Fon kodları açıklamada belirtilmediğinden tüm Pusula fonlarına bu durum atanmaz; iflas sonucu çıkarılmaz.",
+      "payment_date": null, "resolution_disclosure_id": null
+    }
+  ]
+}

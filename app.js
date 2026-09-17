@@ -1,6 +1,9 @@
 // The browser owns installation: Chrome/Edge use the address-bar install icon;
 // Safari uses Add to Home Screen. Do not intercept beforeinstallprompt.
 window.addEventListener("DOMContentLoaded", () => {
+  const kapScript = document.createElement("script");
+  kapScript.src = "kap.js?v=1";
+  document.head.append(kapScript);
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("/fon-takip-paneli/sw.js?v=8").then(registration => registration.update()).catch(() => {});
   }

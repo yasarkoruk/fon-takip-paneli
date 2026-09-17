@@ -28,7 +28,22 @@ python -m scripts.fetch_tefas --skip-fetch
 python -m unittest discover -s tests -v
 ```
 
-Dashboard varsayılan olarak 14G'yi seçer; veri yetersizse mevcut en kısa dönemi gösterir. Üstteki arama, günlük collector tarafından oluşturulan tüm TEFAS fon kataloğunu kod veya adla tarar. Arşivlenmiş fonlar panelde açılır; henüz collector kapsamına alınmamış fonlar TEFAS detay sayfasında açılır. “Excel Raporu” seçili fonun tarihçesini `.xlsx` olarak indirir. “Veriyi Yenile” yalnızca `dashboard.json` ve katalog için cache-bust edilmiş statik yeniden yüklemedir.
+Dashboard varsayılan olarak 1G'yi seçer; veri yetersizse mevcut en kısa dönemi gösterir. Üstteki arama, günlük collector tarafından oluşturulan tüm TEFAS fon kataloğunu kod veya adla tarar. Arşivlenmiş fonlar panelde açılır; henüz collector kapsamına alınmamış fonlar TEFAS detay sayfasında açılır. “Excel Raporu” seçili fonun tarihçesini `.xlsx` olarak indirir. “Veriyi Yenile” yalnızca `dashboard.json`, KAP arşivi ve katalog için cache-bust edilmiş statik yeniden yüklemedir.
+
+## KAP haberleri ve likidite kontrolü
+
+`KAP resmi sorgusu → scripts.fetch_kap → data/kap/archive.json → statik panel`
+
+- `config/kap.json` takip edilen fonların KAP member OID'lerini ve insan incelemesinden geçen olayları saklar. Başlangıç kapsamı THF; Pusula kurucu bildirimi ayrı piyasa izleme notudur, tüm Pusula fonlarına atanmaz.
+- KAP'ın kendi güncel istemcisinin kullandığı `tr/api/disclosure/filter/FILTERYFBF/{memberOid}/ALL/365` liste uç noktası her kontrolde okunur; ID bazında birleştirilir. Bu 365 günlük **bildirim** taraması, 90 günlük TEFAS fiyat tarihçesini büyütmez. Liste tek JSON dizisidir; şema veya kapsam değişirse hata kaydedilir.
+- Fonun genel açıklama/iade/likidite adaylarının resmi metni `tr/api/notification/attachment-detail/{index}` üzerinden alınır. Ek PDF'ler otomatik yorumlanmaz. İlk ekranda son 5 doğrudan fon bildirimi, isteğe bağlı ilişkili kurum bildirimleri ve eski kayıtları açma bulunur.
+- Kelimeler yalnızca **inceleme adayı** üretir; otomatik temerrüt, iflas veya yatırım kararı vermez. İncelenmiş olaylar `reviewed_events` içinde açık kalır. Haber yokluğu, fiyat yükselişi, erişim hatası veya yapılandırmadan kaydın çıkarılması olayı kapatmaz. Kapatma ancak açık bir inceleme ve aynı kapsamlı resmi `resolution_disclosure_id` ile yapılır.
+- `.github/workflows/kap.yml` her gün Türkiye saati 08:00–23:00 saatlik kontrol eder. Açık olay, inceleme adayı veya önceki kontrol hatası varsa :30 ek kontrolleri açar (23:30 dahil). Gece 02:00 ve 05:00 kontrolü vardır. GitHub planlı işleri geciktirebilir; gerçek kontrol zamanı gösterilir, kesin gerçek-zaman garantisi yoktur.
+- 3 deneme, artan bekleme, 25 saniye istek sınırı ve çalışma başına 20 aday detay sınırı vardır. Eksik detaylar sonraki kontrolde tamamlanır. Hata halinde başarılı arşiv ve olaylar korunur; `last_attempt_at`, `last_success_at`, hata ve art arda başarısızlık sayısı saklanır. KAP kontrol durumunun yeşil olması **fonun güvenli olduğu anlamına gelmez**.
+- Tarayıcı dakikada bir yalnızca kendi statik KAP arşivini kontrol eder; KAP'a canlı istek atmaz. KAP kontrol hataları ve gecikme uyarısı panelin en altındadır, finansal risk olayı haber bölümündedir.
+- TEFAS ve KAP veri yazıcıları aynı concurrency grubunu kullanır; birbirlerini yarıda kesmez. Yayın öncesi kaynak güncellemeleri korunur.
+
+Manuel kontrol: `python -m scripts.fetch_kap`. Kontrol kapsamı ve resmi kaynak bağlantıları panelde görünür; arşiv tarihleri Europe/Istanbul'dur.
 
 TEFAS özeti, koleksiyon sırasında ayrıca alınır: fon bilgisi, portföy varlık dağılımı ile 1A/3A/6A/1Y getirileri. Kaynak açık yanıtta kategori derecesi veya pazar payı vermiyorsa panel bu alanları `—` gösterir; ekran görüntüsündeki eski değerleri sabitlemez. Özet isteği geçici olarak başarısız olursa son başarılı özet korunur ve hata `status.json` üzerinden panelde görünür.
 
