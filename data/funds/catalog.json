@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-15T18:05:56.144058+03:00",
-  "count": 2340,
+  "generated_at": "2026-09-18T21:02:16.255610+03:00",
+  "count": 2339,
   "funds": [
     {
       "code": "AAJ",
@@ -4519,7 +4519,7 @@
     },
     {
       "code": "GCT",
-      "name": "GARANTİ EMEKLİLİK VE HAYAT A.Ş. BİRİNCİ FON SEPETİ EMEKLİLİK YATIRIM FONU",
+      "name": "GARANTİ EMEKLİLİK VE HAYAT A.Ş. EMTİA FON SEPETİ EMEKLİLİK YATIRIM FONU",
       "type": "PEN",
       "category": "Fon Sepeti Fonu",
       "active": true
@@ -7048,13 +7048,6 @@
       "code": "ITN",
       "name": "İSTANBUL PORTFÖY YÖNETİMİ A.Ş. METİS VENTURES GİRİŞİM SERMAYESİ YATIRIM FONU",
       "type": "VC",
-      "category": null,
-      "active": false
-    },
-    {
-      "code": "ITO",
-      "name": "İŞ PORTFÖY YÖNETİMİ A.Ş. T-FON PROJE GAYRİMENKUL YATIRIM FONU",
-      "type": "RE",
       "category": null,
       "active": false
     },
