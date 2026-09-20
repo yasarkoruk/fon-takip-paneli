@@ -2646,7 +2646,7 @@
       "payment_date": null,
       "resolution_disclosure_id": null,
       "url": "https://www.kap.org.tr/tr/Bildirim/1664344",
-      "verified_at": "2026-09-20T12:32:42.342680+03:00",
+      "verified_at": "2026-09-20T12:53:32.301069+03:00",
       "published_at": "2026-09-16T20:35:10+03:00",
       "source_text": "Kurucusu olduğumuz TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON) katılma payı iade ödemelerinde temerrüt durumu oluşmuştur. İlgili fon hesabına işlem yapılan aracı kurumlar ile mutabakatlar ve likidite yönetim süreci devam etmektedir. Konuya ilişkin gerekli tedbirler özenle alınmakta olup, gelişmeler hakkında yatırımcılarımız bilgilendirilmeye devam edilecektir."
     },
@@ -2660,15 +2660,15 @@
       "payment_date": null,
       "resolution_disclosure_id": null,
       "url": "https://www.kap.org.tr/tr/Bildirim/1662926",
-      "verified_at": "2026-09-20T12:32:42.342680+03:00",
+      "verified_at": "2026-09-20T12:53:32.301069+03:00",
       "published_at": "2026-09-15T15:23:29+03:00",
       "source_text": "Kurucusu olduğumuz bazı yatırım fonlarının katılma payı iade ödemelerinde temerrüt durumu oluşmuştur. İlgili fonlar hesabına işlem yapılan aracı kurumlar ile mutabakatlar ve likidite yönetim süreci devam etmektedir. Konuya ilişkin gerekli tedbirler özenle alınmakta olup, gelişmeler hakkında yatırımcılarımız bilgilendirilmeye devam edilecektir."
     }
   ],
   "status": {
     "state": "ok",
-    "last_attempt_at": "2026-09-20T12:32:42.342680+03:00",
-    "last_success_at": "2026-09-20T12:32:42.342680+03:00",
+    "last_attempt_at": "2026-09-20T12:53:32.301069+03:00",
+    "last_success_at": "2026-09-20T12:53:32.301069+03:00",
     "new_count": 0,
     "errors": [],
     "coverage": "Yapılandırılmış fonların 365 günlük KAP bildirim listesi; ek dosyalar otomatik yorumlanmaz.",
