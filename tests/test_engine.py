@@ -38,6 +38,21 @@ class DataEngineTests(unittest.TestCase):
         status_mock.assert_not_called()
         build.assert_called_once()
 
+    @patch("scripts.fetch_tefas.expected_data_date", return_value=datetime(2026, 9, 22).date())
+    @patch("scripts.fetch_tefas.build")
+    @patch("scripts.fetch_tefas.status")
+    @patch("scripts.fetch_tefas.collect_summary", return_value=(None, "summary timeout"))
+    @patch("scripts.fetch_tefas.collect_fund", return_value=([row("2026-09-22", 1, 100, 10, 100)], 1, ["2026-09-21"], True))
+    @patch("scripts.fetch_tefas.load_config", return_value={"funds":[{"code":"THF","enabled":True}]})
+    def test_current_core_data_keeps_workflow_green_when_summary_warns(
+        self, config, collect, summary, status_mock, build, expected
+    ):
+        with patch("sys.argv", ["fetch_tefas", "--skip-catalog"]):
+            main()
+        self.assertEqual(status_mock.call_args.args[1], "warning")
+        self.assertTrue(status_mock.call_args.kwargs["data_success"])
+        build.assert_called_once()
+
     @patch("scripts.fetch_tefas.now_istanbul", return_value=datetime(2026,9,17,18,0))
     @patch("scripts.fetch_tefas.fetch_range")
     def test_current_day_is_fetched_before_old_repair_timeouts(self, fetch_range, clock):
@@ -49,6 +64,16 @@ class DataEngineTests(unittest.TestCase):
         self.assertEqual(history[-1]["date"],"2026-09-17")
         self.assertEqual(added,1)
         self.assertTrue(stopped)
+
+    @patch("scripts.fetch_tefas.now_istanbul", return_value=datetime(2026, 9, 22, 12, 0))
+    def test_expected_date_is_today_after_morning_scan_time(self, clock):
+        from scripts.fetch_tefas import expected_data_date
+        self.assertEqual(expected_data_date().isoformat(), "2026-09-22")
+
+    @patch("scripts.fetch_tefas.now_istanbul", return_value=datetime(2026, 9, 22, 0, 54))
+    def test_delayed_evening_run_expects_previous_business_day(self, clock):
+        from scripts.fetch_tefas import expected_data_date
+        self.assertEqual(expected_data_date().isoformat(), "2026-09-21")
 
     def test_validation_rejects_duplicate_dates(self):
         history = [row("2026-09-01", 1, 100, 10, 100), row("2026-09-01", 1.1, 120, 11, 109)]

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T00:54:31.003893+03:00",
+  "generated_at": "2026-09-22T12:02:57.033040+03:00",
   "timezone": "Europe/Istanbul",
   "funds": [
     {
@@ -613,23 +613,33 @@
         },
         {
           "date": "2026-09-21",
-          "fetched_at": "2026-09-22T00:46:26.924450+03:00",
+          "fetched_at": "2026-09-22T12:02:47.147518+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 1.905261,
           "portfolio_size": 40453725508.03,
           "investor_count": 214405.0,
           "shares_outstanding": 21232646196.0
+        },
+        {
+          "date": "2026-09-22",
+          "fetched_at": "2026-09-22T12:02:45.041112+03:00",
+          "fund_code": "THF",
+          "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
+          "price": 1.671229,
+          "portfolio_size": 35484617231.44,
+          "investor_count": 214405.0,
+          "shares_outstanding": 21232646196.0
         }
       ],
       "metrics": {
         "current": {
-          "date": "2026-09-21",
-          "fetched_at": "2026-09-22T00:46:26.924450+03:00",
+          "date": "2026-09-22",
+          "fetched_at": "2026-09-22T12:02:45.041112+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
-          "price": 1.905261,
-          "portfolio_size": 40453725508.03,
+          "price": 1.671229,
+          "portfolio_size": 35484617231.44,
           "investor_count": 214405.0,
           "shares_outstanding": 21232646196.0
         },
@@ -1298,125 +1308,135 @@
             "aum_change": -8492686705.43,
             "price_return_pct": -17.3638381646095,
             "quality_warnings": []
+          },
+          {
+            "date": "2026-09-22",
+            "estimated_net_flow": 9491.576820373535,
+            "share_based_flow": 0.0,
+            "flow_method_gap": 9491.576820373535,
+            "investor_change": 0.0,
+            "shares_change": 0.0,
+            "aum_change": -4969108276.589996,
+            "price_return_pct": -12.283461426019848,
+            "quality_warnings": []
           }
         ],
         "periods": {
           "1": {
             "observations": 1,
-            "from": "2026-09-18",
-            "to": "2026-09-21",
-            "estimated_net_flow": 6289098.697853088,
-            "share_based_flow": 6956770.973162999,
-            "investor_change": 106.0,
-            "shares_change": 3304202.0,
-            "aum_change": -8492686705.43,
-            "return_pct": -17.3638381646095
+            "from": "2026-09-21",
+            "to": "2026-09-22",
+            "estimated_net_flow": 9491.576820373535,
+            "share_based_flow": 0,
+            "investor_change": 0.0,
+            "shares_change": 0.0,
+            "aum_change": -4969108276.589996,
+            "return_pct": -12.283461426019848
           },
           "7": {
             "observations": 7,
-            "from": "2026-09-10",
-            "to": "2026-09-21",
-            "estimated_net_flow": -42896451893.69545,
-            "share_based_flow": -48214090600.6377,
-            "investor_change": 42025.0,
-            "shares_change": -20262904316.0,
-            "aum_change": -80390303293.05,
-            "return_pct": -34.576956318845745
+            "from": "2026-09-11",
+            "to": "2026-09-22",
+            "estimated_net_flow": -52776595870.63647,
+            "share_based_flow": -58087266478.44042,
+            "investor_change": 31675.0,
+            "shares_change": -23650768333.0,
+            "aum_change": -95410568175.18,
+            "return_pct": -42.69426246203286
           },
           "14": {
             "observations": 14,
-            "from": "2026-09-01",
-            "to": "2026-09-21",
-            "estimated_net_flow": -2938974274.891626,
-            "share_based_flow": -8474746877.779399,
-            "investor_change": 93264.0,
-            "shares_change": -6229869145.0,
-            "aum_change": -34365866493.66,
-            "return_pct": -30.067434388014203
+            "from": "2026-09-02",
+            "to": "2026-09-22",
+            "estimated_net_flow": -5828615744.081739,
+            "share_based_flow": -11355800908.17419,
+            "investor_change": 81853.0,
+            "shares_change": -7284204852.0,
+            "aum_change": -42672347125.69,
+            "return_pct": -39.02246446109776
           },
           "30": {
             "observations": 30,
-            "from": "2026-08-10",
-            "to": "2026-09-21",
-            "estimated_net_flow": 65505328364.758865,
-            "share_based_flow": 59579053552.390884,
-            "investor_change": 206296.0,
-            "shares_change": 20400088307.0,
-            "aum_change": 38580993419.32,
-            "return_pct": -15.298092089703264
+            "from": "2026-08-11",
+            "to": "2026-09-22",
+            "estimated_net_flow": 65341495298.2844,
+            "share_based_flow": 59416191052.66062,
+            "investor_change": 205629.0,
+            "shares_change": 20328120325.0,
+            "aum_change": 33425374534.850002,
+            "return_pct": -26.590980668971564
           },
           "90": {
-            "observations": 60,
+            "observations": 61,
             "from": "2026-06-10",
-            "to": "2026-09-21",
-            "estimated_net_flow": 66259220608.35834,
+            "to": "2026-09-22",
+            "estimated_net_flow": 66259230099.93516,
             "share_based_flow": 60328040420.55989,
             "investor_change": 206182.0,
             "shares_change": 20742704395.0,
-            "aum_change": 39368714910.18,
-            "return_pct": -13.967000365759496
+            "aum_change": 34399606633.590004,
+            "return_pct": -24.534830689479225
           },
           "365": {
-            "observations": 60,
+            "observations": 61,
             "from": "2026-06-10",
-            "to": "2026-09-21",
-            "estimated_net_flow": 66259220608.35834,
+            "to": "2026-09-22",
+            "estimated_net_flow": 66259230099.93516,
             "share_based_flow": 60328040420.55989,
             "investor_change": 206182.0,
             "shares_change": 20742704395.0,
-            "aum_change": 39368714910.18,
-            "return_pct": -13.967000365759496
+            "aum_change": 34399606633.590004,
+            "return_pct": -24.534830689479225
           }
         },
-        "flow_status": "GÜÇLÜ GİRİŞ"
+        "flow_status": "GİRİŞ"
       },
       "tefas_summary": {
         "state": "ok",
-        "fetched_at": "2026-09-17T22:54:49.998596+03:00",
-        "source_date": "2026-09-17",
+        "fetched_at": "2026-09-22T12:02:57.001918+03:00",
+        "source_date": "2026-09-22",
         "fund_category": "Hisse Senedi Fonu",
-        "category_rank_1y": "2/200",
+        "category_rank_1y": "91/200",
         "category_fund_count_1y": 200.0,
-        "market_share_pct": 43.51,
+        "market_share_pct": 17.43,
         "returns_pct": {
-          "1m": 13.0036,
-          "3m": 20.0998,
-          "6m": 41.2096,
-          "1y": 95.2903
+          "1m": -34.7719,
+          "3m": -25.2138,
+          "6m": -12.8666,
+          "1y": 19.1533
         },
         "asset_allocation": [
           {
             "code": "hs",
             "name": "Hisse Senedi",
-            "ratio_pct": 87.93
+            "ratio_pct": 87.05
           },
           {
             "code": "yyf",
             "name": "Yatırım Fonları Katılma Payları",
-            "ratio_pct": 11.16
+            "ratio_pct": 12.38
           },
           {
             "code": "vint",
             "name": "Vadeli İşlemler Nakit Teminatları",
-            "ratio_pct": 0.9
+            "ratio_pct": 0.55
           },
           {
             "code": "fb",
             "name": "Finansman Bonosu",
-            "ratio_pct": 0.01
+            "ratio_pct": 0.02
           }
         ]
       },
       "status": {
-        "state": "warning",
-        "message": "0 yeni işlem günü işlendi; 2 tarih geçici olarak alınamadı ve sonraki taramada yeniden denenecek; art arda zaman aşımı nedeniyle tarama erken sonlandırıldı",
-        "checked_at": "2026-09-22T00:54:31.001362+03:00",
-        "observations": 61,
-        "data_date": "2026-09-21",
-        "last_success_at": "2026-09-17T22:54:50.010853+03:00",
+        "state": "ok",
+        "message": "1 yeni işlem günü işlendi",
+        "checked_at": "2026-09-22T12:02:57.011981+03:00",
+        "observations": 62,
+        "data_date": "2026-09-22",
+        "last_success_at": "2026-09-22T12:02:57.011981+03:00",
         "summary": {
-          "state": "error",
-          "message": "TEFAS özet sorgusu başarısız: Timeout: Failed to perform, curl: (28) Connection timed out after 30002 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details."
+          "state": "ok"
         }
       }
     }

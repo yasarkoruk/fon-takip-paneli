@@ -67,7 +67,11 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 20
     steps:
+      # The primary job may have committed a warning/status update. Starting
+      # from the scheduled event SHA caused the recovery push to conflict.
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"

@@ -139,13 +139,23 @@ def collect_fund(fund: dict, config: dict, skip_fetch: bool, backfill_days: int 
     return history, added, failed_dates, stopped_early
 
 
-def status(code: str, state: str, message: str, observations: int = 0, summary_error: str | None = None) -> None:
+def expected_data_date() -> date:
+    """Latest business date expected from TEFAS at the current Istanbul time."""
+    current = now_istanbul()
+    expected = current.date() if current.hour >= 10 else current.date() - timedelta(days=1)
+    while expected.weekday() >= 5:
+        expected -= timedelta(days=1)
+    return expected
+
+
+def status(code: str, state: str, message: str, observations: int = 0,
+           summary_error: str | None = None, data_success: bool = False) -> None:
     previous = read_json(fund_dir(code) / "status.json", {})
     history = read_json(fund_dir(code) / "history.json", [])
     checked_at = now_istanbul().isoformat()
     payload = {"state": state, "message": message, "checked_at": checked_at, "observations": observations,
                "data_date": history[-1]["date"] if history else None,
-               "last_success_at": checked_at if state == "ok" else previous.get("last_success_at")}
+               "last_success_at": checked_at if data_success else previous.get("last_success_at")}
     if summary_error:
         payload["summary"] = {"state": "error", "message": summary_error}
     else:
@@ -184,10 +194,9 @@ def main() -> None:
             _, summary_error = (None, None) if args.skip_fetch else collect_summary(fund, history, config)
             state = "warning" if failed_dates or summary_error else "ok"
             message = f"{added} yeni işlem günü işlendi"
-            expected = now_istanbul().date() - timedelta(days=1)
-            while expected.weekday() >= 5:
-                expected -= timedelta(days=1)
-            if not args.skip_fetch and (not history or history[-1]["date"] < expected.isoformat()):
+            expected = expected_data_date()
+            data_fresh = bool(history and history[-1]["date"] >= expected.isoformat())
+            if not args.skip_fetch and not data_fresh:
                 state = "warning"
                 message += "; beklenen yakın dönem için yeni TEFAS kaydı doğrulanamadı (tatil veya yayın gecikmesi olabilir)"
             if failed_dates:
@@ -195,8 +204,11 @@ def main() -> None:
             if stopped_early:
                 message += "; art arda zaman aşımı nedeniyle tarama erken sonlandırıldı"
             if not args.skip_fetch:
-                status(fund["code"], state, message, len(history), summary_error)
-            failed = failed or state != "ok"
+                status(fund["code"], state, message, len(history), summary_error, data_success=data_fresh)
+            # Summary/catalogue interruptions remain visible warnings, but a
+            # current validated daily record must not turn the whole workflow
+            # red. A stale/missing core history still fails loudly.
+            failed = failed or (not args.skip_fetch and not data_fresh)
         except Exception as error:
             status(fund["code"], "error", str(error))
             failed = True
