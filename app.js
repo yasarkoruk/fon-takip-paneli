@@ -218,9 +218,10 @@ window.addEventListener("DOMContentLoaded", () => {
       statusNotice.setAttribute("aria-live", "polite");
       document.querySelector(".footer").before(statusNotice);
     }
-    const hasCollectorError = !collectorStatus || collectorStatus.state !== "ok" || oldData;
+    const hasCollectorError = !collectorStatus || collectorStatus.state === "error" || oldData;
+    const hasAuxiliaryWarning = collectorStatus?.state === "warning";
     const hasSummaryError = summaryStatus?.state === "error";
-    if (hasCollectorError || hasSummaryError) {
+    if (hasCollectorError) {
       const messages = [];
       if (hasCollectorError) messages.push(collectorStatus.message);
       if (hasSummaryError) messages.push(summaryStatus.message);
@@ -228,6 +229,13 @@ window.addEventListener("DOMContentLoaded", () => {
       statusNotice.className = "panel-status panel-status-error";
       statusNotice.setAttribute("role", "alert");
       statusNotice.innerHTML = `<strong>⚠ TEFAS VERİ KONTROL UYARISI</strong><span>Son veri tarihi: ${escapeStatus(dataDate || "yok")} · Son deneme: ${collectorStatus?.checked_at ? new Date(collectorStatus.checked_at).toLocaleString("tr-TR", {timeZone:"Europe/Istanbul"}) : "yok"}. Son başarılı kayıtlar korunuyor. Tarama bir sorun bildirdi veya veri tarihi beklenen dönemden eski.</span><details><summary>Teknik ayrıntıyı göster</summary><small>${messages.map(escapeStatus).join("<br>")}</small></details>`;
+    } else if (hasAuxiliaryWarning || hasSummaryError) {
+      const messages = [];
+      if (collectorStatus?.message) messages.push(collectorStatus.message);
+      if (hasSummaryError) messages.push(summaryStatus.message);
+      statusNotice.className = "panel-status";
+      statusNotice.setAttribute("role", "status");
+      statusNotice.innerHTML = `<strong>✓ Ana TEFAS verisi güncel · Ek servis uyarısı</strong><span>Son veri tarihi: ${escapeStatus(dataDate)}. Günlük ana kayıt doğrulandı; özet veya fon kataloğu kontrolü geçici olarak tamamlanamadı.</span><details><summary>Teknik ayrıntıyı göster</summary><small>${messages.map(escapeStatus).join("<br>")}</small></details>`;
     } else {
       const checkedAt = collectorStatus?.checked_at ? new Date(collectorStatus.checked_at).toLocaleString("tr-TR") : null;
       statusNotice.className = "panel-status panel-status-ok";
