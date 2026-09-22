@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-18T21:02:16.255610+03:00",
-  "count": 2339,
+  "generated_at": "2026-09-22T21:30:33.569847+03:00",
+  "count": 2341,
   "funds": [
     {
       "code": "AAJ",
@@ -2178,6 +2178,13 @@
       "type": "SEC",
       "category": "Serbest Şemsiye Fonu",
       "active": true
+    },
+    {
+      "code": "BYA",
+      "name": "ANATOLIA GAYRİMENKUL VE GİRİŞİM SERMAYESİ PORTFÖY YÖNETİMİ A.Ş. BİYOTEKNOLOJİ GİRİŞİM SERMAYESİ YATIRIM FONU",
+      "type": "VC",
+      "category": null,
+      "active": false
     },
     {
       "code": "BYF",
@@ -6052,7 +6059,7 @@
     },
     {
       "code": "HSR",
-      "name": "ALLİANZ YAŞAM VE EMEKLİLİK A.Ş. HİSSE SENEDİ EMEKLİLİK YATIRIM FONU",
+      "name": "ALLIANZ YAŞAM VE EMEKLİLİK A.Ş. HİSSE SENEDİ EMEKLİLİK YATIRIM FONU",
       "type": "PEN",
       "category": "Hisse Senedi Fonu",
       "active": true
@@ -15585,13 +15592,6 @@
       "active": false
     },
     {
-      "code": "YOR",
-      "name": "24 GAYRİMENKUL VE GİRİŞİM SERMAYESİ PORTFÖY YÖNETİMİ A.Ş. ORKİDE PROJE GAYRİMENKUL YATIRIM FONU",
-      "type": "RE",
-      "category": null,
-      "active": false
-    },
-    {
       "code": "YOT",
       "name": "YAPI KREDİ PORTFÖY BORÇLANMA ARAÇLARI FONU",
       "type": "SEC",
@@ -15803,7 +15803,7 @@
     },
     {
       "code": "YZD",
-      "name": "ALLİANZ YAŞAM VE EMEKLİLİK A.Ş. TEKNOLOJİ SEKTÖRÜ FON SEPETİ EMEKLİLİK YATIRIM FONU",
+      "name": "ALLIANZ YAŞAM VE EMEKLİLİK A.Ş. TEKNOLOJİ SEKTÖRÜ FON SEPETİ EMEKLİLİK YATIRIM FONU",
       "type": "PEN",
       "category": "Fon Sepeti Fonu",
       "active": true
@@ -16152,6 +16152,13 @@
       "active": true
     },
     {
+      "code": "ZND",
+      "name": "ZİRAAT PORTFÖY NADİR TOPRAK ELEMENTLERİ VE STRATEJİK METALLER FON SEPETİ FONU",
+      "type": "SEC",
+      "category": "Fon Sepeti Şemsiye Fonu",
+      "active": true
+    },
+    {
       "code": "ZP6",
       "name": "ZİRAAT PORTFÖY SEDEF KATILIM SERBEST (DÖVİZ - AMERİKAN DOLARI) FON",
       "type": "SEC",
@@ -16325,6 +16332,13 @@
       "type": "ETF",
       "category": "Endeks Fon",
       "active": false
+    },
+    {
+      "code": "ZTS",
+      "name": "İŞ PORTFÖY YAPAY ZEKA TEKNOLOJİLERİ ŞİRKETLERİ DEĞİŞKEN FON",
+      "type": "SEC",
+      "category": "Değişken Şemsiye Fonu",
+      "active": true
     },
     {
       "code": "ZTV",
