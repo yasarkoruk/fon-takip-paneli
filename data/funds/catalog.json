@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-22T21:30:33.569847+03:00",
-  "count": 2341,
+  "generated_at": "2026-09-23T15:43:44.302008+03:00",
+  "count": 2340,
   "funds": [
     {
       "code": "AAJ",
@@ -1338,13 +1338,6 @@
       "type": "PEN",
       "category": "Değişken Fon",
       "active": true
-    },
-    {
-      "code": "BES",
-      "name": "DENİZ PORTFÖY YÖNETİMİ A.Ş. BEŞİNCİ GAYRİMENKUL YATIRIM FONU",
-      "type": "RE",
-      "category": null,
-      "active": false
     },
     {
       "code": "BFE",
