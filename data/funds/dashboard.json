@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-24T00:16:38.890352+03:00",
+  "generated_at": "2026-09-24T15:40:48.400068+03:00",
   "timezone": "Europe/Istanbul",
   "funds": [
     {
@@ -633,25 +633,35 @@
         },
         {
           "date": "2026-09-23",
-          "fetched_at": "2026-09-24T00:12:06.015785+03:00",
+          "fetched_at": "2026-09-24T15:36:30.357496+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 1.25192,
           "portfolio_size": 26581584433.9,
           "investor_count": 214405.0,
           "shares_outstanding": 21232646196.0
+        },
+        {
+          "date": "2026-09-24",
+          "fetched_at": "2026-09-24T15:36:27.272898+03:00",
+          "fund_code": "THF",
+          "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
+          "price": 0.768118,
+          "portfolio_size": 14133535906.81,
+          "investor_count": 214405.0,
+          "shares_outstanding": 18400221876.0
         }
       ],
       "metrics": {
         "current": {
-          "date": "2026-09-23",
-          "fetched_at": "2026-09-24T00:12:06.015785+03:00",
+          "date": "2026-09-24",
+          "fetched_at": "2026-09-24T15:36:27.272898+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
-          "price": 1.25192,
-          "portfolio_size": 26581584433.9,
+          "price": 0.768118,
+          "portfolio_size": 14133535906.81,
           "investor_count": 214405.0,
-          "shares_outstanding": 21232646196.0
+          "shares_outstanding": 18400221876.0
         },
         "daily": [
           {
@@ -1340,77 +1350,88 @@
             "aum_change": -8903032797.54,
             "price_return_pct": -25.08985901991888,
             "quality_warnings": []
+          },
+          {
+            "date": "2026-09-24",
+            "estimated_net_flow": -2175647964.522356,
+            "share_based_flow": -2860802379.26208,
+            "flow_method_gap": 685154414.7397242,
+            "investor_change": 0.0,
+            "shares_change": -2832424320.0,
+            "aum_change": -12448048527.090002,
+            "price_return_pct": -38.6448015847658,
+            "quality_warnings": []
           }
         ],
         "periods": {
           "1": {
             "observations": 1,
-            "from": "2026-09-22",
-            "to": "2026-09-23",
-            "estimated_net_flow": 7639.586137771606,
-            "share_based_flow": 0,
+            "from": "2026-09-23",
+            "to": "2026-09-24",
+            "estimated_net_flow": -2175647964.522356,
+            "share_based_flow": -2860802379.26208,
             "investor_change": 0.0,
-            "shares_change": 0.0,
-            "aum_change": -8903032797.54,
-            "return_pct": -25.08985901991888
+            "shares_change": -2832424320.0,
+            "aum_change": -12448048527.090002,
+            "return_pct": -38.6448015847658
           },
           "7": {
             "observations": 7,
-            "from": "2026-09-14",
-            "to": "2026-09-23",
-            "estimated_net_flow": -63185296774.3221,
-            "share_based_flow": -68483579998.662766,
-            "investor_change": 20892.0,
-            "shares_change": -27211381969.0,
-            "aum_change": -115033935010.80002,
-            "return_pct": -57.17414781541699
+            "from": "2026-09-15",
+            "to": "2026-09-24",
+            "estimated_net_flow": -69826176238.34875,
+            "share_based_flow": -75801693099.72821,
+            "investor_change": 14333.0,
+            "shares_change": -31565862346.0,
+            "aum_change": -132450936086.17001,
+            "return_pct": -73.81724449062082
           },
           "14": {
             "observations": 14,
-            "from": "2026-09-03",
-            "to": "2026-09-23",
-            "estimated_net_flow": -7479064628.985773,
-            "share_based_flow": -12999629008.524559,
-            "investor_change": 75576.0,
-            "shares_change": -7881562576.0,
-            "aum_change": -53859081672.079994,
-            "return_pct": -54.68876394124364
+            "from": "2026-09-04",
+            "to": "2026-09-24",
+            "estimated_net_flow": -12208487946.188656,
+            "share_based_flow": -18404355611.212772,
+            "investor_change": 71081.0,
+            "shares_change": -11631156422.0,
+            "aum_change": -69485900269.17,
+            "return_pct": -72.41353798768999
           },
           "30": {
             "observations": 30,
-            "from": "2026-08-12",
-            "to": "2026-09-23",
-            "estimated_net_flow": 64326838841.91054,
-            "share_based_flow": 58404916600.51422,
-            "investor_change": 202280.0,
-            "shares_change": 19885405300.0,
-            "aum_change": 23493825732.14,
-            "return_pct": -45.376635151508815
+            "from": "2026-08-13",
+            "to": "2026-09-24",
+            "estimated_net_flow": 59890678583.9418,
+            "share_based_flow": 53303327525.185844,
+            "investor_change": 198139.0,
+            "shares_change": 16083894706.0,
+            "aum_change": 8730420085.91,
+            "return_pct": -67.07061838566216
           },
           "90": {
-            "observations": 62,
+            "observations": 63,
             "from": "2026-06-10",
-            "to": "2026-09-23",
-            "estimated_net_flow": 66259237739.52129,
-            "share_based_flow": 60328040420.55989,
+            "to": "2026-09-24",
+            "estimated_net_flow": 64083589774.99894,
+            "share_based_flow": 57467238041.29781,
             "investor_change": 206182.0,
-            "shares_change": 20742704395.0,
-            "aum_change": 25496573836.050003,
-            "return_pct": -43.46893527863198
+            "shares_change": 17910280075.0,
+            "aum_change": 13048525308.96,
+            "return_pct": -65.31525307396018
           },
           "365": {
-            "observations": 62,
+            "observations": 63,
             "from": "2026-06-10",
-            "to": "2026-09-23",
-            "estimated_net_flow": 66259237739.52129,
-            "share_based_flow": 60328040420.55989,
+            "to": "2026-09-24",
+            "estimated_net_flow": 64083589774.99894,
+            "share_based_flow": 57467238041.29781,
             "investor_change": 206182.0,
-            "shares_change": 20742704395.0,
-            "aum_change": 25496573836.050003,
-            "return_pct": -43.46893527863198
+            "shares_change": 17910280075.0,
+            "aum_change": 13048525308.96,
+            "return_pct": -65.31525307396018
           }
         },
-        "flow_status": "GİRİŞ"
+        "flow_status": "ÇIKIŞ"
       },
       "tefas_summary": {
         "state": "ok",
@@ -1451,14 +1472,14 @@
       },
       "status": {
         "state": "warning",
-        "message": "0 yeni işlem günü işlendi; 2 tarih geçici olarak alınamadı ve sonraki taramada yeniden denenecek; art arda zaman aşımı nedeniyle tarama erken sonlandırıldı; Fon kataloğu güncellenemedi: TEFAS fon kataloğu alınamadı (SEC): Timeout: Failed to perform, curl: (28) Connection timed out after 30003 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "checked_at": "2026-09-24T00:16:38.888001+03:00",
-        "observations": 63,
-        "data_date": "2026-09-23",
-        "last_success_at": "2026-09-24T00:15:34.881160+03:00",
+        "message": "1 yeni işlem günü işlendi; 2 tarih geçici olarak alınamadı ve sonraki taramada yeniden denenecek; art arda zaman aşımı nedeniyle tarama erken sonlandırıldı; Fon kataloğu güncellenemedi: TEFAS fon kataloğu alınamadı (SEC): Timeout: Failed to perform, curl: (28) Connection timed out after 30003 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
+        "checked_at": "2026-09-24T15:40:48.397203+03:00",
+        "observations": 64,
+        "data_date": "2026-09-24",
+        "last_success_at": "2026-09-24T15:39:44.387303+03:00",
         "summary": {
           "state": "error",
-          "message": "TEFAS özet sorgusu başarısız: Timeout: Failed to perform, curl: (28) Connection timed out after 30002 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details."
+          "message": "TEFAS özet sorgusu başarısız: Timeout: Failed to perform, curl: (28) Connection timed out after 30003 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details."
         }
       }
     }
