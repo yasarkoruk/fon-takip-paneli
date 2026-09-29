@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T02:04:10.593147+03:00",
+  "generated_at": "2026-09-29T16:57:35.299869+03:00",
   "timezone": "Europe/Istanbul",
   "funds": [
     {
@@ -463,7 +463,7 @@
         },
         {
           "date": "2026-08-31",
-          "fetched_at": "2026-09-23T21:49:32.696735+03:00",
+          "fetched_at": "2026-09-29T16:56:25.370526+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 2.733932,
@@ -473,7 +473,7 @@
         },
         {
           "date": "2026-09-01",
-          "fetched_at": "2026-09-23T21:48:55.437070+03:00",
+          "fetched_at": "2026-09-29T16:56:22.667641+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 2.724426,
@@ -483,7 +483,7 @@
         },
         {
           "date": "2026-09-02",
-          "fetched_at": "2026-09-23T21:48:51.924473+03:00",
+          "fetched_at": "2026-09-29T16:55:45.952738+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 2.740729,
@@ -493,7 +493,7 @@
         },
         {
           "date": "2026-09-03",
-          "fetched_at": "2026-09-23T21:48:15.040104+03:00",
+          "fetched_at": "2026-09-29T16:55:42.557743+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 2.762935,
@@ -503,7 +503,7 @@
         },
         {
           "date": "2026-09-04",
-          "fetched_at": "2026-09-23T21:48:12.153573+03:00",
+          "fetched_at": "2026-09-29T16:55:39.842990+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 2.784402,
@@ -523,7 +523,7 @@
         },
         {
           "date": "2026-09-08",
-          "fetched_at": "2026-09-23T21:46:52.118804+03:00",
+          "fetched_at": "2026-09-29T16:54:54.402114+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 2.833227,
@@ -533,7 +533,7 @@
         },
         {
           "date": "2026-09-09",
-          "fetched_at": "2026-09-23T21:46:15.203328+03:00",
+          "fetched_at": "2026-09-29T16:54:51.429031+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 2.884176,
@@ -543,7 +543,7 @@
         },
         {
           "date": "2026-09-10",
-          "fetched_at": "2026-09-23T21:46:11.937325+03:00",
+          "fetched_at": "2026-09-29T16:54:14.435504+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 2.912217,
@@ -553,7 +553,7 @@
         },
         {
           "date": "2026-09-11",
-          "fetched_at": "2026-09-23T21:45:34.259817+03:00",
+          "fetched_at": "2026-09-29T16:54:11.455050+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 2.916338,
@@ -563,7 +563,7 @@
         },
         {
           "date": "2026-09-14",
-          "fetched_at": "2026-09-23T21:44:50.793004+03:00",
+          "fetched_at": "2026-09-29T16:53:28.270049+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 2.923281,
@@ -573,7 +573,7 @@
         },
         {
           "date": "2026-09-15",
-          "fetched_at": "2026-09-23T21:44:13.892696+03:00",
+          "fetched_at": "2026-09-29T16:53:25.570470+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 2.933679,
@@ -583,7 +583,7 @@
         },
         {
           "date": "2026-09-16",
-          "fetched_at": "2026-09-23T21:44:10.313999+03:00",
+          "fetched_at": "2026-09-29T16:53:22.870060+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 2.923361,
@@ -593,7 +593,7 @@
         },
         {
           "date": "2026-09-17",
-          "fetched_at": "2026-09-23T21:43:33.052753+03:00",
+          "fetched_at": "2026-09-29T16:53:20.142847+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 2.700585,
@@ -603,7 +603,7 @@
         },
         {
           "date": "2026-09-18",
-          "fetched_at": "2026-09-23T21:43:30.175517+03:00",
+          "fetched_at": "2026-09-29T16:52:43.433847+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 2.305602,
@@ -613,7 +613,7 @@
         },
         {
           "date": "2026-09-21",
-          "fetched_at": "2026-09-25T22:00:04.028503+03:00",
+          "fetched_at": "2026-09-29T16:52:34.823070+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 1.905261,
@@ -643,7 +643,7 @@
         },
         {
           "date": "2026-09-24",
-          "fetched_at": "2026-09-26T00:12:07.822502+03:00",
+          "fetched_at": "2026-09-29T16:51:52.385219+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 0.768118,
@@ -653,7 +653,7 @@
         },
         {
           "date": "2026-09-25",
-          "fetched_at": "2026-09-26T00:12:04.658156+03:00",
+          "fetched_at": "2026-09-29T16:51:49.407835+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 0.0,
@@ -663,7 +663,17 @@
         },
         {
           "date": "2026-09-28",
-          "fetched_at": "2026-09-29T01:59:52.550562+03:00",
+          "fetched_at": "2026-09-29T16:51:06.479861+03:00",
+          "fund_code": "THF",
+          "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
+          "price": 0.0,
+          "portfolio_size": 0.0,
+          "investor_count": 214405.0,
+          "shares_outstanding": 0.0
+        },
+        {
+          "date": "2026-09-29",
+          "fetched_at": "2026-09-29T16:51:03.320220+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 0.0,
@@ -674,8 +684,8 @@
       ],
       "metrics": {
         "current": {
-          "date": "2026-09-28",
-          "fetched_at": "2026-09-29T01:59:52.550562+03:00",
+          "date": "2026-09-29",
+          "fetched_at": "2026-09-29T16:51:03.320220+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 0.0,
@@ -1407,13 +1417,24 @@
             "aum_change": 0.0,
             "price_return_pct": null,
             "quality_warnings": []
+          },
+          {
+            "date": "2026-09-29",
+            "estimated_net_flow": null,
+            "share_based_flow": 0.0,
+            "flow_method_gap": null,
+            "investor_change": 0.0,
+            "shares_change": 0.0,
+            "aum_change": 0.0,
+            "price_return_pct": null,
+            "quality_warnings": []
           }
         ],
         "periods": {
           "1": {
             "observations": 1,
-            "from": "2026-09-25",
-            "to": "2026-09-28",
+            "from": "2026-09-28",
+            "to": "2026-09-29",
             "estimated_net_flow": 0,
             "share_based_flow": 0,
             "investor_change": 0.0,
@@ -1423,41 +1444,41 @@
           },
           "7": {
             "observations": 7,
-            "from": "2026-09-17",
-            "to": "2026-09-28",
-            "estimated_net_flow": -62020846110.75983,
-            "share_based_flow": -74898834211.949,
-            "investor_change": 2680.0,
-            "shares_change": -47188507239.0,
-            "aum_change": -127436574731.03,
+            "from": "2026-09-18",
+            "to": "2026-09-29",
+            "estimated_net_flow": -2169341734.661545,
+            "share_based_flow": -9920616421.763601,
+            "investor_change": 106.0,
+            "shares_change": -21229341994.0,
+            "aum_change": -48946412213.46,
             "return_pct": -100.0
           },
           "14": {
             "observations": 14,
-            "from": "2026-09-08",
-            "to": "2026-09-28",
-            "estimated_net_flow": -24806956810.913094,
-            "share_based_flow": -38014418921.2427,
-            "investor_change": 60449.0,
-            "shares_change": -34503391964.0,
-            "aum_change": -97755924709.24,
+            "from": "2026-09-09",
+            "to": "2026-09-29",
+            "estimated_net_flow": -34841116124.29027,
+            "share_based_flow": -47959946691.41453,
+            "investor_change": 50482.0,
+            "shares_change": -37982428782.0,
+            "aum_change": -109547997034.18,
             "return_pct": -100.0
           },
           "30": {
             "observations": 30,
-            "from": "2026-08-17",
-            "to": "2026-09-28",
-            "estimated_net_flow": 55467483285.15163,
-            "share_based_flow": 41836063164.00443,
-            "investor_change": 190151.0,
-            "shares_change": -4171273961.0,
-            "aum_change": -9968602806.48,
+            "from": "2026-08-18",
+            "to": "2026-09-29",
+            "estimated_net_flow": 52650639980.14484,
+            "share_based_flow": 39039701424.67747,
+            "investor_change": 184297.0,
+            "shares_change": -5332816885.0,
+            "aum_change": -12932546095.49,
             "return_pct": -100.0
           },
           "90": {
-            "observations": 65,
+            "observations": 66,
             "from": "2026-06-10",
-            "to": "2026-09-28",
+            "to": "2026-09-29",
             "estimated_net_flow": 64083589774.99894,
             "share_based_flow": 50400467227.82313,
             "investor_change": 206182.0,
@@ -1466,9 +1487,9 @@
             "return_pct": -100.0
           },
           "365": {
-            "observations": 65,
+            "observations": 66,
             "from": "2026-06-10",
-            "to": "2026-09-28",
+            "to": "2026-09-29",
             "estimated_net_flow": 64083589774.99894,
             "share_based_flow": 50400467227.82313,
             "investor_change": 206182.0,
@@ -1518,14 +1539,14 @@
       },
       "status": {
         "state": "warning",
-        "message": "0 yeni işlem günü işlendi; 2 tarih geçici olarak alınamadı ve sonraki taramada yeniden denenecek; art arda zaman aşımı nedeniyle tarama erken sonlandırıldı; Fon kataloğu güncellenemedi: TEFAS fon kataloğu alınamadı (SEC): Timeout: Failed to perform, curl: (28) Connection timed out after 30003 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "checked_at": "2026-09-29T02:04:10.590722+03:00",
-        "observations": 66,
-        "data_date": "2026-09-28",
-        "last_success_at": "2026-09-29T02:03:06.580546+03:00",
+        "message": "1 yeni işlem günü işlendi",
+        "checked_at": "2026-09-29T16:56:55.672381+03:00",
+        "observations": 67,
+        "data_date": "2026-09-29",
+        "last_success_at": "2026-09-29T16:56:55.672381+03:00",
         "summary": {
           "state": "error",
-          "message": "TEFAS özet sorgusu başarısız: Timeout: Failed to perform, curl: (28) Connection timed out after 30002 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details."
+          "message": "TEFAS özet sorgusu başarısız: ValueError: TEFAS yanıtında fon için kayıt bulunamadı"
         }
       }
     }

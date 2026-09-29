@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-23T21:53:02.601228+03:00",
-  "count": 2340,
+  "generated_at": "2026-09-29T16:57:35.280066+03:00",
+  "count": 2341,
   "funds": [
     {
       "code": "AAJ",
@@ -1606,6 +1606,13 @@
       "active": false
     },
     {
+      "code": "BKP",
+      "name": "EMLAK KATILIM PORTFÖY YÖNETİMİ A.Ş. BİRİNCİ KATILIM PROJE GAYRİMENKUL YATIRIM FONU",
+      "type": "RE",
+      "category": null,
+      "active": false
+    },
+    {
       "code": "BKY",
       "name": "YAPI KREDİ PORTFÖY BİRİNCİ KATILIM SERBEST (DÖVİZ) FON",
       "type": "SEC",
@@ -1855,6 +1862,13 @@
       "name": "BNP PARİBAS CARDİF EMEKLİLİK A.Ş. BİRİNCİ KAMU DIŞ BORÇLANMA ARAÇLARI EMEKLİLİK YATIRIM FONU",
       "type": "PEN",
       "category": "Kamu Yabancı Para (Döviz) Cinsinden Borçlanma Araç",
+      "active": true
+    },
+    {
+      "code": "BPV",
+      "name": "BTCTURK PORTFÖY PARA PİYASASI (TL) FONU",
+      "type": "SEC",
+      "category": "Para Piyasası Şemsiye Fonu",
       "active": true
     },
     {
@@ -9565,13 +9579,6 @@
       "active": false
     },
     {
-      "code": "NIK",
-      "name": "NATURA GAYRİMENKUL VE GİRİŞİM SERMAYESİ PORTFÖY YÖNETİMİ A.Ş. İKİNCİ PROJE GAYRİMENKUL YATIRIM FONU",
-      "type": "RE",
-      "category": null,
-      "active": false
-    },
-    {
       "code": "NIN",
       "name": "NEO PORTFÖY YÖNETİMİ A.Ş. CO-INVESTMENT 2 GİRİŞİM SERMAYESİ YATIRIM FONU",
       "type": "VC",
@@ -10875,7 +10882,7 @@
     },
     {
       "code": "ON2",
-      "name": "ARZ GAYRİMENKUL VE GİRİŞİM SERMAYESİ PORTFÖY YÖNETİMİ A.Ş. ONİKİNCİ GİRİŞİM SERMAYESİ YATIRIM FONU",
+      "name": "ARZ GAYRİMENKUL VE GİRİŞİM SERMAYESİ PORTFÖY YÖNETİMİ A.Ş. İKİNCİ FON SEPETİ GİRİŞİM SERMAYESİ YATIRIM FONU",
       "type": "VC",
       "category": null,
       "active": false
