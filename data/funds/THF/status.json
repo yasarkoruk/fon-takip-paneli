@@ -1,10 +1,10 @@
 {
   "state": "warning",
-  "message": "1 yeni işlem günü işlendi",
-  "checked_at": "2026-09-29T16:56:55.672381+03:00",
+  "message": "0 yeni işlem günü işlendi",
+  "checked_at": "2026-09-29T22:49:59.725723+03:00",
   "observations": 67,
   "data_date": "2026-09-29",
-  "last_success_at": "2026-09-29T16:56:55.672381+03:00",
+  "last_success_at": "2026-09-29T22:49:59.725723+03:00",
   "summary": {
     "state": "error",
     "message": "TEFAS özet sorgusu başarısız: ValueError: TEFAS yanıtında fon için kayıt bulunamadı"
