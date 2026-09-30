@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-29T22:51:14.913375+03:00",
-  "count": 2341,
+  "generated_at": "2026-09-30T22:44:49.395606+03:00",
+  "count": 2342,
   "funds": [
     {
       "code": "AAJ",
@@ -6335,6 +6335,13 @@
       "name": "İNCİR PORTFÖY BİRİNCİ PARA PİYASASI (TL) FONU",
       "type": "SEC",
       "category": "Para Piyasası Şemsiye Fonu",
+      "active": true
+    },
+    {
+      "code": "ICO",
+      "name": "İNCİR PORTFÖY BİRİNCİ FON SEPETİ FONU",
+      "type": "SEC",
+      "category": "Fon Sepeti Şemsiye Fonu",
       "active": true
     },
     {
