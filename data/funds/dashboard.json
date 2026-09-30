@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T22:44:49.413963+03:00",
+  "generated_at": "2026-10-01T01:03:41.865173+03:00",
   "timezone": "Europe/Istanbul",
   "funds": [
     {
@@ -623,7 +623,7 @@
         },
         {
           "date": "2026-09-22",
-          "fetched_at": "2026-09-29T22:42:57.057256+03:00",
+          "fetched_at": "2026-10-01T00:59:09.957113+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 1.671229,
@@ -633,7 +633,7 @@
         },
         {
           "date": "2026-09-23",
-          "fetched_at": "2026-09-29T22:42:54.176551+03:00",
+          "fetched_at": "2026-10-01T00:59:07.060806+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 1.25192,
@@ -643,7 +643,7 @@
         },
         {
           "date": "2026-09-24",
-          "fetched_at": "2026-09-29T22:42:17.288046+03:00",
+          "fetched_at": "2026-10-01T00:59:04.121268+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 0.768118,
@@ -653,7 +653,7 @@
         },
         {
           "date": "2026-09-25",
-          "fetched_at": "2026-09-29T22:42:14.401864+03:00",
+          "fetched_at": "2026-10-01T00:59:01.227014+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 0.0,
@@ -663,7 +663,7 @@
         },
         {
           "date": "2026-09-28",
-          "fetched_at": "2026-09-30T22:40:52.402762+03:00",
+          "fetched_at": "2026-10-01T00:57:17.046980+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 0.0,
@@ -673,7 +673,7 @@
         },
         {
           "date": "2026-09-29",
-          "fetched_at": "2026-09-30T22:40:49.037158+03:00",
+          "fetched_at": "2026-10-01T00:57:13.771350+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 0.0,
@@ -683,7 +683,7 @@
         },
         {
           "date": "2026-09-30",
-          "fetched_at": "2026-09-30T22:40:45.713375+03:00",
+          "fetched_at": "2026-10-01T00:57:10.515469+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 0.0,
@@ -695,7 +695,7 @@
       "metrics": {
         "current": {
           "date": "2026-09-30",
-          "fetched_at": "2026-09-30T22:40:45.713375+03:00",
+          "fetched_at": "2026-10-01T00:57:10.515469+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 0.0,
@@ -1561,10 +1561,10 @@
       "status": {
         "state": "warning",
         "message": "0 yeni işlem günü işlendi; 2 tarih geçici olarak alınamadı ve sonraki taramada yeniden denenecek; art arda zaman aşımı nedeniyle tarama erken sonlandırıldı",
-        "checked_at": "2026-09-30T22:44:06.432531+03:00",
+        "checked_at": "2026-10-01T01:01:19.975718+03:00",
         "observations": 68,
         "data_date": "2026-09-30",
-        "last_success_at": "2026-09-30T22:44:06.432531+03:00",
+        "last_success_at": "2026-10-01T01:01:19.975718+03:00",
         "summary": {
           "state": "error",
           "message": "TEFAS özet sorgusu başarısız: Timeout: Failed to perform, curl: (28) Connection timed out after 30002 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details."
