@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-01T01:03:41.850758+03:00",
-  "count": 2342,
+  "generated_at": "2026-10-01T17:23:28.722692+03:00",
+  "count": 2343,
   "funds": [
     {
       "code": "AAJ",
@@ -683,9 +683,9 @@
     },
     {
       "code": "ALS",
-      "name": "ALLIANZ YAŞAM VE EMEKLİLİK A.Ş. DEĞİŞKEN EMEKLİLİK YATIRIM FONU",
+      "name": "ALLIANZ YAŞAM VE EMEKLİLİK A.Ş. İKİNCİ KARMA EMEKLİLİK YATIRIM FONU",
       "type": "PEN",
-      "category": "Değişken Fon",
+      "category": "Karma Fon",
       "active": true
     },
     {
@@ -956,9 +956,9 @@
     },
     {
       "code": "AUA",
-      "name": "ALLIANZ YAŞAM VE EMEKLİLİK A.Ş. FON SEPETİ EMEKLİLİK YATIRIM FONU",
+      "name": "ALLIANZ YAŞAM VE EMEKLİLİK A.Ş. KİRA SERTİFİKALARI KATILIM EMEKLİLİK YATIRIM FONU",
       "type": "PEN",
-      "category": "Fon Sepeti Fonu",
+      "category": "Kira Sertifikasi Katılım Fonu",
       "active": true
     },
     {
@@ -15555,6 +15555,13 @@
       "type": "RE",
       "category": null,
       "active": false
+    },
+    {
+      "code": "YLR",
+      "name": "YAPI KREDİ PORTFÖY AKATLAR KAR PAYI ÖDEYEN SERBEST (DÖVİZ) FON",
+      "type": "SEC",
+      "category": "Serbest Şemsiye Fonu",
+      "active": true
     },
     {
       "code": "YLY",
