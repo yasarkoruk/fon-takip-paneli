@@ -2660,7 +2660,7 @@
       "payment_date": null,
       "resolution_disclosure_id": null,
       "url": "https://www.kap.org.tr/tr/Bildirim/1664344",
-      "verified_at": "2026-10-05T15:24:42.192450+03:00",
+      "verified_at": "2026-10-06T14:38:26.592883+03:00",
       "published_at": "2026-09-16T20:35:10+03:00",
       "source_text": "Kurucusu olduğumuz TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON) katılma payı iade ödemelerinde temerrüt durumu oluşmuştur. İlgili fon hesabına işlem yapılan aracı kurumlar ile mutabakatlar ve likidite yönetim süreci devam etmektedir. Konuya ilişkin gerekli tedbirler özenle alınmakta olup, gelişmeler hakkında yatırımcılarımız bilgilendirilmeye devam edilecektir."
     },
@@ -2674,22 +2674,18 @@
       "payment_date": null,
       "resolution_disclosure_id": null,
       "url": "https://www.kap.org.tr/tr/Bildirim/1662926",
-      "verified_at": "2026-10-05T15:24:42.192450+03:00",
+      "verified_at": "2026-10-06T14:38:26.592883+03:00",
       "published_at": "2026-09-15T15:23:29+03:00",
       "source_text": "Kurucusu olduğumuz bazı yatırım fonlarının katılma payı iade ödemelerinde temerrüt durumu oluşmuştur. İlgili fonlar hesabına işlem yapılan aracı kurumlar ile mutabakatlar ve likidite yönetim süreci devam etmektedir. Konuya ilişkin gerekli tedbirler özenle alınmakta olup, gelişmeler hakkında yatırımcılarımız bilgilendirilmeye devam edilecektir."
     }
   ],
   "status": {
-    "state": "error",
-    "last_attempt_at": "2026-10-06T05:35:19.005814+03:00",
-    "last_success_at": "2026-10-05T15:24:42.192450+03:00",
+    "state": "ok",
+    "last_attempt_at": "2026-10-06T14:38:26.592883+03:00",
+    "last_success_at": "2026-10-06T14:38:26.592883+03:00",
     "new_count": 0,
-    "errors": [
-      "KAP sorgusu başarısız (api/disclosure/filter/FILTERYFBF/4028328c950ba8c70195140f682921da/ALL/365): <urlopen error timed out>",
-      "KAP sorgusu başarısız (api/notification/attachment-detail/1664344): <urlopen error timed out>",
-      "KAP sorgusu başarısız (api/notification/attachment-detail/1662926): <urlopen error timed out>"
-    ],
+    "errors": [],
     "coverage": "Yapılandırılmış fonların 365 günlük KAP bildirim listesi; ek dosyalar otomatik yorumlanmaz.",
-    "consecutive_failures": 2
+    "consecutive_failures": 0
   }
 }
