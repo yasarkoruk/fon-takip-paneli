@@ -2681,7 +2681,7 @@
   ],
   "status": {
     "state": "error",
-    "last_attempt_at": "2026-10-05T23:28:42.003965+03:00",
+    "last_attempt_at": "2026-10-06T05:35:19.005814+03:00",
     "last_success_at": "2026-10-05T15:24:42.192450+03:00",
     "new_count": 0,
     "errors": [
@@ -2690,6 +2690,6 @@
       "KAP sorgusu başarısız (api/notification/attachment-detail/1662926): <urlopen error timed out>"
     ],
     "coverage": "Yapılandırılmış fonların 365 günlük KAP bildirim listesi; ek dosyalar otomatik yorumlanmaz.",
-    "consecutive_failures": 1
+    "consecutive_failures": 2
   }
 }
