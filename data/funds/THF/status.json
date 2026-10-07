@@ -1,10 +1,10 @@
 {
   "state": "warning",
-  "message": "0 yeni işlem günü işlendi; 1 tarih geçici olarak alınamadı ve sonraki taramada yeniden denenecek",
-  "checked_at": "2026-10-07T23:21:55.885619+03:00",
+  "message": "0 yeni işlem günü işlendi; 2 tarih geçici olarak alınamadı ve sonraki taramada yeniden denenecek; art arda zaman aşımı nedeniyle tarama erken sonlandırıldı",
+  "checked_at": "2026-10-08T01:53:08.204382+03:00",
   "observations": 73,
   "data_date": "2026-10-07",
-  "last_success_at": "2026-10-07T23:21:55.885619+03:00",
+  "last_success_at": "2026-10-08T01:53:08.204382+03:00",
   "summary": {
     "state": "error",
     "message": "TEFAS özet sorgusu başarısız: ValueError: TEFAS yanıtında fon için kayıt bulunamadı"
