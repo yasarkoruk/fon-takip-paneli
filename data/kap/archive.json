@@ -2,6 +2,48 @@
   "funds": {
     "THF": [
       {
+        "id": 1677619,
+        "published_at": "2026-10-08T17:45:49+03:00",
+        "title": "Fon Toplam Gider Oranı ve Fon Toplam Giderinin Dağılımı",
+        "summary": "Fon Toplam Gider Oranı ve Fon Toplam Giderinin Dağılımı\n",
+        "issuer": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
+        "code": "THF",
+        "scope": "Fon",
+        "url": "https://www.kap.org.tr/tr/Bildirim/1677619",
+        "attachment_count": 0,
+        "body": null,
+        "detail_checked_at": null,
+        "candidate": false
+      },
+      {
+        "id": 1677541,
+        "published_at": "2026-10-08T17:23:55+03:00",
+        "title": "Aracı Kuruma Ödenen Komisyon ve Varlık Alım Satım Bilgileri",
+        "summary": "Aracı Kuruma Ödenen Komisyon Bilgisi",
+        "issuer": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
+        "code": "THF",
+        "scope": "Fon",
+        "url": "https://www.kap.org.tr/tr/Bildirim/1677541",
+        "attachment_count": 0,
+        "body": null,
+        "detail_checked_at": null,
+        "candidate": false
+      },
+      {
+        "id": 1676946,
+        "published_at": "2026-10-08T15:49:56+03:00",
+        "title": "Fon Gider Bilgileri",
+        "summary": "Fon Gider Bilgileri",
+        "issuer": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
+        "code": "THF",
+        "scope": "Fon",
+        "url": "https://www.kap.org.tr/tr/Bildirim/1676946",
+        "attachment_count": 0,
+        "body": null,
+        "detail_checked_at": null,
+        "candidate": false
+      },
+      {
         "id": 1668932,
         "published_at": "2026-09-28T15:41:25+03:00",
         "title": "Fon Sürekli Bilgilendirme Formu",
@@ -2660,7 +2702,7 @@
       "payment_date": null,
       "resolution_disclosure_id": null,
       "url": "https://www.kap.org.tr/tr/Bildirim/1664344",
-      "verified_at": "2026-10-08T15:07:33.858693+03:00",
+      "verified_at": "2026-10-08T21:15:32.563976+03:00",
       "published_at": "2026-09-16T20:35:10+03:00",
       "source_text": "Kurucusu olduğumuz TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON) katılma payı iade ödemelerinde temerrüt durumu oluşmuştur. İlgili fon hesabına işlem yapılan aracı kurumlar ile mutabakatlar ve likidite yönetim süreci devam etmektedir. Konuya ilişkin gerekli tedbirler özenle alınmakta olup, gelişmeler hakkında yatırımcılarımız bilgilendirilmeye devam edilecektir."
     },
@@ -2674,16 +2716,16 @@
       "payment_date": null,
       "resolution_disclosure_id": null,
       "url": "https://www.kap.org.tr/tr/Bildirim/1662926",
-      "verified_at": "2026-10-08T15:07:33.858693+03:00",
+      "verified_at": "2026-10-08T21:15:32.563976+03:00",
       "published_at": "2026-09-15T15:23:29+03:00",
       "source_text": "Kurucusu olduğumuz bazı yatırım fonlarının katılma payı iade ödemelerinde temerrüt durumu oluşmuştur. İlgili fonlar hesabına işlem yapılan aracı kurumlar ile mutabakatlar ve likidite yönetim süreci devam etmektedir. Konuya ilişkin gerekli tedbirler özenle alınmakta olup, gelişmeler hakkında yatırımcılarımız bilgilendirilmeye devam edilecektir."
     }
   ],
   "status": {
     "state": "ok",
-    "last_attempt_at": "2026-10-08T15:07:33.858693+03:00",
-    "last_success_at": "2026-10-08T15:07:33.858693+03:00",
-    "new_count": 0,
+    "last_attempt_at": "2026-10-08T21:15:32.563976+03:00",
+    "last_success_at": "2026-10-08T21:15:32.563976+03:00",
+    "new_count": 3,
     "errors": [],
     "coverage": "Yapılandırılmış fonların 365 günlük KAP bildirim listesi; ek dosyalar otomatik yorumlanmaz.",
     "consecutive_failures": 0
