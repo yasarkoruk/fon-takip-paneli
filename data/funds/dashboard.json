@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T17:18:09.021886+03:00",
+  "generated_at": "2026-10-09T22:56:24.137426+03:00",
   "timezone": "Europe/Istanbul",
   "funds": [
     {
@@ -713,7 +713,7 @@
         },
         {
           "date": "2026-10-05",
-          "fetched_at": "2026-10-09T02:03:09.981968+03:00",
+          "fetched_at": "2026-10-09T22:53:06.321686+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 0.0,
@@ -733,7 +733,7 @@
         },
         {
           "date": "2026-10-07",
-          "fetched_at": "2026-10-09T17:13:09.457742+03:00",
+          "fetched_at": "2026-10-09T22:51:58.976341+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 0.0,
@@ -743,7 +743,7 @@
         },
         {
           "date": "2026-10-08",
-          "fetched_at": "2026-10-09T17:13:06.664414+03:00",
+          "fetched_at": "2026-10-09T22:51:55.881186+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 0.0,
@@ -753,7 +753,7 @@
         },
         {
           "date": "2026-10-09",
-          "fetched_at": "2026-10-09T17:13:03.466177+03:00",
+          "fetched_at": "2026-10-09T22:51:52.650651+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 0.0,
@@ -765,7 +765,7 @@
       "metrics": {
         "current": {
           "date": "2026-10-09",
-          "fetched_at": "2026-10-09T17:13:03.466177+03:00",
+          "fetched_at": "2026-10-09T22:51:52.650651+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 0.0,
@@ -1707,11 +1707,11 @@
       },
       "status": {
         "state": "warning",
-        "message": "1 yeni işlem günü işlendi; 2 tarih geçici olarak alınamadı ve sonraki taramada yeniden denenecek; art arda zaman aşımı nedeniyle tarama erken sonlandırıldı; Fon kataloğu güncellenemedi: TEFAS fon kataloğu alınamadı (VC): Timeout: Failed to perform, curl: (28) Connection timed out after 30003 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "checked_at": "2026-10-09T17:18:09.018920+03:00",
+        "message": "0 yeni işlem günü işlendi; 2 tarih geçici olarak alınamadı ve sonraki taramada yeniden denenecek; art arda zaman aşımı nedeniyle tarama erken sonlandırıldı; Fon kataloğu güncellenemedi: TEFAS fon kataloğu alınamadı (PEN): Timeout: Failed to perform, curl: (28) Connection timed out after 30003 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
+        "checked_at": "2026-10-09T22:56:24.133745+03:00",
         "observations": 75,
         "data_date": "2026-10-09",
-        "last_success_at": "2026-10-09T17:16:23.474477+03:00",
+        "last_success_at": "2026-10-09T22:55:18.214381+03:00",
         "summary": {
           "state": "error",
           "message": "TEFAS özet sorgusu başarısız: Timeout: Failed to perform, curl: (28) Connection timed out after 30001 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details."
