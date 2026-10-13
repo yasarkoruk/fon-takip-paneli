@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T03:19:18.865472+03:00",
+  "generated_at": "2026-10-13T17:56:37.765496+03:00",
   "timezone": "Europe/Istanbul",
   "funds": [
     {
@@ -753,7 +753,7 @@
         },
         {
           "date": "2026-10-09",
-          "fetched_at": "2026-10-13T01:18:17.222657+03:00",
+          "fetched_at": "2026-10-13T17:53:19.948776+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 0.0,
@@ -763,7 +763,17 @@
         },
         {
           "date": "2026-10-12",
-          "fetched_at": "2026-10-13T03:14:54.889353+03:00",
+          "fetched_at": "2026-10-13T17:52:09.516578+03:00",
+          "fund_code": "THF",
+          "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
+          "price": 0.0,
+          "portfolio_size": 0.0,
+          "investor_count": 214403.0,
+          "shares_outstanding": 0.0
+        },
+        {
+          "date": "2026-10-13",
+          "fetched_at": "2026-10-13T17:52:06.401976+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 0.0,
@@ -774,8 +784,8 @@
       ],
       "metrics": {
         "current": {
-          "date": "2026-10-12",
-          "fetched_at": "2026-10-13T03:14:54.889353+03:00",
+          "date": "2026-10-13",
+          "fetched_at": "2026-10-13T17:52:06.401976+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 0.0,
@@ -1617,13 +1627,24 @@
             "aum_change": 0.0,
             "price_return_pct": null,
             "quality_warnings": []
+          },
+          {
+            "date": "2026-10-13",
+            "estimated_net_flow": null,
+            "share_based_flow": 0.0,
+            "flow_method_gap": null,
+            "investor_change": 0.0,
+            "shares_change": 0.0,
+            "aum_change": 0.0,
+            "price_return_pct": null,
+            "quality_warnings": []
           }
         ],
         "periods": {
           "1": {
             "observations": 1,
-            "from": "2026-10-09",
-            "to": "2026-10-12",
+            "from": "2026-10-12",
+            "to": "2026-10-13",
             "estimated_net_flow": 0,
             "share_based_flow": 0,
             "investor_change": 0.0,
@@ -1633,8 +1654,8 @@
           },
           "7": {
             "observations": 7,
-            "from": "2026-10-01",
-            "to": "2026-10-12",
+            "from": "2026-10-02",
+            "to": "2026-10-13",
             "estimated_net_flow": 0,
             "share_based_flow": 0,
             "investor_change": 0.0,
@@ -1644,30 +1665,30 @@
           },
           "14": {
             "observations": 14,
-            "from": "2026-09-22",
-            "to": "2026-10-12",
-            "estimated_net_flow": -2175640324.9362183,
+            "from": "2026-09-23",
+            "to": "2026-10-13",
+            "estimated_net_flow": -2175647964.522356,
             "share_based_flow": -9927573192.736763,
             "investor_change": -2.0,
             "shares_change": -21232646196.0,
-            "aum_change": -35484617231.44,
+            "aum_change": -26581584433.9,
             "return_pct": -100.0
           },
           "30": {
             "observations": 30,
-            "from": "2026-08-31",
-            "to": "2026-10-12",
-            "estimated_net_flow": 1922469171.7869,
-            "share_based_flow": -11352969814.887724,
-            "investor_change": 102564.0,
-            "shares_change": -24879558981.0,
-            "aum_change": -68019022810.6,
+            "from": "2026-09-01",
+            "to": "2026-10-13",
+            "estimated_net_flow": -5114605108.251024,
+            "share_based_flow": -18402320070.516163,
+            "investor_change": 93262.0,
+            "shares_change": -27462515341.0,
+            "aum_change": -74819592001.69,
             "return_pct": -100.0
           },
           "90": {
-            "observations": 75,
+            "observations": 76,
             "from": "2026-06-10",
-            "to": "2026-10-12",
+            "to": "2026-10-13",
             "estimated_net_flow": 64083589774.99894,
             "share_based_flow": 50400467227.82313,
             "investor_change": 206180.0,
@@ -1676,9 +1697,9 @@
             "return_pct": -100.0
           },
           "365": {
-            "observations": 75,
+            "observations": 76,
             "from": "2026-06-10",
-            "to": "2026-10-12",
+            "to": "2026-10-13",
             "estimated_net_flow": 64083589774.99894,
             "share_based_flow": 50400467227.82313,
             "investor_change": 206180.0,
@@ -1728,14 +1749,14 @@
       },
       "status": {
         "state": "warning",
-        "message": "0 yeni işlem günü işlendi; 2 tarih geçici olarak alınamadı ve sonraki taramada yeniden denenecek; art arda zaman aşımı nedeniyle tarama erken sonlandırıldı; Fon kataloğu güncellenemedi: TEFAS fon kataloğu alınamadı (SEC): Timeout: Failed to perform, curl: (28) Connection timed out after 30003 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "checked_at": "2026-10-13T03:19:18.861341+03:00",
-        "observations": 76,
-        "data_date": "2026-10-12",
-        "last_success_at": "2026-10-13T03:18:14.850362+03:00",
+        "message": "1 yeni işlem günü işlendi; 2 tarih geçici olarak alınamadı ve sonraki taramada yeniden denenecek; art arda zaman aşımı nedeniyle tarama erken sonlandırıldı; Fon kataloğu güncellenemedi: TEFAS fon kataloğu alınamadı (PEN): Timeout: Failed to perform, curl: (28) Connection timed out after 30002 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
+        "checked_at": "2026-10-13T17:56:37.761794+03:00",
+        "observations": 77,
+        "data_date": "2026-10-13",
+        "last_success_at": "2026-10-13T17:55:31.708442+03:00",
         "summary": {
           "state": "error",
-          "message": "TEFAS özet sorgusu başarısız: Timeout: Failed to perform, curl: (28) Connection timed out after 30003 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details."
+          "message": "TEFAS özet sorgusu başarısız: Timeout: Failed to perform, curl: (28) Connection timed out after 30002 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details."
         }
       }
     }
