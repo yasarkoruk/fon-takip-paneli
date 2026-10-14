@@ -2,6 +2,20 @@
   "funds": {
     "THF": [
       {
+        "id": 1681478,
+        "published_at": "2026-10-14T10:20:37+03:00",
+        "title": "Fon Sürekli Bilgilendirme Formu",
+        "summary": "",
+        "issuer": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
+        "code": "THF",
+        "scope": "Fon",
+        "url": "https://www.kap.org.tr/tr/Bildirim/1681478",
+        "attachment_count": 0,
+        "body": null,
+        "detail_checked_at": null,
+        "candidate": false
+      },
+      {
         "id": 1678645,
         "published_at": "2026-10-09T18:36:21+03:00",
         "title": "Fon Toplam Gider Oranı ve Fon Toplam Giderinin Dağılımı",
@@ -2716,7 +2730,7 @@
       "payment_date": null,
       "resolution_disclosure_id": null,
       "url": "https://www.kap.org.tr/tr/Bildirim/1664344",
-      "verified_at": "2026-10-14T09:53:37.744346+03:00",
+      "verified_at": "2026-10-14T12:52:00.917181+03:00",
       "published_at": "2026-09-16T20:35:10+03:00",
       "source_text": "Kurucusu olduğumuz TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON) katılma payı iade ödemelerinde temerrüt durumu oluşmuştur. İlgili fon hesabına işlem yapılan aracı kurumlar ile mutabakatlar ve likidite yönetim süreci devam etmektedir. Konuya ilişkin gerekli tedbirler özenle alınmakta olup, gelişmeler hakkında yatırımcılarımız bilgilendirilmeye devam edilecektir."
     },
@@ -2730,16 +2744,16 @@
       "payment_date": null,
       "resolution_disclosure_id": null,
       "url": "https://www.kap.org.tr/tr/Bildirim/1662926",
-      "verified_at": "2026-10-14T09:53:37.744346+03:00",
+      "verified_at": "2026-10-14T12:52:00.917181+03:00",
       "published_at": "2026-09-15T15:23:29+03:00",
       "source_text": "Kurucusu olduğumuz bazı yatırım fonlarının katılma payı iade ödemelerinde temerrüt durumu oluşmuştur. İlgili fonlar hesabına işlem yapılan aracı kurumlar ile mutabakatlar ve likidite yönetim süreci devam etmektedir. Konuya ilişkin gerekli tedbirler özenle alınmakta olup, gelişmeler hakkında yatırımcılarımız bilgilendirilmeye devam edilecektir."
     }
   ],
   "status": {
     "state": "ok",
-    "last_attempt_at": "2026-10-14T09:53:37.744346+03:00",
-    "last_success_at": "2026-10-14T09:53:37.744346+03:00",
-    "new_count": 0,
+    "last_attempt_at": "2026-10-14T12:52:00.917181+03:00",
+    "last_success_at": "2026-10-14T12:52:00.917181+03:00",
+    "new_count": 1,
     "errors": [],
     "coverage": "Yapılandırılmış fonların 365 günlük KAP bildirim listesi; ek dosyalar otomatik yorumlanmaz.",
     "consecutive_failures": 0
