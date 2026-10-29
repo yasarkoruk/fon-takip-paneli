@@ -1,12 +1,12 @@
 {
   "state": "warning",
-  "message": "0 yeni işlem günü işlendi; beklenen yakın dönem için yeni TEFAS kaydı doğrulanamadı (tatil veya yayın gecikmesi olabilir); 1 tarih geçici olarak alınamadı ve sonraki taramada yeniden denenecek",
-  "checked_at": "2026-10-29T23:05:48.631298+03:00",
+  "message": "0 yeni işlem günü işlendi; beklenen yakın dönem için yeni TEFAS kaydı doğrulanamadı (tatil veya yayın gecikmesi olabilir); 2 tarih geçici olarak alınamadı ve sonraki taramada yeniden denenecek; art arda zaman aşımı nedeniyle tarama erken sonlandırıldı",
+  "checked_at": "2026-10-30T01:34:58.928477+03:00",
   "observations": 88,
   "data_date": "2026-10-28",
   "last_success_at": "2026-10-29T01:20:59.329346+03:00",
   "summary": {
     "state": "error",
-    "message": "TEFAS özet sorgusu başarısız: Timeout: Failed to perform, curl: (28) Failed to connect to www.tefas.gov.tr:443 after 21553 ms: Could not connect to server. See https://curl.se/libcurl/c/libcurl-errors.html first for more details."
+    "message": "TEFAS özet sorgusu başarısız: ConnectionError: Failed to perform, curl: (56) Connection closed abruptly. See https://curl.se/libcurl/c/libcurl-errors.html first for more details."
   }
 }
