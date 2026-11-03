@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-16T00:07:33.723879+03:00",
-  "count": 2343,
+  "generated_at": "2026-11-04T02:02:37.130233+03:00",
+  "count": 2345,
   "funds": [
     {
       "code": "AAJ",
@@ -3798,7 +3798,7 @@
     },
     {
       "code": "FGY",
-      "name": "ONE PORTFÖY YÖNETİMİ A.Ş. BEŞİNCİ GAYRİMENKUL YATIRIM FONU",
+      "name": "NEO PORTFÖY YÖNETİMİ A.Ş. ONBEŞİNCİ GAYRİMENKUL YATIRIM FONU",
       "type": "RE",
       "category": null,
       "active": false
@@ -4435,7 +4435,7 @@
     },
     {
       "code": "GAS",
-      "name": "GARANTİ PORTFÖY ÜÇÜNCÜ SERBEST(DÖVİZ) FON",
+      "name": "GARANTİ PORTFÖY ORTA VADELİ SERBEST (DÖVİZ) FON",
       "type": "SEC",
       "category": "Serbest Şemsiye Fonu",
       "active": true
@@ -5100,7 +5100,7 @@
     },
     {
       "code": "GPC",
-      "name": "GARANTİ PORTFÖY İKİNCİ SERBEST ( DÖVİZ ) FON",
+      "name": "GARANTİ PORTFÖY UZUN VADELİ SERBEST (DÖVİZ) FON",
       "type": "SEC",
       "category": "Serbest Şemsiye Fonu",
       "active": true
@@ -7326,7 +7326,7 @@
     },
     {
       "code": "KCG",
-      "name": "KIZILAY GAYRİMENKUL VE GİRİŞİM SERMAYESİ PORTFÖY YÖNETİMİ A.Ş. ETKİ YATIRIM GİRİŞİM SERMAYESİ YATIRIM FONU",
+      "name": "KIZILAY GAYRİMENKUL VE GİRİŞİM SERMAYESİ PORTFÖY YÖNETİMİ A.Ş. ETKİ YATIRIM FON SEPETİ GİRİŞİM SERMAYESİ YATIRIM FONU",
       "type": "VC",
       "category": null,
       "active": false
@@ -9302,6 +9302,20 @@
       "code": "NDK",
       "name": "NUROL PORTFÖY YÖNETİMİ A.Ş. DOKUZUNCU GİRİŞİM SERMAYESİ YATIRIM FONU",
       "type": "VC",
+      "category": null,
+      "active": false
+    },
+    {
+      "code": "NE5",
+      "name": "NEO PORTFÖY YÖNETİMİ A.Ş. BEŞİNCİ PROJE GAYRİMENKUL YATIRIM FONU",
+      "type": "RE",
+      "category": null,
+      "active": false
+    },
+    {
+      "code": "NE6",
+      "name": "NEO PORTFÖY YÖNETİMİ A.Ş. ONALTINCI GAYRİMENKUL YATIRIM FONU",
+      "type": "RE",
       "category": null,
       "active": false
     },
