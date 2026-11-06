@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-04T02:02:37.130233+03:00",
-  "count": 2345,
+  "generated_at": "2026-11-07T01:54:09.480550+03:00",
+  "count": 2347,
   "funds": [
     {
       "code": "AAJ",
@@ -11126,6 +11126,13 @@
       "active": false
     },
     {
+      "code": "OS3",
+      "name": "OSMANLI PORTFÖY BIST 30 KALDIRAÇLI 2X ENDEKSİ HİSSE SENEDİ YOĞUN (TL) BORSA YATIRIM FONU",
+      "type": "ETF",
+      "category": "Hisse Senedi Fonu",
+      "active": false
+    },
+    {
       "code": "OSD",
       "name": "OSMANLI PORTFÖY ÖZEL SEKTÖR BORÇLANMA ARAÇLARI FONU",
       "type": "SEC",
@@ -11138,6 +11145,13 @@
       "type": "VC",
       "category": null,
       "active": false
+    },
+    {
+      "code": "OSH",
+      "name": "OSMANLI PORTFÖY KARADENİZ HİSSE SENEDİ SERBEST (TL) FON (HİSSE SENEDİ YOĞUN FON)",
+      "type": "SEC",
+      "category": "Serbest Şemsiye Fonu",
+      "active": true
     },
     {
       "code": "OSL",
