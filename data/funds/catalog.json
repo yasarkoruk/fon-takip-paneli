@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-07T01:54:09.480550+03:00",
-  "count": 2347,
+  "generated_at": "2026-11-11T01:58:51.601904+03:00",
+  "count": 2348,
   "funds": [
     {
       "code": "AAJ",
@@ -3455,7 +3455,7 @@
     },
     {
       "code": "EUN",
-      "name": "GARANTİ PORTFÖY İKİNCİ SERBEST (DÖVİZ-AVRO) FON",
+      "name": "GARANTİ PORTFÖY UZUN VADELİ SERBEST (DÖVİZ-AVRO) FON",
       "type": "SEC",
       "category": "Serbest Şemsiye Fonu",
       "active": true
@@ -3630,7 +3630,7 @@
     },
     {
       "code": "FEA",
-      "name": "HDI FİBA EMEKLİLİK VE HAYAT A.Ş. ATLAS PORTFÖY ÖZEL SEKTÖR BORÇLANMA ARAÇLARI EMEKLİLİK YATIRIM FONU",
+      "name": "HDI FİBA EMEKLİLİK VE HAYAT A.Ş. ÖZEL SEKTÖR BORÇLANMA ARAÇLARI EMEKLİLİK YATIRIM FONU",
       "type": "PEN",
       "category": "Özel Sektör Borçlanma Araçları Fonu",
       "active": true
@@ -6878,7 +6878,7 @@
     },
     {
       "code": "IO1",
-      "name": "INVEO PORTFÖY YÖNETİMİ A.Ş. BİRİNCİ GİRİŞİM SERMAYESİ YATIRIM FONU",
+      "name": "INVEO PORTFÖY YÖNETİMİ A.Ş. MOBİLİTE GİRİŞİM SERMAYESİ YATIRIM FONU",
       "type": "VC",
       "category": null,
       "active": false
@@ -7686,6 +7686,13 @@
       "name": "AK PORTFÖY PARA PİYASASI KATILIM SERBEST FON",
       "type": "SEC",
       "category": "Serbest Şemsiye Fonu",
+      "active": true
+    },
+    {
+      "code": "KLK",
+      "name": "KUVEYT TÜRK PORTFÖY ELEKTRİFİKASYON KATILIM FONU",
+      "type": "SEC",
+      "category": "Katılım Şemsiye Fonu",
       "active": true
     },
     {
