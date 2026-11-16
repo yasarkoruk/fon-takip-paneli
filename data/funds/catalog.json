@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-11T01:58:51.601904+03:00",
-  "count": 2348,
+  "generated_at": "2026-11-17T02:36:17.154469+03:00",
+  "count": 2350,
   "funds": [
     {
       "code": "AAJ",
@@ -9341,6 +9341,13 @@
       "active": false
     },
     {
+      "code": "NEE",
+      "name": "NEO PORTFÖY ENERJİ VE EMTİA ŞİRKETLERİ DEĞİŞKEN FON",
+      "type": "SEC",
+      "category": "Değişken Şemsiye Fonu",
+      "active": true
+    },
+    {
       "code": "NEP",
       "name": "NEO PORTFÖY YÖNETİMİ A.Ş.PERGE GİRİŞİM SERMAYESİ YATIRIM FONU",
       "type": "VC",
@@ -15855,6 +15862,13 @@
       "name": "ALLIANZ YAŞAM VE EMEKLİLİK A.Ş. TEKNOLOJİ SEKTÖRÜ FON SEPETİ EMEKLİLİK YATIRIM FONU",
       "type": "PEN",
       "category": "Fon Sepeti Fonu",
+      "active": true
+    },
+    {
+      "code": "YZE",
+      "name": "BTCTURK PORTFÖY YAPAY ZEKA TEKNOLOJİLERİ ŞİRKETLERİ DEĞİŞKEN FON",
+      "type": "SEC",
+      "category": "Değişken Şemsiye Fonu",
       "active": true
     },
     {
