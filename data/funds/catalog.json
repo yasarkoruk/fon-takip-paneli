@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-17T02:36:17.154469+03:00",
-  "count": 2350,
+  "generated_at": "2026-11-18T01:44:38.582442+03:00",
+  "count": 2351,
   "funds": [
     {
       "code": "AAJ",
@@ -4421,7 +4421,7 @@
     },
     {
       "code": "GAG",
-      "name": "INVEO PORTFÖY BİRİNCİ SERBEST (DÖVIZ)  FON",
+      "name": "INVEO PORTFÖY BİRİNCİ SERBEST (DÖVİZ) FON",
       "type": "SEC",
       "category": "Serbest Şemsiye Fonu",
       "active": true
@@ -13668,7 +13668,7 @@
     },
     {
       "code": "SPE",
-      "name": "AZIMUT PORTFÖY 5.0 SERBEST (DÖVIZ) FON",
+      "name": "AZİMUT PORTFÖY 5.0 SERBEST (DÖVİZ) FON",
       "type": "SEC",
       "category": "Serbest Şemsiye Fonu",
       "active": true
@@ -14676,7 +14676,7 @@
     },
     {
       "code": "UPD",
-      "name": "ÜNLÜ PORTFÖY DÖRDÜNCÜ SERBEST (DÖVIZ) FON",
+      "name": "ÜNLÜ PORTFÖY DÖRDÜNCÜ SERBEST (DÖVİZ) FON",
       "type": "SEC",
       "category": "Serbest Şemsiye Fonu",
       "active": true
@@ -15370,6 +15370,13 @@
     {
       "code": "YG1",
       "name": "24 GAYRİMENKUL VE GİRİŞİM SERMAYESİ PORTFÖY YÖNETİMİ A.Ş. LOTUS GAYRİMENKUL YATIRIM FONU",
+      "type": "RE",
+      "category": null,
+      "active": false
+    },
+    {
+      "code": "YG2",
+      "name": "24 GAYRİMENKUL VE GİRİŞİM SERMAYESİ PORTFÖY YÖNETİMİ A.Ş. AYÇİÇEĞİ PROJE GAYRİMENKUL YATIRIM FONU",
       "type": "RE",
       "category": null,
       "active": false
