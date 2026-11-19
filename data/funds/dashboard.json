@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T19:29:04.680552+03:00",
+  "generated_at": "2026-11-20T01:33:54.720050+03:00",
   "timezone": "Europe/Istanbul",
   "funds": [
     {
@@ -1023,7 +1023,7 @@
         },
         {
           "date": "2026-11-18",
-          "fetched_at": "2026-11-19T19:24:43.804774+03:00",
+          "fetched_at": "2026-11-20T01:29:36.692333+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 0.0,
@@ -1033,7 +1033,7 @@
         },
         {
           "date": "2026-11-19",
-          "fetched_at": "2026-11-19T19:24:40.842131+03:00",
+          "fetched_at": "2026-11-20T01:29:34.008468+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 0.0,
@@ -1045,7 +1045,7 @@
       "metrics": {
         "current": {
           "date": "2026-11-19",
-          "fetched_at": "2026-11-19T19:24:40.842131+03:00",
+          "fetched_at": "2026-11-20T01:29:34.008468+03:00",
           "fund_code": "THF",
           "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
           "price": 0.0,
@@ -2295,14 +2295,14 @@
       },
       "status": {
         "state": "warning",
-        "message": "1 yeni işlem günü işlendi; 2 tarih geçici olarak alınamadı ve sonraki taramada yeniden denenecek; art arda zaman aşımı nedeniyle tarama erken sonlandırıldı; Fon kataloğu güncellenemedi: TEFAS fon kataloğu alınamadı (SEC): Timeout: Failed to perform, curl: (28) Connection timed out after 30000 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
-        "checked_at": "2026-11-19T19:29:04.676869+03:00",
+        "message": "0 yeni işlem günü işlendi; 2 tarih geçici olarak alınamadı ve sonraki taramada yeniden denenecek; art arda zaman aşımı nedeniyle tarama erken sonlandırıldı; Fon kataloğu güncellenemedi: TEFAS fon kataloğu alınamadı (SEC): Timeout: Failed to perform, curl: (28) Connection timed out after 30000 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.",
+        "checked_at": "2026-11-20T01:33:54.714486+03:00",
         "observations": 103,
         "data_date": "2026-11-19",
-        "last_success_at": "2026-11-19T19:28:00.671550+03:00",
+        "last_success_at": "2026-11-20T01:32:50.710475+03:00",
         "summary": {
           "state": "error",
-          "message": "TEFAS özet sorgusu başarısız: Timeout: Failed to perform, curl: (28) Connection timed out after 30001 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details."
+          "message": "TEFAS özet sorgusu başarısız: Timeout: Failed to perform, curl: (28) Connection timed out after 29999 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details."
         }
       }
     }
