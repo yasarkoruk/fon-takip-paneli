@@ -1001,7 +1001,7 @@
   },
   {
     "date": "2026-11-17",
-    "fetched_at": "2026-11-18T19:16:25.772467+03:00",
+    "fetched_at": "2026-11-19T19:24:46.651199+03:00",
     "fund_code": "THF",
     "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
     "price": 0.0,
@@ -1011,7 +1011,17 @@
   },
   {
     "date": "2026-11-18",
-    "fetched_at": "2026-11-19T02:57:59.411633+03:00",
+    "fetched_at": "2026-11-19T19:24:43.804774+03:00",
+    "fund_code": "THF",
+    "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
+    "price": 0.0,
+    "portfolio_size": 0.0,
+    "investor_count": 214402.0,
+    "shares_outstanding": 0.0
+  },
+  {
+    "date": "2026-11-19",
+    "fetched_at": "2026-11-19T19:24:40.842131+03:00",
     "fund_code": "THF",
     "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
     "price": 0.0,
