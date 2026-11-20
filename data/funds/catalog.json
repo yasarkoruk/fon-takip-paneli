@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-18T01:44:38.582442+03:00",
-  "count": 2351,
+  "generated_at": "2026-11-21T02:50:31.611197+03:00",
+  "count": 2353,
   "funds": [
     {
       "code": "AAJ",
@@ -3290,6 +3290,13 @@
       "name": "ASTRA PORTFÖY KİRA SERTİFİKASI KATILIM (TL) FONU",
       "type": "SEC",
       "category": "Katılım Şemsiye Fonu",
+      "active": true
+    },
+    {
+      "code": "EKH",
+      "name": "EMLAK KATILIM PORTFÖY KATILIM HİSSE SENEDİ FONU (HİSSE SENEDİ YOĞUN FON)",
+      "type": "SEC",
+      "category": "Hisse Senedi Şemsiye Fonu",
       "active": true
     },
     {
@@ -6886,6 +6893,13 @@
     {
       "code": "IO2",
       "name": "INVEO PORTFÖY YÖNETİMİ A.Ş. İKİNCİ GİRİŞİM SERMAYESİ YATIRIM FONU",
+      "type": "VC",
+      "category": null,
+      "active": false
+    },
+    {
+      "code": "IO3",
+      "name": "INVEO PORTFÖY YÖNETİMİ A.Ş. ÜÇÜNCÜ GİRİŞİM SERMAYESİ YATIRIM FONU",
       "type": "VC",
       "category": null,
       "active": false
