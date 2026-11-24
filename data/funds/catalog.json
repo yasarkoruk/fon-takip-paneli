@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T02:50:31.611197+03:00",
+  "generated_at": "2026-11-24T21:45:15.695104+03:00",
   "count": 2353,
   "funds": [
     {
@@ -3384,6 +3384,13 @@
       "active": true
     },
     {
+      "code": "EPJ",
+      "name": "EMLAK KATILIM PORTFÖY ALTIN KATILIM FONU",
+      "type": "SEC",
+      "category": "Katılım Şemsiye Fonu",
+      "active": true
+    },
+    {
       "code": "EPK",
       "name": "EMAA BLUE PORTFÖY KIYMETLİ MADENLER KATILIM FON SEPETİ FONU",
       "type": "SEC",
@@ -5024,13 +5031,6 @@
     {
       "code": "GO1",
       "name": "ONE PORTFÖY BİRİNCİ FON SEPETİ FONU",
-      "type": "SEC",
-      "category": "Fon Sepeti Şemsiye Fonu",
-      "active": true
-    },
-    {
-      "code": "GO3",
-      "name": "ONE PORTFÖY ÜÇÜNCÜ FON SEPETİ FONU",
       "type": "SEC",
       "category": "Fon Sepeti Şemsiye Fonu",
       "active": true
