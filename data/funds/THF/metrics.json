@@ -1,7 +1,7 @@
 {
   "current": {
-    "date": "2026-11-25",
-    "fetched_at": "2026-11-26T04:39:31.057360+03:00",
+    "date": "2026-11-26",
+    "fetched_at": "2026-11-26T20:35:35.120424+03:00",
     "fund_code": "THF",
     "fund_name": "TERA PORTFÖY HİSSE SENEDİ (TL) FONU (HİSSE SENEDİ YOĞUN FON)",
     "price": 0.0,
@@ -1184,13 +1184,24 @@
       "aum_change": 0.0,
       "price_return_pct": null,
       "quality_warnings": []
+    },
+    {
+      "date": "2026-11-26",
+      "estimated_net_flow": null,
+      "share_based_flow": 0.0,
+      "flow_method_gap": null,
+      "investor_change": 0.0,
+      "shares_change": 0.0,
+      "aum_change": 0.0,
+      "price_return_pct": null,
+      "quality_warnings": []
     }
   ],
   "periods": {
     "1": {
       "observations": 1,
-      "from": "2026-11-24",
-      "to": "2026-11-25",
+      "from": "2026-11-25",
+      "to": "2026-11-26",
       "estimated_net_flow": 0,
       "share_based_flow": 0,
       "investor_change": 0.0,
@@ -1200,8 +1211,8 @@
     },
     "7": {
       "observations": 7,
-      "from": "2026-11-16",
-      "to": "2026-11-25",
+      "from": "2026-11-17",
+      "to": "2026-11-26",
       "estimated_net_flow": 0,
       "share_based_flow": 0,
       "investor_change": 0.0,
@@ -1211,8 +1222,8 @@
     },
     "14": {
       "observations": 14,
-      "from": "2026-11-05",
-      "to": "2026-11-25",
+      "from": "2026-11-06",
+      "to": "2026-11-26",
       "estimated_net_flow": 0,
       "share_based_flow": 0,
       "investor_change": 0.0,
@@ -1222,8 +1233,8 @@
     },
     "30": {
       "observations": 30,
-      "from": "2026-10-13",
-      "to": "2026-11-25",
+      "from": "2026-10-14",
+      "to": "2026-11-26",
       "estimated_net_flow": 0,
       "share_based_flow": 0,
       "investor_change": -1.0,
@@ -1233,19 +1244,19 @@
     },
     "90": {
       "observations": 90,
-      "from": "2026-07-03",
-      "to": "2026-11-25",
-      "estimated_net_flow": 64234437416.897934,
-      "share_based_flow": 50551846941.7929,
-      "investor_change": 207192.0,
-      "shares_change": -421312132.0,
-      "aum_change": -924827925.81,
+      "from": "2026-07-06",
+      "to": "2026-11-26",
+      "estimated_net_flow": 64225825103.536385,
+      "share_based_flow": 50543201537.23849,
+      "investor_change": 207239.0,
+      "shares_change": -425265526.0,
+      "aum_change": -926461623.6,
       "return_pct": -100.0
     },
     "365": {
-      "observations": 106,
+      "observations": 107,
       "from": "2026-06-10",
-      "to": "2026-11-25",
+      "to": "2026-11-26",
       "estimated_net_flow": 64083589774.99894,
       "share_based_flow": 50400467227.82313,
       "investor_change": 206179.0,
